@@ -1,0 +1,20 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Login -->
+    <dimen name="text_logo_margin_top">30dp</dimen>
+    <dimen name="text_logo_margin_left_right">40dp</dimen>
+    <dimen name="sub_heading_margin_top">20dp</dimen>
+    <dimen name="underline_view_width">50dp</dimen>
+    <dimen name="underline_view_margin_top">5dp</dimen>
+    <dimen name="input_layout_margin_left_right">40dp</dimen>
+    <dimen name="input_layout_margin_bottom">20dp</dimen>
+    <dimen name="input_layout_margin_top">10dp</dimen>
+    <dimen name="email_edit_text_margin">15dp</dimen>
+    <dimen name="email_edit_text_padding">12dp</dimen>
+    <dimen name="password_edit_text_margin_bottom">5dp</dimen>
+   <!-- <dimen name="when_where_done_button_width">100dp</dimen>
+    <dimen name="when_where_done_button_height">45dp</dimen>-->
+</resources>

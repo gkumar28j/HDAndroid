@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1051229961121",
+    "firebase_url": "https://honeydew-list.firebaseio.com",
+    "project_id": "honeydew-list",
+    "storage_bucket": "honeydew-list.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051229961121:android:b5c7f74e7a99950f",
+        "android_client_info": {
+          "package_name": "com.mcn.honeydew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051229961121-bsnlq8amgkf6m9br4bne2seabi7c03qt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mcn.honeydew",
+            "certificate_hash": "67a33c148da2b3f283c3079064ce5a11738bfa63"
+          }
+        },
+        {
+          "client_id": "1051229961121-ch11i7ujomio52e50igab2so558p9mrj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mcn.honeydew",
+            "certificate_hash": "4d0d87989e6ae50190e9c3de4474e2ff106aa9a2"
+          }
+        },
+        {
+          "client_id": "1051229961121-cbknk0v9a83tt1cala2kipqo4n8tll81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTswnWoSz48BFB6IT7cTUqcIAaWLULCow"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051229961121-cbknk0v9a83tt1cala2kipqo4n8tll81.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

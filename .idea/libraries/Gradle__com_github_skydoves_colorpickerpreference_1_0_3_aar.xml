@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.skydoves:colorpickerpreference:1.0.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/colorpickerpreference-1.0.3.aar/dff1a4b1b8fb71a08385e420b828777c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/colorpickerpreference-1.0.3.aar/dff1a4b1b8fb71a08385e420b828777c/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.skydoves/colorpickerpreference/1.0.3/6f71dd8400c1aca55aae03ed1e510279ffa9e6fe/colorpickerpreference-1.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

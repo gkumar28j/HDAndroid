@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/HDAndroid.iml" filepath="$PROJECT_DIR$/HDAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/loopview/loopview.iml" filepath="$PROJECT_DIR$/loopview/loopview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/swipe-layout/swipe-layout.iml" filepath="$PROJECT_DIR$/swipe-layout/swipe-layout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/swipe-reveal-layout/swipe-reveal-layout.iml" filepath="$PROJECT_DIR$/swipe-reveal-layout/swipe-reveal-layout.iml" />
+    </modules>
+  </component>
+</project>

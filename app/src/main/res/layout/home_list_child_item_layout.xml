@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_lay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/heading_name"
+        style="@style/HomeFragmentTextViewRegularStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:paddingBottom="@dimen/home_card_list_child_list_text_padding_top"
+        android:paddingLeft="@dimen/home_card_list_child_list_text_padding"
+        android:paddingRight="@dimen/home_card_list_child_list_text_padding"
+        android:paddingTop="@dimen/home_card_list_child_list_text_padding_top"
+        android:singleLine="true"
+        app:minTextSize="9sp"
+        tools:text="asdfasdfasdf" />
+
+
+</RelativeLayout>

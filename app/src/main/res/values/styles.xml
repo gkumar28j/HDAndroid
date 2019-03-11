@@ -1,0 +1,358 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.Transparent" parent="AppTheme">
+        <!-- For transparent action bar-->
+        <item name="android:actionBarStyle">@style/ThemeActionBar</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/ThemeActionBar</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppThemeFullScreen" parent="AppTheme.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppThemeRegister" parent="AppTheme.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AppThemeLoginFullScreen" parent="AppTheme.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="TextStyle">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textColor">@color/black_effective</item>
+    </style>
+
+    <style name="SplashTextStyle">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textview_size_xxl5</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontPath">Lato/Maiandra.ttf</item>
+    </style>
+
+    <style name="ActionBarTextStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textview_size_m3</item>
+    </style>
+
+    <style name="RegularEditTextStyle">
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="CodeEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:digits">0123456789</item>
+        <item name="android:minEms">2</item>
+        <item name="android:inputType">numberPassword</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+    <style name="TextAppearance.Text.Regular" parent="android:TextAppearance">
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="TextAppearance.Text.Bold" parent="android:TextAppearance">
+        <item name="fontPath">Lato/Lato-Bold.ttf</item>
+    </style>
+
+    <style name="TextAppearance.Text.Light" parent="android:TextAppearance">
+        <!--<item name="fontPath">fonts/source-sans-pro/SourceSansPro-Light.ttf</item>-->
+    </style>
+
+    <style name="TextAppearance.Text.Italic" parent="android:TextAppearance">
+        <!--<item name="fontPath">fonts/source-sans-pro/SourceSansPro-Italic.ttf</item>-->
+    </style>
+
+    <style name="TextStyle.Title" parent="TextStyle">
+        <!--<item name="android:textAppearance">@style/TextAppearance.Text.Regular</item>-->
+    </style>
+
+    <style name="TextStyle.Title.Sub" parent="TextStyle.Title">
+        <!--<item name="android:textAppearance">@style/TextAppearance.Text.Light</item>-->
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextStyle.Heading" parent="TextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Text.Bold</item>
+    </style>
+
+    <style name="TextStyle.Comment" parent="TextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Text.Italic</item>
+    </style>
+
+    <style name="Button" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/black_effective</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/textview_size_s3</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="fontPath">Lato/Lato-Bold.ttf</item>
+    </style>
+
+    <style name="FacebookButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="android:background">@drawable/facebook_button_background</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="ResendButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="android:background">@drawable/resend_button_background</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="Button.ImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:padding">5dp</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@null</item>
+
+    </style>
+
+
+    <style name="Button.Primary" parent="Button">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/button_background</item>
+
+    </style>
+
+    <style name="ThemeActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@null</item>
+        <!-- Support library compatibility -->
+        <item name="background">@null</item>
+    </style>
+
+
+    <!--Home Fragment-->
+
+    <style name="HomeFragmentTextViewRegularStyle">
+        <item name="android:textSize">@dimen/textview_size_m2</item>
+        <item name="android:textColor">#000000</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="HomeFragmentTextViewWhiteRegularStyle">
+        <item name="android:textSize">@dimen/textview_size_m1</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="HomeDetailFragmentTextBlack">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="HomeEmptyViewTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <!--Setting Fragment-->
+    <style name="Button.Sinout" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="android:background">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="SettingUserNameTextStyle">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/textview_size_m3</item>
+    </style>
+
+    <style name="SettingUserEmailTextStyle">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/textview_size_m3</item>
+    </style>
+
+    <style name="Button.Action.Positive" parent="Button">
+        <item name="android:textColor">@drawable/button_positive_text_drawable</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="Button.Action.Negative" parent="Button">
+        <item name="android:textColor">@drawable/button_negative_text_drawable</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="HeadingTextStyle" parent="TextAppearance.Text.Bold">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textview_size_m3</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontPath">Lato/Lato-Bold.ttf</item>
+    </style>
+
+    <!--Notification Fragment-->
+
+    <style name="NotificationTopText" parent="TextAppearance.Text.Bold">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NotificationMilesText">
+        <item name="android:textSize">@dimen/textview_size_s3</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="BluetoothSettingsText" parent="TextAppearance.Text.Bold">
+        <item name="android:textSize">@dimen/textview_size_m2</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BluetoothSubHeadingSettingsText">
+        <item name="android:textSize">@dimen/textview_size_m1</item>
+        <item name="android:textColor">@color/colorMediumLightGray</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--AddItems Fragment-->
+
+    <style name="AddItemsDoneButtonTextStyle">
+        <item name="android:textSize">@dimen/textview_size_m2</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/search_button_background</item>
+    </style>
+
+    <style name="AddItemsEditTextStyle">
+        <item name="android:textSize">@dimen/textview_size_m1</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColorHint">@color/black</item>
+
+    </style>
+
+    <style name="AddItemsDeleteHeadingTextStyle">
+        <item name="android:textSize">@dimen/textview_size_m2</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
+    <!--Login-->
+
+    <style name="LoginHeadingTextStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textview_size_m3</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontPath">Lato/Lato-Bold.ttf</item>
+    </style>
+
+    <style name="AddItemsTextStyle">
+        <item name="android:textSize">@dimen/textview_size_m1</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:background">@drawable/edit_text_border_bg</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="SearchEditTextStyle">
+        <item name="android:background">@drawable/search_edit_text_border_bg</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+
+
+    <!--Add list fragment-->
+
+    <style name="AddListButtonTextStyle">
+        <item name="android:textSize">@dimen/textview_size_m2</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+
+    <!--My List-->
+    <style name="MyListTitleTextStyle">
+        <item name="android:textSize">@dimen/textview_size_l1</item>
+        <item name="android:textColor">#000000</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="MyListSubTitleTextStyle">
+        <item name="android:textSize">@dimen/textview_size_vs2</item>
+        <item name="android:textColor">#000000</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+
+</resources>

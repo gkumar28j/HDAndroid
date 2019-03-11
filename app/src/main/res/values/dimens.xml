@@ -1,0 +1,89 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- TextView Text Size -->
+    <dimen name="textview_size_vs1">9sp</dimen>
+    <dimen name="textview_size_vs2">10sp</dimen>
+    <dimen name="textview_size_vs3">11sp</dimen>
+    <dimen name="textview_size_s1">12sp</dimen>
+    <dimen name="textview_size_s2">13sp</dimen>
+    <dimen name="textview_size_s3">14sp</dimen>
+    <dimen name="textview_size_m1">15sp</dimen>
+    <dimen name="textview_size_m2">16sp</dimen>
+    <dimen name="textview_size_m3">17sp</dimen>
+    <dimen name="textview_size_l1">18sp</dimen>
+    <dimen name="textview_size_l2">19sp</dimen>
+    <dimen name="textview_size_l3">20sp</dimen>
+    <dimen name="textview_size_xl1">21sp</dimen>
+    <dimen name="textview_size_xl2">22sp</dimen>
+    <dimen name="textview_size_xl3">23sp</dimen>
+    <dimen name="textview_size_xl4">24sp</dimen>
+    <dimen name="textview_size_xl5">25sp</dimen>
+    <dimen name="textview_size_xxl1">26sp</dimen>
+    <dimen name="textview_size_xxl2">27sp</dimen>
+    <dimen name="textview_size_xxl3">28sp</dimen>
+    <dimen name="textview_size_xxl4">29sp</dimen>
+    <dimen name="textview_size_xxl5">30sp</dimen>
+
+    <dimen name="heading_margin_top">30dp</dimen>
+
+    <!-- Login -->
+    <dimen name="text_logo_margin_top">15dp</dimen>
+    <dimen name="text_logo_margin_left_right">40dp</dimen>
+    <dimen name="sub_heading_margin_top">20dp</dimen>
+    <dimen name="underline_view_width">50dp</dimen>
+    <dimen name="underline_view_margin_top">10dp</dimen>
+    <dimen name="input_layout_margin_left_right_bottom">5dp</dimen>
+    <dimen name="input_layout_margin_top">10dp</dimen>
+    <dimen name="email_edit_text_margin">15dp</dimen>
+    <dimen name="email_edit_text_padding">12dp</dimen>
+    <dimen name="password_edit_text_margin_bottom">5dp</dimen>
+    <dimen name="facebook_button_margin">20dp</dimen>
+
+    <!-- Registration -->
+    <dimen name="register_default_padding">38dp</dimen>
+    <dimen name="register_margin_top">20dp</dimen>
+
+    <!-- Phone Verification-->
+    <dimen name="code_spacing">5dp</dimen>
+
+    <!--home fragment-->
+
+    <dimen name="card_margin_my_list_home">5dp</dimen>
+    <dimen name="home_list_card_heading_margin_left_right">10dp</dimen>
+    <dimen name="home_list_card_heading_img_view_width">25dp</dimen>
+    <dimen name="home_card_list_header_height">40dp</dimen>
+    <dimen name="home_card_list_heading_texc_view_padding_right">5dp</dimen>
+    <dimen name="home_list_card_child_recycler_view_padding">3dp</dimen>
+    <dimen name="home_card_list_child_list_text_padding">8dp</dimen>
+    <dimen name="home_card_list_child_list_text_padding_top">3dp</dimen>
+    <dimen name="home_card_list_main_lay_min_height">220dp</dimen>
+    <dimen name="home_list_card_delete_img_view_width">22dp</dimen>
+
+    <!--add items fragment-->
+
+    <dimen name="when_where_done_button_width">70dp</dimen>
+    <dimen name="when_where_done_button_height">33dp</dimen>
+    <dimen name="when_where_done_button_common_margin">6dp</dimen>
+    <dimen name="record_audio_img_width_height">30dp</dimen>
+    <dimen name="delete_items_image_height_width">28dp</dimen>
+    <dimen name="add_items_main_lay_margin_top">120dp</dimen>
+    <dimen name="left_arrow_image_height_width">30dp</dimen>
+    <dimen name="location_image_height_width">18dp</dimen>
+    <dimen name="left_margin_location_image_view">25dp</dimen>
+    <dimen name="delete_layout_heading_height">43dp</dimen>
+    <dimen name="delete_img_heading_lay_padding">3dp</dimen>
+    <dimen name="add_items_edit_text_margin_right">35dp</dimen>
+
+    <dimen name="side_bar_letter_height">17dp</dimen>
+    <!--My Lis fragment-->
+    <dimen name="my_list_item_height">65dp</dimen>
+    <dimen name="indexer_text_size">5sp</dimen>
+    <dimen name="bluetooth_image_height_width">25dp</dimen>
+    <dimen name="padding_home_cards_list">10dp</dimen>
+    <dimen name="recent_items_location_delete_lay_height">42dp</dimen>
+    <dimen name="loop_view_padding_top_bottom">5dp</dimen>
+
+</resources>

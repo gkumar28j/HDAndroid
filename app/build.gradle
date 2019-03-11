@@ -1,0 +1,119 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.mcn.honeydew"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 3
+        versionName "1.2"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
+
+    buildToolsVersion '27.0.3'
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.android.support:support-vector-drawable:$rootProject.supportLibraryVersion"
+    implementation 'com.android.support:support-v4:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // font
+    implementation "uk.co.chrisjenx:calligraphy:$rootProject.calligraphyVersion"
+
+    // dependency injection
+    implementation 'com.google.dagger:dagger:2.8'
+    annotationProcessor "com.google.dagger:dagger-compiler:2.8"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+    implementation 'javax.inject:javax.inject:1'
+
+    // reactive
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
+    // Because RxAndroid releases are few and far between, it is recommended you also
+
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
+
+    // logger
+    implementation 'com.jakewharton.timber:timber:4.6.0'
+
+    // butter knife
+    implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
+
+    // network
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2Rxjava2AdapterVersion"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpVersion"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+
+    // Facebook
+    implementation "com.facebook.android:facebook-android-sdk:$rootProject.facebookVersion"
+
+    // Location
+    implementation 'com.google.android.gms:play-services-location:11.8.0'
+    implementation 'org.apache.commons:commons-lang3:3.7'
+
+    // Fcm
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+    implementation 'com.github.skydoves:colorpickerpreference:1.0.3'
+    implementation project(':swipe-reveal-layout')
+    implementation project(':loopview')
+    implementation files('libs/commons-validator-1.4.0.jar')
+    implementation files('libs/httpclient-4.3.1.jar')
+    implementation files('libs/httpcore-4.3.jar')
+    implementation files('libs/httpmime-4.3.1.jar')
+    implementation 'me.grantland:autofittextview:0.2.+'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+        transitive = true;
+    }
+    implementation 'com.android.support:multidex:1.0.1'
+
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+}
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:isScrollContainer="true">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/empty_space_view"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/add_items_main_lay_margin_top"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+
+        <RelativeLayout
+            android:id="@+id/heading_linear_lay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recent_items_location_delete_lay_height"
+            android:layout_below="@id/empty_space_view"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/when_where_done_button_common_margin">
+
+            <TextView
+                android:id="@+id/recent_search_heading_text_view"
+                style="@style/AddItemsDeleteHeadingTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/your_most_popular_items" />
+
+            <ImageView
+
+                android:id="@+id/delete_image_view"
+                android:layout_width="@dimen/delete_items_image_height_width"
+                android:layout_height="@dimen/delete_items_image_height_width"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/delete_img_heading_lay_padding"
+                android:src="@drawable/ic_delete" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/location_layout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/when_where_done_button_common_margin"
+            android:paddingRight="@dimen/when_where_done_button_common_margin"
+            android:paddingTop="@dimen/when_where_done_button_common_margin"
+
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/search_background"
+                android:padding="@dimen/when_where_done_button_common_margin">
+
+                <EditText
+                    android:id="@+id/search_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="@string/hint_search_items_add_items"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"
+                    android:maxLength="30"
+                    style="@style/AddItemsEditTextStyle" />
+
+                <ImageView
+                    android:id="@+id/voice_recognition_image"
+                    android:layout_width="@dimen/record_audio_img_width_height"
+                    android:layout_height="@dimen/record_audio_img_width_height"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_voice_recognition_disable" />
+
+
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/location_layout_bottom"
+            android:layout_below="@id/heading_linear_lay"
+            android:paddingTop="@dimen/loop_view_padding_top_bottom"
+            android:paddingBottom="@dimen/loop_view_padding_top_bottom">
+
+            <com.weigan.loopview.LoopView
+                android:id="@+id/loopView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                app:awv_textsize="17" />
+
+            <TextView
+                android:id="@+id/empty_recent_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/empty_recent_items_message"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</ScrollView>

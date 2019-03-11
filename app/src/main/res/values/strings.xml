@@ -1,0 +1,190 @@
+<resources>
+    <string name="app_name">HoneyDew List</string>
+    <string name="app_title">HoneyDew</string>
+
+    <string name="title_settings">Settings</string>
+    <string name="title_list_settings">List Settings</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_add_list">Add List</string>
+    <string name="title_color_settings">List Color</string>
+    <string name="title_share_list">Share</string>
+    <string name="title_add_item">Add Item</string>
+    <string name="title_my_list">List</string>
+    <string name="title_home">Home</string>
+
+
+    <!--play store-->
+    <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
+    <string name="app_market_link">"market://details?id="</string>
+
+    <!--App Message-->
+    <string name="api_default_error">Something wrong happened!</string>
+    <string name="some_error">Some Error Occurred</string>
+    <string name="connection_error">Sorry! Not connected to internet</string>
+
+    <!--Login-->
+    <string name="login_dummy">Login Dummy</string>
+    <string name="login">Login</string>
+    <string name="email">Email or phone number</string>
+    <string name="password">Password</string>
+    <string name="login_heading">HoneyDew</string>
+    <string name="login_sub_heading">SIGN IN</string>
+    <string name="forgot_password">Reset Password?</string>
+    <string name="or">or</string>
+    <string name="sign_in_with_facebook">SIGN IN WITH FACEBOOK</string>
+    <string name="sign_up">Don\'t have an account? Sign Up</string>
+    <string name="facebook_app_id">1188604731257149</string>
+    <string name="fb_login_protocol_scheme">fb[1188604731257149]</string>
+
+
+    <!-- Registration -->
+    <string name="register_heading">SIGN UP</string>
+    <string name="label_first_name">First Name</string>
+    <string name="label_last_name">Last Name</string>
+    <string name="label_email">Email (optional)</string>
+    <string name="label_phone_number">Phone Number</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="label_have_account">Have an account? Sign In</string>
+    <!--Error Messages-->
+    <string name="error_empty_first_name">First name can\'t be blank.</string>
+    <string name="error_empty_last_name">Last name can\'t be blank.</string>
+    <string name="error_empty_email">Email or phone number can\'t be blank.</string>
+    <string name="error_invalid_email">Please enter valid email.</string>
+    <string name="error_empty_phone">Phone number can\'t be blank.</string>
+    <string name="error_empty_country_code">Country code can\'t be blank.</string>
+    <string name="error_invalid_phone">Invalid phone number.</string>
+    <string name="error_empty_password">Password can\'t be blank.</string>
+    <string name="error_small_password">Please enter minimum of 6 character password.</string>
+    <string name="error_empty_confirm_password">Confirm Password can\'t be blank.</string>
+    <string name="error_mismatch_password">Password and confirm password does not match.</string>
+
+    <!-- Phone Verification-->
+    <string name="phone_verification_heading">VERIFICATION</string>
+    <string name="label_by_text">By Text</string>
+    <string name="label_by_call">By Call</string>
+    <string name="label_hint">Enter authorization code to confirm your account</string>
+    <string name="label_confirm">CONFIRM</string>
+    <string name="label_resend">RESEND</string>
+
+    <!--Login Validation-->
+    <string name="empty_email">Please provide a non empty email or phone number.</string>
+    <string name="invalid_email">Please provide a valid email.</string>
+    <string name="empty_password">Please provide a non empty password.</string>
+    <string name="home_list_empty_card">Add an Item!</string>
+
+    <!-- Locate My Account Fragment -->
+    <string name="locate_my_honey_dew_account">Locate my HoneyDew Account</string>
+    <string name="label_email_or_phone">Enter your email or phone number</string>
+    <string name="label_search">Search</string>
+    <string name="heading_reset_password">RESET PASSWORD</string>
+    <string name="error_empty_email_or_password">Please provide email or phone number.</string>
+
+    <!-- Reset Method Fragment -->
+    <string name="label_information_found">We found following information associated with your account.</string>
+    <string name="label_method">How do you want to reset your password?</string>
+    <string name="label_continue">Continue</string>
+    <string name="label_phone_ending">Text a code to my phone ending in @</string>
+
+    <!-- Send Verification Code Fragment -->
+    <string name="label_check_email">Check your email\n\n\n\nWe\'ve sent an email to @ \n\n If you don\'t see the email, check other places it might be, like your junk, spam, social or other folder.</string>
+    <string name="label_check_phone">Check your phone\n\n\n\nWe\'ve texted a code to the phone number ending in @. Once you received the code, enter it below to reset your password.</string>
+    <string name="hint_code">Enter code</string>
+    <string name="label_submit">Submit</string>
+    <string name="label_did_not_receive">I didn\'t receive the email.</string>
+
+    <!-- Reset Password -->
+    <string name="label_reset_password_for_honey_dew">Please enter a new password for your HoneyDew account.</string>
+    <string name="label_new_password">New Password</string>
+
+    <!-- Change Password-->
+    <string name="label_old_password">Old Password</string>
+    <string name="change_password_heading">CHANGE PASSWORD</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Notification Fragment -->
+    <!--<string name="label_notification_text">Be notified when within range of the Location of an Item</string>-->
+    <string name="label_notification_text">Be notified for expiring items</string>
+
+    <!--AddItems Fragment-->
+
+    <string name="add_items_add_items">Get Started!</string>
+    <string name="empty_view_text">Add a List!</string>
+    <string name="your_most_popular_items">Your Most Popular Items</string>
+    <string name="your_most_popular_locations">Most Frequent Locations</string>
+    <string name="choose_date_time_popular_items">When do you need it by?</string>
+    <string name="hint_search_items_add_items">Speak or Type Item Here</string>
+    <string name="hint_search_items_add_locations">Speak or Type Location Here</string>
+    <string name="recent_items_actionbar_heading">Create New Item or Select Recent</string>
+    <string name="recent_location_actionbar_heading">Create New Location or Select Recent</string>
+    <string name="recent_items_fragment_edit_title">Edit Items</string>
+    <string name="empty_recent_items_message">None</string>
+    <string name="nearby_loc_text">NEARBY</string>
+    <string name="nearby_locations_results">LOCATIONS</string>
+    <string name="error_empty_list_name">List Name cannot be empty.</string>
+
+    <!-- Share List Fragment -->
+    <string name="share_list">Share \'@\'</string>
+    <string name="label_list_owner">List owner</string>
+    <string name="share_title">User to share this list with</string>
+    <string name="message_list_not_shared">You have not shared your list yet.</string>
+    <string name="label_get_notification">Get notifications for updates</string>
+    <string name="label_delete_on_completion">Allow delete upon completion</string>
+    <string name="cancel">Cancel</string>
+    <string name="location_selection_text_empty_message">Please type, speak, or select a location.</string>
+    <string name="popular_recent_text_empty_message">Please type or choose an item from most popular items list.</string>
+    <string name="date_empty_message">Please select date.</string>
+    <string name="message_confirm_un_share">Are you sure you want to unshare your list with @</string>
+    <string name="message_confirm_un_share_without_name">Are you sure you want to unshare your list?</string>
+    <string name="add_contacts_to_share">Add contacts to share.</string>
+
+
+    <!-- Error strings -->
+    <string name="geofence_not_available">Geofence service is not available now</string>
+    <string name="geofence_too_many_geofences">Your app has registered too many geofences</string>
+    <string name="geofence_too_many_pending_intents">
+        You have provided too many PendingIntents to the addGeofences() call
+    </string>
+    <string name="unknown_geofence_error">
+        Unknown error: the Geofence service is not available now
+    </string>
+
+    <!-- Transition type strings -->
+    <string name="geofence_transition_entered">Entered</string>
+    <string name="geofence_transition_exited">Exited</string>
+    <string name="unknown_geofence_transition">Unknown Transition</string>
+
+    <string name="geofence_transition_invalid_type">
+        Geofence transition error: invalid transition type %1$d
+    </string>
+    <string name="geofence_transition_notification_text">
+        Click notification to return to app
+    </string>
+
+    <string name="list_name_here_hint_add_list"><![CDATA[<List Name Here>]]></string>
+
+
+    <!--Notification Fragment-->
+    <string name="bluetooth_notifications_heading_text">Bluetooth Notifications (beta)</string>
+    <string name="bluetooth_subheading_text">for Expiring Items</string>
+    <string name="bluetooth_subheading_expired_text">for Expired Items</string>
+    <string name="bluetooth_reminder_text">Daily Reminders</string>
+    <string name="bluetooth_reminder_exp_time_text">Expiring Item Reminder Time</string>
+
+    <string name="location_disabled_message">HoneyDew requires access to your phone\'s location to track where you are so that we can send you notifications.</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for track where you are so that we can send you notifications.</string>
+    <string name="settings">Settings</string>
+    <string name="notification_message">You have \'@listName\' list items for location \'@locationName\'</string>
+
+    <string name="channel_name">Proximity Channel</string>
+    <string name="channel_description">Proximity Channel - to get proximity notification</string>
+    <string name="instruction_setting">Be Reminded When Near an Item Location</string>
+    <string name="list_name_holder">\'@\'</string>
+    <string name="list_setting_enable">Enable for \'In-Progress\' status option</string>
+    <string name="in_progress">In Progress</string>
+    <string name="location_reminders">Location Reminders</string>
+    <string name="heading_car_reminder">Be Reminded When Getting in Your Car</string>
+    <string name="heading_daily_reminded">Be Reminded Each Day</string>
+
+</resources>

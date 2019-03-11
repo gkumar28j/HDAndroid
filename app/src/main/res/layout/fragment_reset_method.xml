@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/register_default_padding"
+    android:paddingRight="@dimen/register_default_padding"
+    android:paddingTop="@dimen/register_default_padding"
+    tools:context="com.mcn.honeydew.ui.forgotPassword.resetMethodFragment.ResetMethodFragment">
+
+    <TextView
+        style="@style/TextAppearance.Text.Regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/label_information_found"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_size_m3" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/label_method"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_size_s3" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textview_size_s3" />
+
+        <RadioButton
+            android:id="@+id/radio_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textview_size_s3" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/text_continue"
+        style="@style/Button.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="@string/label_continue" />
+</LinearLayout>

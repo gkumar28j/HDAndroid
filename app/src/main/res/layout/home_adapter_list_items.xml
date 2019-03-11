@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/header_lay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_card_list_header_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:focusableInTouchMode="true">
+
+            <ImageView
+
+                android:id="@+id/home_list__imgview"
+                android:layout_width="@dimen/home_list_card_heading_img_view_width"
+                android:layout_height="@dimen/home_list_card_heading_img_view_width"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/home_list_card_heading_margin_left_right"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                tools:src="@mipmap/ic_launcher"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/team_name_edit_text"
+                style="@style/HomeFragmentTextViewWhiteRegularStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/home_list__imgview"
+                android:background="@android:color/transparent"
+
+                android:gravity="center_horizontal"
+                android:imeOptions="actionDone"
+                android:inputType="textNoSuggestions|textCapWords"
+                android:maxLength="18"
+                android:maxLines="1"
+                android:paddingRight="@dimen/home_card_list_heading_texc_view_padding_right"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/cursor_drawable"
+                android:textSize="@dimen/textview_size_m2"
+                android:visibility="invisible"
+                tools:text="Happy Team"
+                tools:textColor="#000000" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/team_name_text_view"
+                style="@style/HomeFragmentTextViewWhiteRegularStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/home_list__imgview"
+                android:background="@android:color/transparent"
+                android:ellipsize="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:maxLength="18"
+                android:paddingRight="@dimen/home_card_list_heading_texc_view_padding_right"
+                android:singleLine="true"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/textview_size_m2"
+                android:visibility="visible"
+                app:minTextSize="9sp"
+                tools:text="Happy Team"
+                tools:textColor="#000000" />
+
+            <ImageView
+
+                android:id="@+id/delete_card_imageview"
+                android:layout_width="@dimen/home_list_card_delete_img_view_width"
+                android:layout_height="@dimen/home_list_card_delete_img_view_width"
+                android:layout_alignParentLeft="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/delete_card"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </RelativeLayout>
+
+
+        <com.mcn.honeydew.utils.draghelper.MyDisabledRecyclerView
+            android:id="@+id/home_list_child_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_lay"
+            android:padding="@dimen/home_list_card_child_recycler_view_padding" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/empty_lay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/empty_view"
+            style="@style/HomeFragmentTextViewRegularStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_list_empty_card" />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
