@@ -18,6 +18,7 @@ import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListRespons
 import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.AppConstants;
+import com.mcn.honeydew.utils.CommonUtils;
 import com.mcn.honeydew.utils.rx.SchedulerProvider;
 
 import org.apache.http.HttpEntity;
@@ -35,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -83,7 +85,17 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
 
 
         if (!getDataManager().IsDeviceIdSendToServer() && getDataManager().getDeviceId() != null) {
-            getDataManager().doUpdateDeviceInfo(new UpdateDeviceInfoRequest(0.0, 0.0, String.valueOf(BuildConfig.VERSION_NAME), ApiCall.API_VERSION, BuildConfig.VERSION_NAME, getDataManager().getDeviceId(), AppConstants.DEVICE_TYPE))
+            getDataManager().doUpdateDeviceInfo(
+                    new UpdateDeviceInfoRequest(
+                            0.0,
+                            0.0,
+                            String.valueOf(BuildConfig.VERSION_NAME),
+                            ApiCall.API_VERSION, BuildConfig.VERSION_NAME,
+                            getDataManager().getDeviceId(),
+                            AppConstants.DEVICE_TYPE,
+                            CommonUtils.getOffsetTimeZone(),
+                            CommonUtils.getOffsetTimeZone(),
+                            CommonUtils.getTimeZoneOffsetName()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<UpdateDeviceInfoResponse>() {

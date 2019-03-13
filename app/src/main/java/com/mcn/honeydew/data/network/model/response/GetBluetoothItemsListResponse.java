@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mcn.honeydew.data.network.model.ErrorObject;
 
+import java.util.Objects;
+
 public class GetBluetoothItemsListResponse {
 
     @SerializedName("ErrorObject")
@@ -31,6 +33,19 @@ public class GetBluetoothItemsListResponse {
     }
 
     public class BluetoothItem {
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof BluetoothItem)) return false;
+            BluetoothItem item = (BluetoothItem) o;
+            return getNotificationId() == item.getNotificationId();
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getNotificationId());
+        }
+
         @SerializedName("NotificationId")
         @Expose
         private long notificationId;

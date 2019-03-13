@@ -250,8 +250,8 @@ public class DateTimePickerView extends FrameLayout {
 
 
     public String getSelectedDate() {
-        int hour = hourPos + 1;
-        int min = minPos * 5;
+        int hour = hourPos < 0 ? hourPos + 2 : hourPos + 1;
+        int min = minPos < 0 ? 0 : minPos * 5;
         int sec = 0;
         int meredium = timeMeridiemPos;
         String merediumText = "";
@@ -267,9 +267,10 @@ public class DateTimePickerView extends FrameLayout {
         calendar.set(Calendar.MINUTE, min);
         calendar.set(Calendar.SECOND, sec);
         if (merediumText.equalsIgnoreCase("am")) {
-            calendar.set(Calendar.AM_PM, 0);
+            calendar.set(Calendar.AM_PM, Calendar.AM);
         } else {
-            calendar.set(Calendar.AM_PM, 1);
+            calendar.set(Calendar.AM_PM, Calendar.PM);
+            //calendar.add(Calendar.AM_PM, Calendar.PM);
         }
 
         return DATE_FORMAT.format(calendar.getTime());

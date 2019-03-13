@@ -37,7 +37,19 @@ public class UpdateDeviceInfoRequest {
     @Expose
     private String deviceType;
 
-    public UpdateDeviceInfoRequest(double latitude, double longitude, String deviceVersion, String apiVersion, String appVersion, String deviceId, String deviceType) {
+    @SerializedName("OffsetTimeZone")
+    @Expose
+    private String offsetTimeZone;
+
+    @SerializedName("TimeZone")
+    @Expose
+    private String timeZone;
+
+    @SerializedName("TimeZoneOffsetName")
+    @Expose
+    private String timeZoneoffsetName;
+
+    public UpdateDeviceInfoRequest(double latitude, double longitude, String deviceVersion, String apiVersion, String appVersion, String deviceId, String deviceType, String offsetTimeZone, String timeZone, String timeZoneoffsetName) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.deviceVersion = deviceVersion;
@@ -45,6 +57,9 @@ public class UpdateDeviceInfoRequest {
         this.appVersion = appVersion;
         this.deviceId = deviceId;
         this.deviceType = deviceType;
+        this.offsetTimeZone = offsetTimeZone;
+        this.timeZone = timeZone;
+        this.timeZoneoffsetName = timeZoneoffsetName;
     }
 
     public double getLatitude() {
@@ -101,5 +116,17 @@ public class UpdateDeviceInfoRequest {
 
     public void setDeviceType(String deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public String getOffsetTimeZone() {
+        return offsetTimeZone;
+    }
+
+    public String getTimeZone() {
+        return timeZone;
+    }
+
+    public String getTimeZoneoffsetName() {
+        return timeZoneoffsetName;
     }
 }

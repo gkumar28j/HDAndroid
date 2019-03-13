@@ -64,6 +64,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static com.mcn.honeydew.utils.NotificationType.EXPIRED_ITEM;
+import static com.mcn.honeydew.utils.NotificationType.EXPIRE_ITEM;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -157,6 +158,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // Sync not needed
                 bundle.putBoolean(KEY_SYNC_REQUIRED, false);
                 sendNotification(mMessage, bundle, notificationType);
+            } else if (notificationType.equalsIgnoreCase(NotificationType.EXPIRED_ITEM)) {
+                // For silent notification check. When item has expired
+                // mType = remoteMessage.getData().get("ExpiredItem");
+                bundle.putString(KEY_NOTIFICATION_TYPE, mType);
+
+                fetchBluetoothItem(mMessage, bundle, notificationType);
             } else {
                 // Show notification & sync items
                 Log.e("amit", "notification else");
@@ -165,15 +172,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // ProximityJobIntentService.enqueueWork(this, new Intent());
             }
 
-
-            // For silent notification check. When item has expired
-            if (remoteMessage.getData().containsKey(EXPIRED_ITEM)) {
-                mType = remoteMessage.getData().get(EXPIRED_ITEM);
-                bundle.putString(KEY_NOTIFICATION_TYPE, mType);
-
-                fetchBluetoothItem(mMessage, bundle, notificationType);
-
-            }
 
         }
 
@@ -267,24 +265,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 GetBluetoothItemsListResponse res = new Gson().fromJson(data, GetBluetoothItemsListResponse.class);
 
                 final ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = mDataManager.getSavedBluetoothItems();
+                final ArrayList<GetBluetoothItemsListResponse.BluetoothItem> recentItems = new ArrayList<>(Arrays.asList(res.getResult()));
 
-                for (int i = 0; i < res.getResult().length; i++) {
-                    GetBluetoothItemsListResponse.BluetoothItem item = res.getResult()[i];
+                savedItems.retainAll(recentItems);
 
-                    if (i < savedItems.size()) {
-                        if (item.getNotificationId() != savedItems.get(i).getNotificationId() && !savedItems.get(i).isSent()) {
-                            sendNotification(msg, bundle, notificationType);
-                            savedItems.get(i).setSent(true);
-                        }
+                for (int i = 0; (i < recentItems.size() && i < savedItems.size()); i++) {
+                    //  GetBluetoothItemsListResponse.BluetoothItem item = recentItems.get(i);
+
+                    if (!savedItems.get(i).isSent()) {
+                        sendNotification(savedItems.get(i).getMessage(), bundle, notificationType);
+                        savedItems.get(i).setSent(true);
                     }
+
                 }
 
-
-                if (!org.apache.http.util.TextUtils.isEmpty(data)) {
-
-
-                    mDataManager.saveBluetoothItemList(new Gson().toJson(savedItems));
-                }
+                mDataManager.saveBluetoothItemList(new Gson().toJson(savedItems));
 
                 Timber.d("Get Bluetooth ITEM API response: " + data);
 

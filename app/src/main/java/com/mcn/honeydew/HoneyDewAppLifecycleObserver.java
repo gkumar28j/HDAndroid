@@ -32,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -108,8 +110,22 @@ public class HoneyDewAppLifecycleObserver implements LifecycleObserver {
                     HttpEntity entity = response.getEntity();
                     String data = EntityUtils.toString(entity);
                     GetBluetoothItemsListResponse items = new Gson().fromJson(data, GetBluetoothItemsListResponse.class);
+                    ArrayList<GetBluetoothItemsListResponse.BluetoothItem> newItems = new ArrayList<>(Arrays.asList(items.getResult()));
                     if (!TextUtils.isEmpty(data)) {
-                        dataManager.saveBluetoothItemList(new Gson().toJson(items.getResult()));
+
+                        // getting saved items
+                        ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = dataManager.getSavedBluetoothItems();
+                        savedItems.retainAll(newItems);
+
+                        for (int i = 0; (i < items.getResult().length && i < savedItems.size()); i++) {
+                            GetBluetoothItemsListResponse.BluetoothItem newItem = newItems.get(i);
+                            // if an item of the api response is not available in saved list them adding that in saved item and
+                            // saving updated saved item in shared pref.
+                            if (savedItems.get(i).isSent() && newItem.getNotificationId() == savedItems.get(i).getNotificationId()) {
+                                newItems.get(i).setSent(true);
+                            }
+                        }
+                        dataManager.saveBluetoothItemList(new Gson().toJson(newItems));
                     }
 
                     Timber.d("Get Bluetooth ITEM API response: " + data);

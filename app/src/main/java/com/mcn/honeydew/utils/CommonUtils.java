@@ -17,9 +17,12 @@ import com.mcn.honeydew.R;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -145,5 +148,19 @@ public final class CommonUtils {
         }
 
         return false;
+    }
+
+    public static String getOffsetTimeZone() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"),
+                Locale.getDefault());
+        Date currentLocalTime = calendar.getTime();
+        DateFormat date = new SimpleDateFormat("XXX", Locale.getDefault());
+        String localTime = date.format(currentLocalTime);
+        System.out.println("UTC".concat(localTime));
+        return "UTC".concat(localTime);
+    }
+
+    public static String getTimeZoneOffsetName() {
+        return TimeZone.getDefault().getDisplayName();
     }
 }

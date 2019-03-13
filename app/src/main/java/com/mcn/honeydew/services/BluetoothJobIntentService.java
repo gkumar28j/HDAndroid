@@ -149,9 +149,12 @@ public class BluetoothJobIntentService extends JobIntentService {
                 case BluetoothProfile.STATE_DISCONNECTED:
 
                     Timber.d("Bluetooth Disconnected!");
-
-                    // Clearing bluetooth items
-                    mDataManager.saveBluetoothItemList("[]");
+                    ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = mDataManager.getSavedBluetoothItems();
+                    for (GetBluetoothItemsListResponse.BluetoothItem it : savedItems) {
+                        it.setSent(false);
+                    }
+                    // Saving bluetooth items
+                    mDataManager.saveBluetoothItemList(new Gson().toJson(savedItems));
                     break;
             }
 

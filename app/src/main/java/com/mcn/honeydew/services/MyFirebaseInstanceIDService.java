@@ -27,6 +27,7 @@ import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.di.component.DaggerServiceComponent;
 import com.mcn.honeydew.di.component.ServiceComponent;
 import com.mcn.honeydew.utils.AppConstants;
+import com.mcn.honeydew.utils.CommonUtils;
 
 import javax.inject.Inject;
 
@@ -90,7 +91,9 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        mDataManager.doUpdateDeviceInfo(new UpdateDeviceInfoRequest(0.0, 0.0, String.valueOf(BuildConfig.VERSION_NAME), ApiCall.API_VERSION, BuildConfig.VERSION_NAME, token, AppConstants.DEVICE_TYPE))
+        mDataManager.doUpdateDeviceInfo(new UpdateDeviceInfoRequest(0.0, 0.0, String.valueOf(BuildConfig.VERSION_NAME), ApiCall.API_VERSION, BuildConfig.VERSION_NAME, token, AppConstants.DEVICE_TYPE, CommonUtils.getOffsetTimeZone(),
+                CommonUtils.getOffsetTimeZone(),
+                CommonUtils.getTimeZoneOffsetName()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<UpdateDeviceInfoResponse>() {
@@ -105,7 +108,9 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
                     }
                 });
-        mDataManager.doUpdateDeviceInfo(new UpdateDeviceInfoRequest(0.0, 0.0, String.valueOf(BuildConfig.VERSION_NAME), ApiCall.API_VERSION, BuildConfig.VERSION_NAME, token, AppConstants.DEVICE_TYPE));
+        mDataManager.doUpdateDeviceInfo(new UpdateDeviceInfoRequest(0.0, 0.0, String.valueOf(BuildConfig.VERSION_NAME), ApiCall.API_VERSION, BuildConfig.VERSION_NAME, token, AppConstants.DEVICE_TYPE, CommonUtils.getOffsetTimeZone(),
+                CommonUtils.getOffsetTimeZone(),
+                CommonUtils.getTimeZoneOffsetName()));
         mDataManager.sendDeviceIdToServer(true);
     }
 }
