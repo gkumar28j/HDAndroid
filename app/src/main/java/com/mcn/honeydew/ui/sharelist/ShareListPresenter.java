@@ -13,6 +13,8 @@ import com.mcn.honeydew.data.network.model.response.UpdateNotificationSettingReq
 import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.rx.SchedulerProvider;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -259,7 +261,18 @@ public class ShareListPresenter<V extends ShareListMvpView> extends BasePresente
                 .subscribe(new Consumer<GetBluetoothItemsListResponse>() {
                     @Override
                     public void accept(GetBluetoothItemsListResponse response) throws Exception {
-                        getDataManager().saveBluetoothItemList(new Gson().toJson(response.getResult()));
+                        ArrayList<GetBluetoothItemsListResponse.BluetoothItem> newItems = new ArrayList<>(Arrays.asList(response.getResult()));
+                        ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = getDataManager().getSavedBluetoothItems();
+                        savedItems.retainAll(newItems);
+                        for (int i = 0; (i < newItems.size() && i < savedItems.size()); i++) {
+                            GetBluetoothItemsListResponse.BluetoothItem newItem = newItems.get(i);
+                            // if an item of the api response is not available in saved list them adding that in saved item and
+                            // saving updated saved item in shared pref.
+                            if (savedItems.get(i).isSent() && newItem.getNotificationId() == savedItems.get(i).getNotificationId()) {
+                                newItems.get(i).setSent(true);
+                            }
+                        }
+                        getDataManager().saveBluetoothItemList(new Gson().toJson(newItems));
 
                     }
 
