@@ -161,9 +161,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             } else if (notificationType.equalsIgnoreCase(NotificationType.EXPIRED_ITEM)) {
                 // For silent notification check. When item has expired
                 // mType = remoteMessage.getData().get("ExpiredItem");
-                bundle.putString(KEY_NOTIFICATION_TYPE, mType);
+                bundle.putString(KEY_NOTIFICATION_TYPE, notificationType);
 
-                fetchBluetoothItem(mMessage, bundle, notificationType);
+                fetchBluetoothItem("", bundle, notificationType);
             } else {
                 // Show notification & sync items
                 Log.e("amit", "notification else");
@@ -267,19 +267,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 final ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = mDataManager.getSavedBluetoothItems();
                 final ArrayList<GetBluetoothItemsListResponse.BluetoothItem> recentItems = new ArrayList<>(Arrays.asList(res.getResult()));
 
-                savedItems.retainAll(recentItems);
+                //savedItems.retainAll(recentItems);
 
-                for (int i = 0; (i < recentItems.size() && i < savedItems.size()); i++) {
-                    //  GetBluetoothItemsListResponse.BluetoothItem item = recentItems.get(i);
+                if (mDataManager.getUserData().isIsBluetoothNotification() && mDataManager.isBluetoothDeviceConnected()) {
+                    for (int i = 0; i < recentItems.size(); i++) {
+                        GetBluetoothItemsListResponse.BluetoothItem recentItem = recentItems.get(i);
 
-                    if (!savedItems.get(i).isSent()) {
-                        sendNotification(savedItems.get(i).getMessage(), bundle, notificationType);
-                        savedItems.get(i).setSent(true);
+                        if (!savedItems.contains(recentItem)) {
+                            bundle.putString(KEY_LIST_ID, String.valueOf(recentItem.getListId()));
+                            bundle.putString(LIST_NAME, recentItem.getListName());
+                            bundle.putString(LIST_HEADER_COLOR, recentItem.getListHeaderColor());
+                            bundle.putString(IS_OWNER, String.valueOf(recentItem.isOwner()));
+                            sendNotification(recentItem.getMessage(), bundle, notificationType);
+                        }
+                        recentItem.setSent(true);
                     }
 
+                    mDataManager.saveBluetoothItemList(new Gson().toJson(recentItems));
                 }
 
-                mDataManager.saveBluetoothItemList(new Gson().toJson(savedItems));
 
                 Timber.d("Get Bluetooth ITEM API response: " + data);
 

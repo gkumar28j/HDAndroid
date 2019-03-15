@@ -117,6 +117,7 @@ public class BluetoothJobIntentService extends JobIntentService {
                     break;
 
                 case BluetoothProfile.STATE_CONNECTED:
+                    mDataManager.setBluetoothDeviceConnected(true);
                     Timber.d("Bluetooth Connected!");
                     if (mDataManager.getUserData().isIsBluetoothNotification()) {
                         Timber.d("Bluetooth Setting is On!");
@@ -147,7 +148,7 @@ public class BluetoothJobIntentService extends JobIntentService {
                     break;
 
                 case BluetoothProfile.STATE_DISCONNECTED:
-
+                    mDataManager.setBluetoothDeviceConnected(false);
                     Timber.d("Bluetooth Disconnected!");
                     ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = mDataManager.getSavedBluetoothItems();
                     for (GetBluetoothItemsListResponse.BluetoothItem it : savedItems) {

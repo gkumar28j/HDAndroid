@@ -409,6 +409,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void setBluetoothDeviceConnected(boolean isConnected) {
+        mPreferencesHelper.setBluetoothDeviceConnected(isConnected);
+    }
+
+    @Override
+    public boolean isBluetoothDeviceConnected() {
+        return mPreferencesHelper.isBluetoothDeviceConnected();
+    }
+
+    @Override
     public int getCurrentUserLoggedInMode() {
         return mPreferencesHelper.getCurrentUserLoggedInMode();
     }

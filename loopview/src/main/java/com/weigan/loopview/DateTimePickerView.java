@@ -263,7 +263,11 @@ public class DateTimePickerView extends FrameLayout {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dates.get(datePos));
-        calendar.set(Calendar.HOUR, hour);
+        if (hour == 12) {
+            calendar.set(Calendar.HOUR, 0);
+        } else {
+            calendar.set(Calendar.HOUR, hour);
+        }
         calendar.set(Calendar.MINUTE, min);
         calendar.set(Calendar.SECOND, sec);
         if (merediumText.equalsIgnoreCase("am")) {

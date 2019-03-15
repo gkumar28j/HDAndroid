@@ -53,6 +53,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_LOCATION = "current_location";
     private static final String PREF_KEY_IS_FB_LOGIN = "is_fb_login";
     private static final String PREF_KEY_BLUETOOTH_ITEM_LIST = "bluetooth_items";
+    private static final String PREF_KEY_BLUETOOTH_DEVICE_CONNECTED = "bluetooth_device_connected";
 
 
     private final SharedPreferences mPrefs;
@@ -263,6 +264,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
         }
 
         return arrayList;
+    }
+
+    @Override
+    public void setBluetoothDeviceConnected(boolean isConnected) {
+        mEditor.putBoolean(PREF_KEY_BLUETOOTH_DEVICE_CONNECTED, isConnected).apply();
+    }
+
+    @Override
+    public boolean isBluetoothDeviceConnected() {
+        return mPrefs.getBoolean(PREF_KEY_BLUETOOTH_DEVICE_CONNECTED, false);
     }
 }
 

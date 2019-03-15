@@ -115,15 +115,12 @@ public class HoneyDewAppLifecycleObserver implements LifecycleObserver {
 
                         // getting saved items
                         ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = dataManager.getSavedBluetoothItems();
-                        savedItems.retainAll(newItems);
-
-                        for (int i = 0; (i < items.getResult().length && i < savedItems.size()); i++) {
+                        for (int i = 0; (i < items.getResult().length); i++) {
                             GetBluetoothItemsListResponse.BluetoothItem newItem = newItems.get(i);
                             // if an item of the api response is not available in saved list them adding that in saved item and
                             // saving updated saved item in shared pref.
-                            if (savedItems.get(i).isSent() && newItem.getNotificationId() == savedItems.get(i).getNotificationId()) {
-                                newItems.get(i).setSent(true);
-                            }
+                            if (savedItems.contains(newItem))
+                                newItem.setSent(true);
                         }
                         dataManager.saveBluetoothItemList(new Gson().toJson(newItems));
                     }

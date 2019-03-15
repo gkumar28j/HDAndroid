@@ -84,4 +84,8 @@ public interface PreferencesHelper {
 
     ArrayList<GetBluetoothItemsListResponse.BluetoothItem> getSavedBluetoothItems();
 
+    void setBluetoothDeviceConnected(boolean isConnected);
+
+    boolean isBluetoothDeviceConnected();
+
 }
