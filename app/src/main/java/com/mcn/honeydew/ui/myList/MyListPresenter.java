@@ -67,6 +67,7 @@ public class MyListPresenter<V extends MyListMvpView> extends BasePresenter<V> i
                             return;
                         }
 
+
                         if (response.getErrorObject().getStatus() == 1) {
                             getMvpView().replceData(response.getMyListResponseData());
 

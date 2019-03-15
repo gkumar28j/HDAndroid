@@ -274,7 +274,7 @@ public class GeoFenceFilterService extends Service {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
-                            if(task.isComplete())
+                            if (task.isComplete())
                                 Timber.e("Add geo-fence task is completed");
 
                             if (task.isSuccessful()) {
@@ -536,7 +536,7 @@ public class GeoFenceFilterService extends Service {
         // mBuilder.addAction(R.drawable.ic_proxmity_notification, "Notification", actionPendingIntent);
 
         // Launch notification
-       // startForeground(NOTIFICATION_ID, mBuilder.build());
+        startForeground(NOTIFICATION_ID, mBuilder.build());
     }
 
     // Broadcast Receiver

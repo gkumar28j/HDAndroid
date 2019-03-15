@@ -199,14 +199,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
         if (mPresenter.isIsProximityNotification()) {
 
-           /* if (!HoneyDewApp.get(this).isLocationAlarmSet()) {
-                HoneyDewApp.get(this).setLocationAlarm();
-                //   startService(GeoFenceFilterService.getStartIntent(this));
-            }*/
-
-
-            /*startService(GeoFenceFilterService.getStartIntent(this));
-            syncItems();*/
+            startService(GeoFenceFilterService.getStartIntent(this));
+            syncItems();
         }
     }
 
@@ -651,13 +645,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @Override
     public void onLocationEnabled() {
-        //syncItems();
+        syncItems();
 
         if (mPresenter.isIsProximityNotification()) {
-           /* if (!HoneyDewApp.get(this).isLocationAlarmSet()) {
-                HoneyDewApp.get(this).setLocationAlarm();
-            }*/
-            //startService(GeoFenceFilterService.getStartIntent(this));
+            startService(GeoFenceFilterService.getStartIntent(this));
         }
     }
 
@@ -674,14 +665,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     public void onLocationEnabledAlready() {
         if (mIsJustLoggedIn) {
-            // syncItems();
+             syncItems();
 
             if (mPresenter.isIsProximityNotification()) {
-
-                /*if (!HoneyDewApp.get(this).isLocationAlarmSet()) {
-                    HoneyDewApp.get(this).setLocationAlarm();
-                }*/
-                //startService(GeoFenceFilterService.getStartIntent(this));
+                startService(GeoFenceFilterService.getStartIntent(this));
             }
         }
     }

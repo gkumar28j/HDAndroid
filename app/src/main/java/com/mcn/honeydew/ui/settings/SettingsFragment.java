@@ -2,6 +2,7 @@ package com.mcn.honeydew.ui.settings;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.facebook.login.LoginManager;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
+import com.mcn.honeydew.services.GeoFenceFilterService;
 import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.changePassword.ChangePasswordActivity;
 import com.mcn.honeydew.ui.login.LoginActivity;
@@ -89,7 +91,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
         if (notificationManager != null)
             notificationManager.cancelAll();
 
-        //getBaseActivity().stopService(new Intent(getBaseActivity(), GeoFenceFilterService.class));
+        getBaseActivity().stopService(new Intent(getBaseActivity(), GeoFenceFilterService.class));
 
 
     }

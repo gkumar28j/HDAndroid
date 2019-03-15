@@ -23,7 +23,7 @@
         android:layout_below="@+id/textView"
         android:orientation="horizontal"
         android:padding="@dimen/activity_horizontal_margin"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/imageView"

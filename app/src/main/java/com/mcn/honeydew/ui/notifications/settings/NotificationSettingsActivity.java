@@ -18,6 +18,7 @@ import android.widget.Switch;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
+import com.mcn.honeydew.services.GeoFenceFilterService;
 import com.mcn.honeydew.ui.base.BaseActivity;
 
 import java.util.Arrays;
@@ -138,13 +139,8 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
             mPresenter.updateProximitySettings(1, 2);
 
             // Starting Service
-            /*if (!GeoFenceFilterService.isRunning)
-                startService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));*/
-
-          /*  // Scheduling Alarm
-            if (!HoneyDewApp.get(this).isLocationAlarmSet()) {
-                HoneyDewApp.get(this).setLocationAlarm();
-            }*/
+            if (!GeoFenceFilterService.isRunning)
+                startService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));
         } else {
             //fetchCurrentLocation(true);
             proximityNotificationSwitch.setChecked(false);
@@ -175,13 +171,8 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
                 mPresenter.updateProximitySettings(1, 2);
 
                 // Starting Service
-              /*  if (!GeoFenceFilterService.isRunning)
-                    startService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));*/
-
-              /*  // Scheduling Alarm
-                if (!HoneyDewApp.get(this).isLocationAlarmSet()) {
-                    HoneyDewApp.get(this).setLocationAlarm();
-                }*/
+                if (!GeoFenceFilterService.isRunning)
+                    startService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));
 
             } else {
                 fetchCurrentLocation(true);
@@ -194,11 +185,9 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
             mPresenter.updateProximitySettings(0, 2);
 
             // Stopping Service
-          /*  if (GeoFenceFilterService.isRunning)
-                stopService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));*/
+            if (GeoFenceFilterService.isRunning)
+                stopService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));
 
-           /* if (!HoneyDewApp.get(this).isLocationAlarmSet())
-                HoneyDewApp.get(this).cancelAlarm();*/
         }
         isRefresh = true;
 
@@ -239,12 +228,9 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
 
     @Override
     public void onProximityRangeUpdated() {
-        /*Intent intent = new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class);
+        Intent intent = new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class);
         stopService(intent);
-        startService(intent);*/
-
-       /* HoneyDewApp.get(this).cancelAlarm();
-        HoneyDewApp.get(this).setLocationAlarm();*/
+        startService(intent);
 
     }
 
