@@ -172,6 +172,8 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
             }
         };
         handler.postDelayed(mRunnable, TIME_DELAY);
+
+        mPresenter.fetchBluetoothList();
     }
 
     @Override
@@ -199,6 +201,8 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
         }
         isEditOnProgress = false;
         ((MainActivity) getActivity()).syncItems();
+
+        mPresenter.fetchBluetoothList();
     }
 
     @Override
