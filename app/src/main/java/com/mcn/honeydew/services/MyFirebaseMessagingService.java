@@ -149,10 +149,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // Sync items but don't show notification
                 bundle.putBoolean(KEY_SYNC_REQUIRED, true);
 
-//                Intent i = new Intent(ProximitySyncService.SYNC_RECEIVE_ACTION);
-//                sendBroadcast(i);
-                Log.e("amit", "notification");
-                // ProximityJobIntentService.enqueueWork(this, new Intent());
+                // Calling API to fetch new list of bluetooth items
+                fetchBluetoothItem(bundle, notificationType);
 
             } else if (notificationType.equalsIgnoreCase(NotificationType.EXPIRE_ITEM)) {
                 // Sync not needed
@@ -163,13 +161,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // mType = remoteMessage.getData().get("ExpiredItem");
                 bundle.putString(KEY_NOTIFICATION_TYPE, notificationType);
 
-                fetchBluetoothItem("", bundle, notificationType);
+                // Calling API to fetch new list of bluetooth items
+                fetchBluetoothItem(bundle, notificationType);
             } else {
                 // Show notification & sync items
-                Log.e("amit", "notification else");
+
                 bundle.putBoolean(KEY_SYNC_REQUIRED, true);
                 sendNotification(mMessage, bundle, notificationType);
-                // ProximityJobIntentService.enqueueWork(this, new Intent());
+
+                // Calling API to fetch new list of bluetooth items
+                fetchBluetoothItem(bundle, notificationType);
+
             }
 
 
@@ -234,7 +236,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-    private void fetchBluetoothItem(String msg, Bundle bundle, String notificationType) {
+    private void fetchBluetoothItem(Bundle bundle, String notificationType) {
         try {
             String url = AppConstants.BASE_URL + "v1_2/api/Notification/GetAllPushNotification";
             Timber.log(Log.DEBUG, "GetAllPushNotification: URL " + url);
@@ -294,66 +296,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private class GetBluetoothItems extends AsyncTask<String, Void, Boolean> {
-        String url = AppConstants.BASE_URL + "v1_2/api/Notification/GetAllPushNotification";
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            try {
-
-                Timber.log(Log.DEBUG, "GetAllPushNotification: URL " + url);
-                HttpGet httpGet = new HttpGet(url);
-                HttpClient httpclient = new DefaultHttpClient();
-                httpclient.getParams().setParameter(
-                        CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-
-                httpGet.addHeader(ApiHeader.HEADER_PARAM_API_KEY, mDataManager.getApiHeader().getmApiKey());
-                httpGet.addHeader(ApiHeader.HEADER_PARAM_AUTHRIZATION, mDataManager.getApiHeader().getmTokenType() + " " + mDataManager.getApiHeader().getmAccessToken());
-                httpGet.addHeader(ApiHeader.HEADER_PARAM_REFRESH_TOKEN, mDataManager.getApiHeader().getmRefreshToken());
-
-
-                /*JSONObject json = new JSONObject();
-                json.put("IsConnected", Integer.parseInt(params[0]));
-                StringEntity se = new StringEntity(json.toString());
-                se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-                httppost.setEntity(se);*/
-
-                HttpResponse response = httpclient.execute(httpGet);
-
-                // StatusLine stat = response.getStatusLine();
-                int status = response.getStatusLine().getStatusCode();
-
-                if (status == 200) {
-                    HttpEntity entity = response.getEntity();
-                    String data = EntityUtils.toString(entity);
-                    GetBluetoothItemsListResponse items = new Gson().fromJson(data, GetBluetoothItemsListResponse.class);
-                    if (!org.apache.http.util.TextUtils.isEmpty(data)) {
-                        //mDataManager.saveBluetoothItemList(new Gson().toJson(items.getResult()));
-                    }
-
-                    Timber.d("Get Bluetooth ITEM API response: " + data);
-
-                    return true;
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return false;
-        }
-
-        protected void onPostExecute(Boolean result) {
-
         }
     }
 

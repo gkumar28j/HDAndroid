@@ -23,10 +23,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.CallbackManager;
-import com.facebook.login.LoginManager;
 import com.google.gson.Gson;
 import com.mcn.honeydew.BuildConfig;
 import com.mcn.honeydew.R;
@@ -71,7 +67,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     private boolean isEdit = false;
     private boolean mIsJustLoggedIn = true;
     public String headerColor = "";
-    private CallbackManager mCallbackManager;
 
     @Inject
     MainMvpPresenter<MainMvpView> mPresenter;
@@ -94,7 +89,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     private MyListResponseData mAddItemData = null;
     private MyListResponseData mEditItemData = null;
 
-    private AccessTokenTracker accessTokenTracker;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -126,7 +120,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         setUnBinder(ButterKnife.bind(this));
 
         mPresenter.onAttach(this);
-        mCallbackManager = CallbackManager.Factory.create();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -250,13 +243,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (AccessToken.getCurrentAccessToken() == null) {
-        }
-
-        if (AccessToken.isCurrentAccessTokenActive()) {
-
-        }
 
     }
 
@@ -409,8 +395,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     protected void onDestroy() {
 
-        if (accessTokenTracker != null)
-            accessTokenTracker.stopTracking();
         mPresenter.onDetach();
         super.onDestroy();
 
@@ -511,10 +495,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         if (getIntent() != null && getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
             if (bundle.containsKey(KEY_NOTIFICATION_TYPE)) {
-
-                boolean isSyncRequired = bundle.getBoolean(KEY_SYNC_REQUIRED);
-                if (isSyncRequired)
-                    mPresenter.fetchBluetoothItems();
 
                 MyHomeListData mData = new MyHomeListData();
                 mData.setListHeaderColor(bundle.getString(LIST_HEADER_COLOR));
@@ -665,7 +645,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     public void onLocationEnabledAlready() {
         if (mIsJustLoggedIn) {
-             syncItems();
+            syncItems();
 
             if (mPresenter.isIsProximityNotification()) {
                 startService(GeoFenceFilterService.getStartIntent(this));
