@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.mcn.honeydew.HoneyDewApp;
 import com.mcn.honeydew.data.DataManager;
+import com.mcn.honeydew.services.GeoFenceFilterService;
 
 public class BootCompleteReceiver extends BroadcastReceiver {
 
@@ -34,10 +35,10 @@ public class BootCompleteReceiver extends BroadcastReceiver {
 
                     // Checking OS version to start service from background
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                       // context.startForegroundService(GeoFenceFilterService.getStartIntent(context));
+                        context.startForegroundService(GeoFenceFilterService.getStartIntent(context));
                         Log.w("BootCompleteReceiver", "foreground service started");
                     } else {
-                        //context.startService(GeoFenceFilterService.getStartIntent(context));
+                        context.startService(GeoFenceFilterService.getStartIntent(context));
                         Log.w("BootCompleteReceiver", "service is started");
                     }
                 } else {

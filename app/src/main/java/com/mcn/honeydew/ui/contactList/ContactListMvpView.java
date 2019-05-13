@@ -8,7 +8,5 @@ import com.mcn.honeydew.ui.base.MvpView;
  **/
 
 public interface ContactListMvpView extends MvpView {
-   // void onContactListLoaded(List<AllContact> allContacts);
 
-   // Observable<AllContactResponse> doGetAllContacts();
 }

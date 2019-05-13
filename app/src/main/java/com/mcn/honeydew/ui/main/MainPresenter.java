@@ -87,6 +87,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
 
 
         if (!getDataManager().IsDeviceIdSendToServer() && getDataManager().getDeviceId() != null) {
+
             getDataManager().doUpdateDeviceInfo(
                     new UpdateDeviceInfoRequest(
                             0.0,
@@ -185,14 +186,12 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
                     public void accept(GetBluetoothItemsListResponse response) throws Exception {
                         ArrayList<GetBluetoothItemsListResponse.BluetoothItem> newItems = new ArrayList<>(Arrays.asList(response.getResult()));
                         ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = getDataManager().getSavedBluetoothItems();
-                        savedItems.retainAll(newItems);
-                        for (int i = 0; (i < newItems.size() && i < savedItems.size()); i++) {
+                        for (int i = 0; (i < newItems.size()); i++) {
                             GetBluetoothItemsListResponse.BluetoothItem newItem = newItems.get(i);
                             // if an item of the api response is not available in saved list them adding that in saved item and
                             // saving updated saved item in shared pref.
-                            if (savedItems.get(i).isSent() && newItem.getNotificationId() == savedItems.get(i).getNotificationId()) {
-                                newItems.get(i).setSent(true);
-                            }
+                            if (savedItems.contains(newItem))
+                                newItem.setSent(true);
                         }
                         getDataManager().saveBluetoothItemList(new Gson().toJson(newItems));
 

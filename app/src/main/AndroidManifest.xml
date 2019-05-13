@@ -116,6 +116,7 @@
             android:name=".services.ProximityJobIntentService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service android:name=".services.GeoFenceFilterService" />
 
         <activity
             android:name=".ui.forgotPassword.ForgotPasswordActivity"
@@ -138,10 +139,6 @@
         </service>
 
 
-        <service
-            android:name=".services.BgBluetoothItemSyncService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
         <!-- ./Firebase Notifications -->
 
         <activity

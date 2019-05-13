@@ -30,48 +30,4 @@ public class ContactListPresenter<V extends ContactListMvpView> extends BasePres
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
-    @Override
-    public void doShareList(int listId, String emailOrPhone, String contactName) {
-        if (!getMvpView().isNetworkConnected()) {
-            getMvpView().showMessage(R.string.connection_error);
-            return;
-        }
-        //getMvpView().showLoading();
-
-        ShareListRequest request = new ShareListRequest();
-        request.setListId(listId);
-        request.setEmailorPhoneNumber(emailOrPhone);
-        request.setLabelText(contactName);
-
-
-        getDataManager().doShareListCall(request)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ShareListResponse>() {
-                    @Override
-                    public void accept(ShareListResponse response) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-                        // getMvpView().hideLoading();
-
-                        if (response.getResult().getStatus() == 1) {
-
-                        }
-
-
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        handleApiError(throwable);
-                    }
-                });
-    }
-
-
 }

@@ -1,5 +1,7 @@
 package com.mcn.honeydew.ui.shareToContacts;
 
+import android.annotation.SuppressLint;
+
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.SelectedContact;
@@ -44,6 +46,7 @@ public class ShareToContactsPresenter<V extends ShareToContactsMvpView> extends 
 
     }
 
+    @SuppressLint("CheckResult")
     private void shareContact(final int listId, SelectedContact contact, final int position) {
         if (!getMvpView().isNetworkConnected()) {
             getMvpView().showMessage(R.string.connection_error);
@@ -104,40 +107,4 @@ public class ShareToContactsPresenter<V extends ShareToContactsMvpView> extends 
                     }
                 });
     }
-
-   /* @Override
-    public void shareListToContact(int listId, String emailOrPhone, String contactName, int position) {
-
-        ShareListRequest request = new ShareListRequest();
-        request.setListId(listId);
-        request.setEmailorPhoneNumber(emailOrPhone);
-        request.setLabelText(contactName);
-
-        getDataManager().doShareListCall(request)
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<ShareListResponse>() {
-                    @Override
-                    public void accept(ShareListResponse response) throws Exception {
-                        getMvpView().hideLoading();
-                        if (response.getErrorObject().getStatus() == 1) {
-                            //getMvpView().onUserSettingsLoaded(response.getResult());
-                        } else {
-
-                        }
-
-
-                    }
-
-
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        getMvpView().hideLoading();
-                        // handle the login error here
-                        handleApiError(throwable);
-
-                    }
-                });
-    }*/
 }

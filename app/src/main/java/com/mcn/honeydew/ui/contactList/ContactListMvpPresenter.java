@@ -10,8 +10,5 @@ import com.mcn.honeydew.ui.base.MvpPresenter;
 @PerActivity
 public interface ContactListMvpPresenter<V extends ContactListMvpView> extends MvpPresenter<V> {
 
-   // void getContacts(ContentResolver contentResolver);
-
-    void doShareList(int listId, String emailOrPhone, String contactName);
 }
 
