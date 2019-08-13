@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, Faceboo
         String fullText = getString(R.string.sign_up);
         SpannableStringBuilder builder = new SpannableStringBuilder(fullText);
         builder.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)), 23, fullText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.colorLiteBlueText)), 0, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.colorLoginSignupText)), 0, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         builder.setSpan(new ClickableSpan() {
             @Override
