@@ -2,6 +2,9 @@ package com.mcn.honeydew.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +16,8 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -35,6 +40,8 @@ import com.mcn.honeydew.ui.register.RegisterActivity;
 import com.mcn.honeydew.utils.CommonUtils;
 import com.mcn.honeydew.utils.KeyboardUtils;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import javax.inject.Inject;
@@ -273,4 +280,20 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, Faceboo
         Crashlytics.logException(error);
         Timber.d(error);
     }
+
+    /*public  void printHashKey(Context pContext) {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String hashKey = new String(Base64.encode(md.digest(), 0));
+                Log.e("fb hash", "printHashKey() Hash Key: " + hashKey);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("fb hash", "printHashKey()", e);
+        } catch (Exception e) {
+            Log.e("fb hash", "printHashKey()", e);
+        }
+    }*/
 }
