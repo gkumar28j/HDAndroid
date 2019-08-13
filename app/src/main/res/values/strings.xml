@@ -32,7 +32,7 @@
     <string name="forgot_password">Reset Password?</string>
     <string name="or">or</string>
     <string name="sign_in_with_facebook">SIGN IN WITH FACEBOOK</string>
-    <string name="sign_up">Don\'t have an account? Sign Up</string>
+    <string name="sign_up">Don\'t have an account? Sign Up!</string>
     <string name="facebook_app_id">1188604731257149</string>
     <string name="fb_login_protocol_scheme">fb[1188604731257149]</string>
 

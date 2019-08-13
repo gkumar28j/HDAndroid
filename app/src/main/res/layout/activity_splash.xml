@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             app:srcCompat="@drawable/splash_logo" />
 
         <TextView
@@ -25,8 +25,26 @@
             style="@style/SplashTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HoneyDew" />
+            android:text="HoneyDew List" />
+
+        <TextView
+            android:id="@+id/shareable_textview"
+            style="@style/SplashShareableTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A Shareable Todo List App" />
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/welcome_textview"
+        style="@style/SplashWelcomeTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:text="Welcome!" />
 
 
 </RelativeLayout>

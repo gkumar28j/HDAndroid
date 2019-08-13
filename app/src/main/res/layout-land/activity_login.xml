@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg"
+    android:background="#15325B"
     android:paddingLeft="100dp"
     android:paddingRight="100dp"
     android:scrollbars="none">
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/image_heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,14 +21,32 @@
             android:layout_marginTop="@dimen/text_logo_margin_top"
             android:contentDescription="@string/login_heading"
             android:gravity="center"
-            android:src="@drawable/hd_text_logo" />
+            android:src="@drawable/hd_text_logo" />-->
+
+        <TextView
+            android:id="@+id/textView_heading_login"
+            style="@style/LoginHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="HoneyDew List" />
+
+        <TextView
+            android:id="@+id/shareable_textview"
+            style="@style/LoginShareableTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_heading_login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="A Shareable Todo List App" />
 
         <TextView
             android:id="@+id/text_sub_heading"
             style="@style/LoginHeadingTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image_heading"
+            android:layout_below="@id/shareable_textview"
             android:layout_marginTop="@dimen/sub_heading_margin_top"
             android:gravity="center"
             android:text="@string/login_sub_heading" />
@@ -173,8 +191,6 @@
             android:layout_below="@id/input_layout"
             android:layout_marginLeft="@dimen/facebook_button_margin"
             android:layout_marginRight="@dimen/facebook_button_margin"
-            android:drawableLeft="@drawable/ic_facebook"
-            android:drawableStart="@drawable/ic_facebook"
             android:gravity="center"
             android:text="@string/sign_in_with_facebook" />
 

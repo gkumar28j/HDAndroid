@@ -37,6 +37,7 @@
 
     <color name="colorEditText">#3E75D8</color>
     <color name="colorLiteBlueText">#90A9FF</color>
+    <color name="colorLoginSignupText">#3789A3</color>
     <color name="colorFacebookButton">#162657</color>
     <color name="colorResend">#FC3C3B</color>
     <color name="colorConfirm">#293186</color>
@@ -58,5 +59,10 @@
     <!--HomeFragmentList-->
 
     <color name="home_list_background_color">#2A2A2A</color>
+
+    <!--Splash-->
+
+    <color name="splash_shareable">#65afe1</color>
+
 
 </resources>

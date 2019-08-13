@@ -3,39 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg"
-    android:scrollbars="none">
+    android:background="#15325B"
+    android:scrollbars="none"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/text_logo_margin_top"
-        android:layout_marginTop="@dimen/text_logo_margin_top">
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+      >
 
-        <ImageView
-            android:id="@+id/image_heading"
-            android:layout_width="match_parent"
+        <!-- <ImageView
+             android:id="@+id/image_heading"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="@dimen/text_logo_margin_left_right"
+             android:layout_marginRight="@dimen/text_logo_margin_left_right"
+             android:contentDescription="@string/login_heading"
+             android:gravity="center"
+             android:src="@drawable/hd_text_logo" />-->
+
+        <TextView
+            android:id="@+id/textView_heading_login"
+            style="@style/LoginHeaderTextStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_logo_margin_left_right"
-            android:layout_marginRight="@dimen/text_logo_margin_left_right"
-            android:contentDescription="@string/login_heading"
-            android:gravity="center"
-            android:src="@drawable/hd_text_logo" />
+            android:layout_centerHorizontal="true"
+            android:text="HoneyDew List" />
+
+        <TextView
+            android:id="@+id/shareable_textview"
+            style="@style/LoginShareableTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_heading_login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="A Shareable Todo List App" />
 
         <TextView
             android:id="@+id/text_sub_heading"
             style="@style/LoginHeadingTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image_heading"
-            android:layout_marginTop="@dimen/sub_heading_margin_top"
+            android:layout_below="@id/shareable_textview"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="@string/login_sub_heading" />
 
         <View
             android:id="@+id/view_under_line"
-            android:layout_width="@dimen/underline_view_width"
+            android:layout_width="20dp"
             android:layout_height="2dp"
             android:layout_below="@id/text_sub_heading"
             android:layout_centerHorizontal="true"
@@ -49,8 +71,8 @@
             android:layout_below="@id/view_under_line"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/input_layout_margin_left_right_bottom"
-            android:layout_marginRight="@dimen/input_layout_margin_left_right_bottom"
             android:layout_marginTop="@dimen/input_layout_margin_left_right_bottom"
+            android:layout_marginRight="@dimen/input_layout_margin_left_right_bottom"
             android:orientation="vertical">
 
 
@@ -58,7 +80,10 @@
                 android:id="@+id/layout_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/email_edit_text_margin"
+                android:layout_marginLeft="@dimen/email_edit_text_margin"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="@dimen/email_edit_text_margin"
+                android:layout_marginBottom="@dimen/email_edit_text_margin"
                 android:background="@drawable/edit_text_border_bg">
 
                 <EditText
@@ -81,10 +106,10 @@
                 android:id="@+id/layout_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/password_edit_text_margin_bottom"
                 android:layout_marginLeft="@dimen/email_edit_text_margin"
-                android:layout_marginRight="@dimen/email_edit_text_margin"
                 android:layout_marginTop="@dimen/email_edit_text_margin"
+                android:layout_marginRight="@dimen/email_edit_text_margin"
+                android:layout_marginBottom="@dimen/password_edit_text_margin_bottom"
                 android:background="@drawable/edit_text_border_bg">
 
                 <EditText
@@ -109,10 +134,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textview_size_s3" />
@@ -123,19 +148,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/login_sub_heading" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="40dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -171,8 +196,6 @@
             android:layout_below="@id/input_layout"
             android:layout_marginLeft="@dimen/facebook_button_margin"
             android:layout_marginRight="@dimen/facebook_button_margin"
-            android:drawableLeft="@drawable/ic_facebook"
-            android:drawableStart="@drawable/ic_facebook"
             android:gravity="center"
             android:text="@string/sign_in_with_facebook" />
 
@@ -182,11 +205,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_facebook_login"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/textview_size_m3"
-            tools:text="@string/sign_up" />
+            tools:text="@string/sign_up"
+
+            />
     </RelativeLayout>
 </ScrollView>
