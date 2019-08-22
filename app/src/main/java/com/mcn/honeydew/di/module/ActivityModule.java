@@ -55,6 +55,9 @@ import com.mcn.honeydew.ui.home.HomeListAdapter;
 import com.mcn.honeydew.ui.home.HomeListMvpView;
 import com.mcn.honeydew.ui.home.HomeMvpPresenter;
 import com.mcn.honeydew.ui.home.HomePresenter;
+import com.mcn.honeydew.ui.in_progress.InProgressMvpPresenter;
+import com.mcn.honeydew.ui.in_progress.InProgressMvpView;
+import com.mcn.honeydew.ui.in_progress.InProgressPresenter;
 import com.mcn.honeydew.ui.list_settings.ListSettingsMvpPresenter;
 import com.mcn.honeydew.ui.list_settings.ListSettingsMvpView;
 import com.mcn.honeydew.ui.list_settings.ListSettingsPresenter;
@@ -84,6 +87,10 @@ import com.mcn.honeydew.ui.register.RegisterPresenter;
 import com.mcn.honeydew.ui.settings.SettingsMvpPresenter;
 import com.mcn.honeydew.ui.settings.SettingsMvpView;
 import com.mcn.honeydew.ui.settings.SettingsPresenter;
+import com.mcn.honeydew.ui.settings.editEmail.EditEmailDialog;
+import com.mcn.honeydew.ui.settings.editEmail.EditEmailDialogPresenter;
+import com.mcn.honeydew.ui.settings.editEmail.EditEmailMvpPresenter;
+import com.mcn.honeydew.ui.settings.editEmail.EditEmailMvpView;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialogMvpPresenter;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialogMvpView;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialogPresenter;
@@ -343,6 +350,17 @@ public class ActivityModule {
 
     @Provides
     ListSettingsMvpPresenter<ListSettingsMvpView> provideListSettingsPresenter(ListSettingsPresenter<ListSettingsMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    InProgressMvpPresenter<InProgressMvpView> provideInProgressPresenter(InProgressPresenter<InProgressMvpView> presenter){
+        return presenter;
+    }
+
+
+    @Provides
+    EditEmailMvpPresenter<EditEmailMvpView> provideEditEmailDialogPresenter(EditEmailDialogPresenter<EditEmailMvpView> presenter){
         return presenter;
     }
 }

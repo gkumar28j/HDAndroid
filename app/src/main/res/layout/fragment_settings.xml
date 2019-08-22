@@ -1,185 +1,389 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
         android:scrollbars="none">
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/user_cardview"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            card_view:cardCornerRadius="4dp">
+            android:orientation="vertical"
+           >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/user_imageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ic_profile_username" />
+
+                <TextView
+                    android:id="@+id/username_textView"
+                    style="@style/SettingUserNameTextStyle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/user_imageView"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_profile_username" />
-
-                    <TextView
-                        android:id="@+id/username_textView"
-                        style="@style/SettingUserNameTextStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        tool:text="User Name" />
-
-                    <ImageView
-                        android:id="@+id/imageView_edit_username"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_profile_edit" />
-                </LinearLayout>
-
-
-                <View
-
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
-                    android:background="@color/light_gray" />
+                    android:layout_weight="1"
+                    tools:text="User Name" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/email_imageView"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_profile_email" />
-
-                    <TextView
-                        android:id="@+id/email_textView"
-                        style="@style/SettingUserEmailTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="15dp"
-                        tool:text="email" />
-                </LinearLayout>
-
-
+                <ImageView
+                    android:id="@+id/imageView_edit_username"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_profile_edit" />
             </LinearLayout>
 
 
-        </android.support.v7.widget.CardView>
+            <View
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/user_cardview"
-            android:layout_marginTop="10dp"
-            card_view:cardCornerRadius="4dp">
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/light_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
 
-                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/email_imageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ic_profile_email" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/email_textView"
+                    style="@style/SettingUserEmailTextStyle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/phone_imageView"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_profile_phone" />
-
-                    <TextView
-                        android:id="@+id/phone_textView"
-                        style="@style/SettingUserEmailTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="15dp"
-                        tool:text="phone" />
-                </LinearLayout>
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
-                    android:background="@color/light_gray" />
+                    android:layout_weight="1"
+                    tools:text="email" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/password_imageView"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_profile_password" />
-
-                    <EditText
-                        android:id="@+id/password_textView"
-                        style="@style/SettingUserNameTextStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:enabled="false"
-                        android:inputType="textPassword"
-                        android:text="123456789" />
-
-                    <ImageView
-                        android:id="@+id/imageView_edit_password"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_profile_edit" />
-                </LinearLayout>
-
-
+                <ImageView
+                    android:id="@+id/imageView_edit_email"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_profile_edit" />
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/light_gray" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/phone_imageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ic_profile_phone" />
+
+                <TextView
+                    android:id="@+id/phone_textView"
+                    style="@style/SettingUserEmailTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    tools:text="phone" />
+
+                <ImageView
+                    android:id="@+id/imageView_edit_phone"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_profile_edit" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/password_imageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ic_profile_password" />
+
+                <EditText
+                    android:id="@+id/password_textView"
+                    style="@style/SettingUserNameTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:inputType="textPassword"
+                    android:text="123456789" />
+
+                <ImageView
+                    android:id="@+id/imageView_edit_password"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_profile_edit" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/location_reminder_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="Be Reminded When Near an Item Location"
+           style="@style/SettingHeadingTextStyle"/>
+
+        <LinearLayout
+            android:id="@+id/proximity_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_proxmity_notification" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/NotificationTopText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:text="Location Reminders" />
+
+            <TextView
+                android:id="@+id/proximity_notification_text"
+                style="@style/NotificationMilesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_right_arrow" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/daily_remainder_heading_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="Be Reminded Each Day"
+            style="@style/SettingHeadingTextStyle"/>
+
+        <LinearLayout
+            android:id="@+id/daily_reminder_expiring_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin">
+
+
+            <ImageView
+                android:id="@+id/daily_reminder_expiring_image_view"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/expired_item_img" />
+
+            <TextView
+                android:id="@+id/daily_reminder_expiring_heading_text"
+                style="@style/BluetoothSettingsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/bluetooth_image_view"
+                android:layout_weight="1"
+                tools:text="Daily Expiring Reminders" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switch_daily_expiring_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/daily_reminder_expiring_time_textview"
+                style="@style/DailyReminderExpiredTimeTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/bluetooth_image_view"
+                tools:text="5:30 PM" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/light_gray" />
+
+        <LinearLayout
+            android:id="@+id/daily_reminder_expired_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin">
+
+
+            <ImageView
+                android:id="@+id/daily_reminder_expired_image_view"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/expired_item_img" />
+
+            <TextView
+                android:id="@+id/daily_reminder_expired_heading_text"
+                style="@style/BluetoothSettingsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/bluetooth_image_view"
+                android:layout_weight="1"
+                tools:text="Daily Expired items" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switch_daily_expired_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/daily_reminder_expired_time_textview"
+                style="@style/DailyReminderExpiredTimeTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/bluetooth_image_view"
+                tools:text="5:30 PM" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/bluetooth_heading_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="Be Reminded When Getting in Your Car"
+            style="@style/SettingHeadingTextStyle" />
+        <LinearLayout
+            android:id="@+id/bluetooth_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin">
+
+
+            <ImageView
+                android:id="@+id/bluetooth_image_view"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_bluetooth" />
+
+            <TextView
+                android:id="@+id/bluetooth_heading_text"
+                style="@style/BluetoothSettingsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/bluetooth_image_view"
+                android:layout_weight="1"
+                tools:text="@string/bluetooth_subheading_text" />
+
+            <!--  <TextView
+                  android:id="@+id/bluetooth_settings_sub_Heading"
+                  style="@style/BluetoothSubHeadingSettingsText"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@id/bluetooth_heading_text"
+                  android:layout_marginLeft="5dp"
+                  android:layout_toRightOf="@id/bluetooth_image_view"
+                  android:text="@string/bluetooth_subheading_text" />-->
+
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switch_bluetooth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/light_gray" />
         <Button
             android:id="@+id/button_sign_out"
-            style="@style/FacebookButton"
+            style="@style/SignOutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cardView"
-            android:layout_marginTop="40dp"
-            android:text="Sign Out" />
+            android:text="Sign Out"
+            android:layout_margin="30dp"
+            />
 
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>

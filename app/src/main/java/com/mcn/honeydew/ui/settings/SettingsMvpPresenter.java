@@ -16,4 +16,6 @@ public interface SettingsMvpPresenter<V extends SettingsMvpView> extends MvpPres
     void onUpdateUserClick();
 
     void onUpdatePasswordClicked();
+
+    void onUpdateEmail();
 }

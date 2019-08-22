@@ -20,4 +20,6 @@ public interface SettingsMvpView extends MvpView {
     void onLogoutSuccess();
 
     void onLogoutFailed();
+
+    void showEditEmailDialog();
 }

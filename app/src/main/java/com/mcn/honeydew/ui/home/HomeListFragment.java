@@ -141,6 +141,8 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
             }
         });
 
+        TIME_DELAY = 0;
+
     }
 
 

@@ -160,8 +160,11 @@ public interface ApiCall {
 
     String ENDPOINT_GET_LIST_SETTINGS = API_VERSION + "/api/item/GetListSettings";
 
-    String ENDPOINT_SAVE_LIST_SETTINGS = API_VERSION + "/api/item/BluetoothItem";
+    String ENDPOINT_SAVE_LIST_SETTINGS = API_VERSION + "/api/item/ListSettings";
+
     String ENDPOINT_GET_ALL_BLUETOOTH_ITEMS = API_VERSION + "/api/Notification/GetAllPushNotification";
+  //  String ENDPOINT_GET_LIST_SETTINGS = API_VERSION + "/api/item/GetListSettings";
+
 
 
     @POST(ENDPOINT_SERVER_LOGIN)

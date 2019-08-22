@@ -18,6 +18,7 @@ import com.mcn.honeydew.ui.forgotPassword.resetMethodFragment.ResetMethodFragmen
 import com.mcn.honeydew.ui.forgotPassword.resetPasswordFragment.ResetPasswordFragment;
 import com.mcn.honeydew.ui.forgotPassword.verifyOtpFragment.VerifyOtpFragment;
 import com.mcn.honeydew.ui.home.HomeListFragment;
+import com.mcn.honeydew.ui.in_progress.InProgressFragment;
 import com.mcn.honeydew.ui.list_settings.ListSettingsFragment;
 import com.mcn.honeydew.ui.login.LoginActivity;
 import com.mcn.honeydew.ui.main.MainActivity;
@@ -27,6 +28,7 @@ import com.mcn.honeydew.ui.notifications.settings.NotificationSettingsActivity;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationActivity;
 import com.mcn.honeydew.ui.register.RegisterActivity;
 import com.mcn.honeydew.ui.settings.SettingsFragment;
+import com.mcn.honeydew.ui.settings.editEmail.EditEmailDialog;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialog;
 import com.mcn.honeydew.ui.shareToContacts.ShareToContactsActivity;
 import com.mcn.honeydew.ui.sharelist.ShareListFragment;
@@ -104,5 +106,9 @@ public interface ActivityComponent {
     void inject(ContactDetailsActivity activity);
 
     void inject(ShareToContactsActivity activity);
+
+    void inject(InProgressFragment fragment);
+
+    void inject(EditEmailDialog dialog);
 
 }

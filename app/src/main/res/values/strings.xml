@@ -167,6 +167,8 @@
 
     <!--Notification Fragment-->
     <string name="bluetooth_notifications_heading_text">Bluetooth Notifications\n(Bluetooth 4.0 or later)</string>
+    <string name="daily_expiring_heading_text">Daily Reminders\nfor Expiring Items</string>
+    <string name="daily_expired_heading_text">Daily Reminders\nfor Expired Items</string>
     <string name="bluetooth_subheading_text">for Expiring Items</string>
     <string name="bluetooth_subheading_expired_text">for Expired Items</string>
     <string name="bluetooth_reminder_text">Daily Reminders</string>

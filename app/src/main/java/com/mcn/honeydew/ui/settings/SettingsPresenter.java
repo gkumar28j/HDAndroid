@@ -94,6 +94,13 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
         getMvpView().showChangePasswordActivity();
     }
 
+    @Override
+    public void onUpdateEmail() {
+
+        getMvpView().showEditEmailDialog();
+
+    }
+
     private void disableFCM() {
         // Disable auto init
         //FirebaseMessaging.getInstance().setAutoInitEnabled(false);

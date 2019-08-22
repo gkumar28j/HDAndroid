@@ -17,11 +17,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.list_settings.SettingActivity"></activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
-        <!-- Activities -->
+            android:value="@integer/google_play_services_version" /> <!-- Activities -->
         <activity
             android:name=".ui.splash.SplashActivity"
             android:label="@string/app_name"
@@ -53,19 +53,15 @@
         <activity
             android:name=".ui.register.RegisterActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppThemeRegister" />
+            android:theme="@style/AppThemeRegister" /> <!-- android:theme="@style/AppTheme.Transparent" /> -->
         <!-- android:theme="@style/AppTheme.Transparent" /> -->
-        <!-- android:theme="@style/AppTheme.Transparent" /> -->
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
         <activity
             android:name=".ui.phoneVerification.PhoneVerificationActivity"
-            android:theme="@style/AppTheme.Transparent" />
-
-        <!-- Facebook -->
+            android:theme="@style/AppTheme.Transparent" /> <!-- Facebook -->
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -81,9 +77,7 @@
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
-        </activity>
-
-        <!-- Receiver -->
+        </activity> <!-- Receiver -->
         <receiver android:name=".ui.phoneVerification.SmsReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -98,8 +92,11 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <!--    <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />
-                    <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" />-->
+
+                <!--
+                        <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />
+                    <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" />
+                -->
                 <action android:name="android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED" />
             </intent-filter>
         </receiver>
@@ -124,9 +121,7 @@
         <activity
             android:name=".ui.changePassword.ChangePasswordActivity"
             android:theme="@style/AppTheme.Transparent" />
-        <activity android:name=".ui.notifications.settings.NotificationSettingsActivity" />
-
-        <!-- Firebase Notifications -->
+        <activity android:name=".ui.notifications.settings.NotificationSettingsActivity" /> <!-- Firebase Notifications -->
         <service android:name=".services.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -136,11 +131,7 @@
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-        </service>
-
-
-        <!-- ./Firebase Notifications -->
-
+        </service> <!-- ./Firebase Notifications -->
         <activity
             android:name=".ui.contactList.ContactListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -159,9 +150,7 @@
         <service
             android:name=".services.GeofenceTransitionsJobIntentService"
             android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <!-- android:process=":remote" -->
-
+            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- android:process=":remote" -->
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ab3bd969b8d79133bbba77812d254793d7e42413" />

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +36,8 @@ import com.mcn.honeydew.ui.addlist.AddListFragment;
 import com.mcn.honeydew.ui.base.BaseActivity;
 import com.mcn.honeydew.ui.colorSettings.ColorSettingsFragment;
 import com.mcn.honeydew.ui.home.HomeListFragment;
+import com.mcn.honeydew.ui.in_progress.InProgressFragment;
+import com.mcn.honeydew.ui.list_settings.ListSettingsFragment;
 import com.mcn.honeydew.ui.login.LoginActivity;
 import com.mcn.honeydew.ui.myList.MyListFragment;
 import com.mcn.honeydew.ui.notifications.NotificationsFragment;
@@ -52,7 +55,6 @@ import timber.log.Timber;
 import static com.mcn.honeydew.services.MyFirebaseMessagingService.IS_OWNER;
 import static com.mcn.honeydew.services.MyFirebaseMessagingService.KEY_LIST_ID;
 import static com.mcn.honeydew.services.MyFirebaseMessagingService.KEY_NOTIFICATION_TYPE;
-import static com.mcn.honeydew.services.MyFirebaseMessagingService.KEY_SYNC_REQUIRED;
 import static com.mcn.honeydew.services.MyFirebaseMessagingService.LIST_HEADER_COLOR;
 import static com.mcn.honeydew.services.MyFirebaseMessagingService.LIST_NAME;
 
@@ -80,11 +82,19 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
 
+    @BindView(R.id.setting_image)
+    ImageView settingImageView;
+
+    @BindView(R.id.list_setting_image)
+    ImageView listSettingImageView;
 
     private MenuItem menuItemSelected;
     private int mMenuItemSelected;
 
     Fragment fragment = null;
+
+    @BindView(R.id.back_image)
+    ImageView backImageView;
 
     private MyListResponseData mAddItemData = null;
     private MyListResponseData mEditItemData = null;
@@ -169,7 +179,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         } else {
 
             navigation.inflateMenu(R.menu.navigation);
-            menuItemSelected = navigation.getMenu().getItem(3);
+            menuItemSelected = navigation.getMenu().getItem(2);
             BottomNavigationViewHelper.disableShiftMode(navigation);
             navigation.setItemIconTintList(null);
             navigation.setSelectedItemId(menuItemSelected.getItemId());
@@ -247,32 +257,44 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     }
 
     private void selectFragment(MenuItem item) {
+        backImageView.setVisibility(View.GONE);
         menuItemSelected = item;
         mMenuItemSelected = menuItemSelected.getItemId();
 
         switch (item.getItemId()) {
-            case R.id.navigation_settings:
+        /*    case R.id.navigation_settings:
                 fragment = SettingsFragment.newInstance();
                 title.setText("Profile");
                 title.setVisibility(View.VISIBLE);
-                break;
+                break;*/
             case R.id.navigation_notifications:
                 title.setText("Notifications");
                 title.setVisibility(View.VISIBLE);
+                title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                settingImageView.setVisibility(View.GONE);
+                listSettingImageView.setVisibility(View.GONE);
                 fragment = NotificationsFragment.newInstance();
                 break;
             case R.id.navigation_add_list:
                 title.setText("");
                 title.setVisibility(View.VISIBLE);
+                title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                settingImageView.setVisibility(View.GONE);
+                listSettingImageView.setVisibility(View.GONE);
                 fragment = AddListFragment.newInstance();
                 break;
             case R.id.navigation_home:
+                title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 title.setText("");
                 title.setVisibility(View.GONE);
+                settingImageView.setVisibility(View.VISIBLE);
+                listSettingImageView.setVisibility(View.GONE);
                 fragment = HomeListFragment.newInstance();
                 break;
             case R.id.navigation_list_detail_home:
                 isEdit = false;
+                settingImageView.setVisibility(View.GONE);
+                listSettingImageView.setVisibility(View.GONE);
                 navigation.getMenu().clear();
                 navigation.inflateMenu(R.menu.navigation);
                 navigation.setItemIconTintList(null);
@@ -282,18 +304,24 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
                 break;
             case R.id.navigation_my_list:
+                listSettingImageView.setVisibility(View.VISIBLE);
+                settingImageView.setVisibility(View.GONE);
                 if (isEdit) {
                     editItemsFromList(mEditItemData);
                 } else {
                     title.setText(mAddItemData.getListName());
                     title.setVisibility(View.VISIBLE);
+                    title.setBackgroundColor(Color.parseColor(headerColor));
                     fragment = MyListFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListName());
                 }
                 break;
 
             case R.id.navigation_add_item:
+                settingImageView.setVisibility(View.GONE);
+                listSettingImageView.setVisibility(View.GONE);
                 title.setText(getResources().getString(R.string.recent_items_actionbar_heading));
                 title.setVisibility(View.VISIBLE);
+                title.setBackgroundColor(Color.parseColor(headerColor));
                 MyListResponseData data = new MyListResponseData();
                 data.setListName(this.mAddItemData.getListName());
                 data.setListId(this.mAddItemData.getListId());
@@ -301,14 +329,19 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
                 break;
             case R.id.navigation_share_list:
-
+                settingImageView.setVisibility(View.GONE);
+                listSettingImageView.setVisibility(View.GONE);
                 title.setText("Share list");
                 title.setVisibility(View.VISIBLE);
+                title.setBackgroundColor(Color.parseColor(headerColor));
                 fragment = ShareListFragment.newInstance();
                 break;
             case R.id.navigation_color_settings:
+                settingImageView.setVisibility(View.GONE);
+                listSettingImageView.setVisibility(View.GONE);
                 title.setText("Color");
                 title.setVisibility(View.VISIBLE);
+                title.setBackgroundColor(Color.parseColor(headerColor));
                 fragment = ColorSettingsFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListHeaderColor());
                 break;
         }
@@ -409,6 +442,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @Override
     public void onBackPressed() {
+
         isEdit = false;
         if (mMenuItemSelected == R.id.navigation_color_settings ||
                 mMenuItemSelected == R.id.navigation_share_list ||
@@ -420,10 +454,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             BottomNavigationViewHelper.disableShiftMode(navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
-        MenuItem homeItem = navigation.getMenu().getItem(3);
+        MenuItem homeItem = navigation.getMenu().getItem(2);
         if (mMenuItemSelected != homeItem.getItemId()) {
             navigation.setSelectedItemId(homeItem.getItemId());
         } else {
+
+
             super.onBackPressed();
         }
     }
@@ -653,4 +689,72 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         }
     }
 
+
+    @OnClick(R.id.setting_image)
+    void onSettingImageClicked() {
+
+        settingImageView.setVisibility(View.GONE);
+        backImageView.setVisibility(View.VISIBLE);
+        fragment = SettingsFragment.newInstance();
+        title.setText("Profile");
+        title.setVisibility(View.VISIBLE);
+        title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        if (fragment != null) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, "setting_fragment").addToBackStack(null).commit();
+        }
+
+    }
+
+    @OnClick(R.id.list_setting_image)
+    void onListSettingImageClicked() {
+
+        settingImageView.setVisibility(View.GONE);
+        listSettingImageView.setVisibility(View.GONE);
+
+        backImageView.setVisibility(View.VISIBLE);
+        //fragment = InProgressFragment.newInstance();
+        fragment = ListSettingsFragment.newInstance(mAddItemData.getListId(),mAddItemData.getListHeaderColor());
+      //  title.setText("InProgress");
+      //  title.setVisibility(View.VISIBLE);
+        if (fragment != null) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, "progress_fragment").addToBackStack(null).commit();
+        }
+
+    }
+
+
+    @OnClick(R.id.back_image)
+    public void onBackClicked() {
+        backImageView.setVisibility(View.GONE);
+
+        if (menuItemSelected.getItemId() == R.id.navigation_my_list) {
+            settingImageView.setVisibility(View.GONE);
+            listSettingImageView.setVisibility(View.VISIBLE);
+        } else {
+            title.setText("");
+            title.setVisibility(View.GONE);
+            settingImageView.setVisibility(View.VISIBLE);
+            listSettingImageView.setVisibility(View.GONE);
+        }
+
+
+
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+
+        } else {
+            onBackPressed();
+        }
+
+    }
+
+
+    private void showHomeFragmenet() {
+        MenuItem homeItem = navigation.getMenu().getItem(2);
+        navigation.setSelectedItemId(homeItem.getItemId());
+    }
 }
