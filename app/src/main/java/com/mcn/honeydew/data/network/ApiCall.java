@@ -31,6 +31,7 @@ import com.mcn.honeydew.data.network.model.request.SendOtpRequest;
 import com.mcn.honeydew.data.network.model.request.ShareListRequest;
 import com.mcn.honeydew.data.network.model.request.UnshareListRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateDeviceInfoRequest;
+import com.mcn.honeydew.data.network.model.request.UpdateEmailRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateHeaderColorRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateListSettingsRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateProximityRangeRequest;
@@ -62,6 +63,7 @@ import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateHeaderColorResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateNotificationSettingRequest;
 import com.mcn.honeydew.data.network.model.response.UpdateProximityRangeResponse;
+import com.mcn.honeydew.data.network.model.response.UpdateUserEmailResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateUserResponse;
 import com.mcn.honeydew.data.network.model.response.VerifyOtpResponse;
 import com.mcn.honeydew.utils.AppConstants;
@@ -163,7 +165,11 @@ public interface ApiCall {
     String ENDPOINT_SAVE_LIST_SETTINGS = API_VERSION + "/api/item/ListSettings";
 
     String ENDPOINT_GET_ALL_BLUETOOTH_ITEMS = API_VERSION + "/api/Notification/GetAllPushNotification";
+
   //  String ENDPOINT_GET_LIST_SETTINGS = API_VERSION + "/api/item/GetListSettings";
+
+
+    String ENDPOINT_UPDATE_EMAIL = API_VERSION + "/api/Account/EmailUpdate";
 
 
 
@@ -231,6 +237,12 @@ public interface ApiCall {
     @POST(ENDPOINT_UPDATE_USER_NAME)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
     Observable<UpdateUserResponse> doUpdateUserName(@Body UpdateUserNameRequest request);
+
+
+    // update userEmail call
+    @POST(ENDPOINT_UPDATE_EMAIL)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<UpdateUserEmailResponse> doUpdateUserEmail(@Body UpdateEmailRequest request);
 
 
     @GET(ENDPOINT_HOME_DETAIL_LIST)
@@ -387,6 +399,9 @@ public interface ApiCall {
     @GET(ENDPOINT_GET_ALL_BLUETOOTH_ITEMS)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
     Observable<GetBluetoothItemsListResponse> doGetAllBluetoothItems();
+
+
+
 
     class Factory {
 

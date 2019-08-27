@@ -1,5 +1,6 @@
 package com.mcn.honeydew.ui.settings.editname;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import com.mcn.honeydew.R;
@@ -33,6 +34,7 @@ public class EditNameDialogPresenter<V extends EditNameDialogMvpView> extends Ba
     }
 
 
+    @SuppressLint("CheckResult")
     @Override
     public void onNameSubmitted(final String name) {
         if (!getMvpView().isNetworkConnected()) {

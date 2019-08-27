@@ -97,6 +97,7 @@ public class EditEmailDialog extends BaseDialog implements EditEmailMvpView {
     @Override
     public void dismissDialog() {
         super.dismissDialog(TAG);
+        getBaseActivity().hideKeyboard();
     }
 
     @Override

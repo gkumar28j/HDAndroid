@@ -189,6 +189,9 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
     @OnClick(R.id.imageView_edit_phone)
     void onUpdatePhoneNumber(){
 
+        Intent intent = new Intent(getBaseActivity(),ChangePasswordActivity.class);
+        startActivity(intent);
+
     }
 
     @OnClick(R.id.imageView_edit_email)

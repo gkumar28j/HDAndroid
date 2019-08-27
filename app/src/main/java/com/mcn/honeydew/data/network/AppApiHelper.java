@@ -29,6 +29,7 @@ import com.mcn.honeydew.data.network.model.request.SendOtpRequest;
 import com.mcn.honeydew.data.network.model.request.ShareListRequest;
 import com.mcn.honeydew.data.network.model.request.UnshareListRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateDeviceInfoRequest;
+import com.mcn.honeydew.data.network.model.request.UpdateEmailRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateHeaderColorRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateListSettingsRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateProximityRangeRequest;
@@ -60,6 +61,7 @@ import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateHeaderColorResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateNotificationSettingRequest;
 import com.mcn.honeydew.data.network.model.response.UpdateProximityRangeResponse;
+import com.mcn.honeydew.data.network.model.response.UpdateUserEmailResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateUserResponse;
 import com.mcn.honeydew.data.network.model.response.VerifyOtpResponse;
 
@@ -332,6 +334,11 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Observable<GetBluetoothItemsListResponse> doGetAllBluetoothItems() {
         return mApiCall.doGetAllBluetoothItems();
+    }
+
+    @Override
+    public Observable<UpdateUserEmailResponse> doUpdateUserEmail(UpdateEmailRequest request) {
+        return mApiCall.doUpdateUserEmail(request);
     }
 }
 
