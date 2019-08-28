@@ -9,15 +9,8 @@ import com.mcn.honeydew.ui.base.MvpPresenter;
 
 @PerActivity
 public interface NotificationsMvpPresenter<V extends NotificationsMvpView> extends MvpPresenter<V> {
+
     void onViewPrepared();
 
-    void onProximitySettingClick();
 
-    void refreshSettings();
-
-    void saveBluetoothData(boolean value);
-
-    void toggleBluetoothSwitch();
-
-    boolean isItemAdded();
 }

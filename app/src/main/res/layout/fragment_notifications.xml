@@ -4,105 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/NotificationTopText"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/reyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/notification_top_text_background"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="@string/label_notification_text" />
-
-    <LinearLayout
-        android:id="@+id/proximity_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView"
-        android:orientation="horizontal"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:visibility="visible">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_proxmity_notification" />
-
-        <TextView
-            android:id="@+id/textView2"
-            style="@style/NotificationTopText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="5dp"
-            android:text="Proximity Notifications" />
-
-        <TextView
-            android:id="@+id/proximity_notification_text"
-            style="@style/NotificationMilesText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="" />
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_right_arrow" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/bluetooth_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/proximity_layout"
-        android:padding="@dimen/activity_horizontal_margin">
-
-
-        <ImageView
-            android:id="@+id/bluetooth_image_view"
-            android:layout_width="@dimen/bluetooth_image_height_width"
-            android:layout_height="@dimen/bluetooth_image_height_width"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_bluetooth" />
-
-        <TextView
-            android:id="@+id/bluetooth_heading_text"
-            style="@style/BluetoothSettingsText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/bluetooth_image_view"
-            tools:text="@string/bluetooth_notifications_heading_text"
-
-            />
-
-      <!--  <TextView
-            android:id="@+id/bluetooth_settings_sub_Heading"
-            style="@style/BluetoothSubHeadingSettingsText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/bluetooth_heading_text"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/bluetooth_image_view"
-            android:text="@string/bluetooth_subheading_text" />-->
-
-
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/switch_bluetooth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
 
 </RelativeLayout>
