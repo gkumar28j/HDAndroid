@@ -18,4 +18,29 @@ public interface SettingsMvpPresenter<V extends SettingsMvpView> extends MvpPres
     void onUpdatePasswordClicked();
 
     void onUpdateEmail();
+
+
+    // for bluetooth and proximity
+
+   // void onViewPrepared();
+
+    void onProximitySettingClick();
+
+    void refreshSettings();
+
+    void saveBluetoothData(boolean value);
+
+    void toggleBluetoothSwitch();
+
+    boolean isItemAdded();
+
+    // reminder for expiring and expired
+
+    void saveDailyExpiringItems(boolean value);
+
+    void saveDailyExpiredItems(boolean value);
+
+
+
+
 }

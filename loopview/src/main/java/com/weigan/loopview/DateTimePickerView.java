@@ -48,6 +48,8 @@ public class DateTimePickerView extends FrameLayout {
 
     private String startDate, endDate;
 
+    private boolean showingDate = false;
+
     public DateTimePickerView(Context context) {
         super(context);
         initView();
@@ -262,7 +264,13 @@ public class DateTimePickerView extends FrameLayout {
         }
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dates.get(datePos));
+
+        if(showingDate){
+            calendar.setTime(dates.get(datePos));
+        }else {
+            calendar.setTime(Calendar.getInstance().getTime());
+        }
+
         if (hour == 12) {
             calendar.set(Calendar.HOUR, 0);
         } else {
@@ -306,6 +314,18 @@ public class DateTimePickerView extends FrameLayout {
             dateLoopView.setInitPosition(datePos);
             timeMeridiemView.setInitPosition(timeMeridiemPos);
         } catch (Exception e) {
+        }
+
+    }
+
+    public void showDate(boolean showDates){
+
+        showingDate = showDates;
+
+        if(showDates){
+            dateLoopView.setVisibility(VISIBLE);
+        }else {
+            dateLoopView.setVisibility(GONE);
         }
 
     }

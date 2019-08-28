@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.RecentLocationAddItemsResponse;
@@ -91,6 +90,9 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
 
     @Override
     protected void setUp(View view) {
+
+        dateTimePickerView.showDate(true);
+
         int totalHeight = ScreenUtils.getScreenHeight(getActivity());
         int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
         emptySpaceView.getLayoutParams().height = (int) ((availiableHeight * 2.0) / 5.0);
@@ -188,7 +190,7 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
 //            return;
 //        }
         AddItemsFragment frgment = ((AddItemsFragment) getParentFragment());
-      //  frgment.enableDisableDoneButton(false);
+        //  frgment.enableDisableDoneButton(false);
         listId = listIds;
         listName = listNames;
 
@@ -200,12 +202,12 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
             mPresenter.onAddItems(itemId, frgment.getItemName(), ((AddItemsFragment) getParentFragment()).getDateTimeText().toString().trim()
                     , "", listId, listName, "", "", frgment.getMyListData().getStatusId());
         } else {
-           // Location loc = ((AddItemsFragment) getParentFragment()).getCurrentLocation();
+            // Location loc = ((AddItemsFragment) getParentFragment()).getCurrentLocation();
             Location loc = ((AddItemsFragment) getParentFragment()).getCurrentRequestedLocation();
             if (loc != null) {
                 mPresenter.fetchLatLng(location, loc.getLatitude(), loc.getLatitude(), 1000, AppConstants.PLACE_KEY);
-            }else {
-              //  Toast.makeText(getActivity(),"Please start location first then try adding/editing item.",Toast.LENGTH_LONG).show();
+            } else {
+                //  Toast.makeText(getActivity(),"Please start location first then try adding/editing item.",Toast.LENGTH_LONG).show();
                 ((AddItemsFragment) getParentFragment()).requestForCurrentLocation();
             }
 

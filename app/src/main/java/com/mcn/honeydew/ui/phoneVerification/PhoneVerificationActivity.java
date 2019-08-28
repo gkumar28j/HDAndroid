@@ -79,6 +79,8 @@ public class PhoneVerificationActivity extends BaseActivity implements PhoneVeri
     @BindView(R.id.edit_hidden)
     EditText hiddenEditText;
 
+    private boolean isComingFromSettings = false;
+
     public static Intent getStartIntent(Context context) {
         return new Intent(context, PhoneVerificationActivity.class);
     }
@@ -87,6 +89,12 @@ public class PhoneVerificationActivity extends BaseActivity implements PhoneVeri
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verification);
+
+        if (getIntent() != null) {
+
+            isComingFromSettings = getIntent().getBooleanExtra("isFromSettings", false);
+
+        }
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("");
@@ -152,8 +160,15 @@ public class PhoneVerificationActivity extends BaseActivity implements PhoneVeri
 
     @Override
     public void openMainActivity() {
-        startActivity(MainActivity.getStartIntent(this));
-        finish();
+
+        if (isComingFromSettings) {
+            setResult(RESULT_OK);
+            finish();
+        } else {
+            startActivity(MainActivity.getStartIntent(this));
+            finish();
+        }
+
     }
 
     @Override

@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:weightSum="100">
+    android:weightSum="100"
+    android:gravity="center">
 
     <com.weigan.loopview.LoopView
         android:id="@+id/picker_date"

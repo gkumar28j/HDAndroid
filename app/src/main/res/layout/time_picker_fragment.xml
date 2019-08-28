@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_margin="10dp"
+        android:background="@color/white">
+
+    <com.weigan.loopview.DateTimePickerView
+        android:id="@+id/date_time_loopView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/light_gray"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Reminder Time"
+            android:padding="12dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"
+           />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/light_gray"/>
+
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:padding="12dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

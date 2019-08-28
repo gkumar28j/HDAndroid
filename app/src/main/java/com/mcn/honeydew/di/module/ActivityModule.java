@@ -94,6 +94,10 @@ import com.mcn.honeydew.ui.settings.editEmail.EditEmailMvpView;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialogMvpPresenter;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialogMvpView;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialogPresenter;
+import com.mcn.honeydew.ui.settings.timePicker.TimeLoopPickerDialog;
+import com.mcn.honeydew.ui.settings.timePicker.TimePickerMvpPresenter;
+import com.mcn.honeydew.ui.settings.timePicker.TimePickerMvpView;
+import com.mcn.honeydew.ui.settings.timePicker.TimePickerPresenter;
 import com.mcn.honeydew.ui.shareToContacts.ShareToContactsMvpPresenter;
 import com.mcn.honeydew.ui.shareToContacts.ShareToContactsMvpView;
 import com.mcn.honeydew.ui.shareToContacts.ShareToContactsPresenter;
@@ -361,6 +365,11 @@ public class ActivityModule {
 
     @Provides
     EditEmailMvpPresenter<EditEmailMvpView> provideEditEmailDialogPresenter(EditEmailDialogPresenter<EditEmailMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    TimePickerMvpPresenter<TimePickerMvpView> provideTimePickerPresenter(TimePickerPresenter<TimePickerMvpView> presenter){
         return presenter;
     }
 }

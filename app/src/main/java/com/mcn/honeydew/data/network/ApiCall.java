@@ -22,9 +22,11 @@ import com.mcn.honeydew.data.network.model.request.AllowAutoDeleteRequest;
 import com.mcn.honeydew.data.network.model.request.BluetoothRequest;
 import com.mcn.honeydew.data.network.model.request.ChangeItemStatusRequest;
 import com.mcn.honeydew.data.network.model.request.ChangePasswordRequest;
+import com.mcn.honeydew.data.network.model.request.DailyReminderExpiringRequest;
 import com.mcn.honeydew.data.network.model.request.DeleteItemListRequest;
 import com.mcn.honeydew.data.network.model.request.FacebookLoginRequest;
 import com.mcn.honeydew.data.network.model.request.PushNotificationSettingsRequest;
+import com.mcn.honeydew.data.network.model.request.ReminderTimeRequest;
 import com.mcn.honeydew.data.network.model.request.ReorderItemsMyList;
 import com.mcn.honeydew.data.network.model.request.ResetPasswordRequest;
 import com.mcn.honeydew.data.network.model.request.SendOtpRequest;
@@ -43,6 +45,8 @@ import com.mcn.honeydew.data.network.model.response.AddUpdateListResponse;
 import com.mcn.honeydew.data.network.model.response.BluetoothResponse;
 import com.mcn.honeydew.data.network.model.response.ChangeItemStatusResponse;
 import com.mcn.honeydew.data.network.model.response.ChangePasswordResponse;
+import com.mcn.honeydew.data.network.model.response.DailyReminderExpiredResponse;
+import com.mcn.honeydew.data.network.model.response.DailyReminderExpiringResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteItemListResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteRecentItemsResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteUserResponse;
@@ -56,6 +60,7 @@ import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse
 import com.mcn.honeydew.data.network.model.response.PushNotificationSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
 import com.mcn.honeydew.data.network.model.response.RecentLocationAddItemsResponse;
+import com.mcn.honeydew.data.network.model.response.ReminderTimeResponse;
 import com.mcn.honeydew.data.network.model.response.ResetPasswordResponse;
 import com.mcn.honeydew.data.network.model.response.SendOtpResponse;
 import com.mcn.honeydew.data.network.model.response.ShareListResponse;
@@ -170,6 +175,14 @@ public interface ApiCall {
 
 
     String ENDPOINT_UPDATE_EMAIL = API_VERSION + "/api/Account/EmailUpdate";
+
+    // Daily Reminder Expiring
+
+    String ENDPOINT_DAILY_EXPIRING_ITEMS = API_VERSION + "/api/Account/BluetoothReminderForExpiring";
+
+    String ENDPOINT_DAILY_EXPIRED_ITEMS = API_VERSION + "/api/Account/BluetoothReminderForExpired";
+
+    String ENDPOINT_REMINDER_TIME = API_VERSION + "/api/Account/BluetoothReminderTime";
 
 
 
@@ -401,6 +414,21 @@ public interface ApiCall {
     Observable<GetBluetoothItemsListResponse> doGetAllBluetoothItems();
 
 
+    // Daily Reminder Expiring and expired
+
+
+    @POST(ENDPOINT_DAILY_EXPIRING_ITEMS)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<DailyReminderExpiringResponse> doSaveDailyReminderExpiring(@Body DailyReminderExpiringRequest request);
+
+    @POST(ENDPOINT_DAILY_EXPIRED_ITEMS)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<DailyReminderExpiredResponse> doSaveDailyReminderExpired(@Body DailyReminderExpiringRequest request);
+
+
+    @POST(ENDPOINT_REMINDER_TIME)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<ReminderTimeResponse> doSaveReminderTime(@Body ReminderTimeRequest request);
 
 
     class Factory {

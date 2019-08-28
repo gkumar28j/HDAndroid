@@ -30,53 +30,6 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
     @android.annotation.SuppressLint("CheckResult")
     @Override
     public void onViewPrepared() {
-        if (!getMvpView().isNetworkConnected()) {
-            getMvpView().showMessage(R.string.connection_error);
-            return;
-        }
-
-        getMvpView().showLoading();
-
-
-        getDataManager().doNotificationSettingsCall()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<NotificationSettingsResponse>() {
-                    @Override
-                    public void accept(NotificationSettingsResponse response) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-                        getMvpView().hideLoading();
-                        if (response.getErrorObject().getStatus() == 1) {
-
-                            UserDetailResponse detailResponse = getDataManager().getUserData();
-                            detailResponse.setIsProximityNotification(response.getResults().get(0).isProximityNotification());
-                            detailResponse.setIsBluetoothNotification(response.getResults().get(0).isBluetoothNotification());
-
-                            getDataManager().setUserData(detailResponse);
-
-                            getDataManager().setProximitySettings(response);
-                            getMvpView().setProximityNotification(response);
-
-                        }
-
-                    }
-
-
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-                        getMvpView().hideLoading();
-                        // handle the login error here
-                        handleApiError(throwable);
-
-                    }
-                });
-
 
     }
 

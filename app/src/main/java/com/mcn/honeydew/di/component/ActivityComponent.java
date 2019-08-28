@@ -30,6 +30,7 @@ import com.mcn.honeydew.ui.register.RegisterActivity;
 import com.mcn.honeydew.ui.settings.SettingsFragment;
 import com.mcn.honeydew.ui.settings.editEmail.EditEmailDialog;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialog;
+import com.mcn.honeydew.ui.settings.timePicker.TimeLoopPickerDialog;
 import com.mcn.honeydew.ui.shareToContacts.ShareToContactsActivity;
 import com.mcn.honeydew.ui.sharelist.ShareListFragment;
 import com.mcn.honeydew.ui.splash.SplashActivity;
@@ -110,5 +111,7 @@ public interface ActivityComponent {
     void inject(InProgressFragment fragment);
 
     void inject(EditEmailDialog dialog);
+
+    void inject(TimeLoopPickerDialog dialog);
 
 }

@@ -256,7 +256,7 @@
 
     <style name="DailyReminderExpiredTimeTextStyle" >
         <item name="android:textSize">@dimen/textview_size_m2</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@xml/reminder_time_selector</item>
 
     </style>
 
