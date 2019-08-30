@@ -129,7 +129,7 @@ public class NotificationAdapter extends LoadMoreBaseAdapter<NotificationListRes
 
 
             if(mItem.getItemExpireTime()!=null){
-                String time = convertTimeInLocal(mItem.getItemExpireTime());
+                String time = convertTimeInLocal(mItem.getCreatedDate());
                 subTitleTextView.setText(time);
                 subTitleTextView.setVisibility(View.VISIBLE);
 
