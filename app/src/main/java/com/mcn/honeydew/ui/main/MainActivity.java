@@ -396,6 +396,16 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         navigation.setSelectedItemId(R.id.navigation_my_list);
     }
 
+    @Override
+    public void onNotificationClicked(String color, String listName, int listId) {
+        if (!color.startsWith("#")) {
+            headerColor = "#".concat(color);
+        } else
+            headerColor = color;
+        navigateToListFragment(color,listName,listId);
+
+    }
+
 
     // going back to my list when item created
     @Override
@@ -504,6 +514,22 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         mData.setListId(data.getListId());
         mAddItemData = mData;
         mPresenter.saveSelectedList(data);
+        navigation.getMenu().clear();
+        navigation.inflateMenu(R.menu.navigation_list_detail);
+        navigation.setItemIconTintList(null);
+        navigation.setSelectedItemId(R.id.navigation_my_list);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    public void navigateToListFragment(String listHeadingColor, String listName, int listId){
+
+        MyListResponseData mData = new MyListResponseData();
+        mData.setListHeaderColor(listHeadingColor);
+        mData.setListName(listName);
+        mData.setListId(listId);
+        mAddItemData = mData;
+      //  mPresenter.saveSelectedList(data);
         navigation.getMenu().clear();
         navigation.inflateMenu(R.menu.navigation_list_detail);
         navigation.setItemIconTintList(null);

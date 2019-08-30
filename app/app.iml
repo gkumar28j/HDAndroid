@@ -109,7 +109,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/shader_assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/signing_config" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/validate_signing_config" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
@@ -206,6 +205,10 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics:11.8.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-core:2.6.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:beta:1.2.7@aar" level="project" />
+    <orderEntry type="module" module-name="loopview" />
+    <orderEntry type="module" module-name="swipe-reveal-layout" />
+    <orderEntry type="module" module-name="loopview" />
+    <orderEntry type="module" module-name="swipe-reveal-layout" />
     <orderEntry type="module" module-name="loopview" />
     <orderEntry type="module" module-name="swipe-reveal-layout" />
     <orderEntry type="module" module-name="loopview" />

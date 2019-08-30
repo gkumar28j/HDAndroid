@@ -7,12 +7,12 @@
         android:title="@string/title_color_settings" />-->
     <item
         android:id="@+id/navigation_share_list"
-        android:icon="@drawable/ic_menu_share"
+        android:icon="@drawable/ic_share_new"
         android:title="@string/title_share_list" />
 
     <item
         android:id="@+id/navigation_color_settings"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_list_color"
         android:title="@string/title_color_settings" />
 
     <item
@@ -21,7 +21,7 @@
         android:title="@string/title_add_item" />
     <item
         android:id="@+id/navigation_my_list"
-        android:icon="@drawable/ic_menu_my_list"
+        android:icon="@drawable/ic_list_new"
         android:title="@string/title_my_list" />
     <item
         android:id="@+id/navigation_list_detail_home"

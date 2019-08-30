@@ -41,7 +41,7 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
     public void onViewPrepared() {
 
         getNotificationSettings();
-        getMvpView().setUserData(getDataManager().getUserData());
+        getMvpView().setUserData(getDataManager().getUserData(), getDataManager().isFacebookLogin());
 
     }
 
@@ -95,7 +95,7 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
 
     @Override
     public void onUpdateUserClick() {
-        getMvpView().showEditNameDialog();
+        getMvpView().showEditNameDialog(getDataManager().isFacebookLogin());
     }
 
     @Override

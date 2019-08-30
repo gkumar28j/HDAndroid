@@ -10,11 +10,11 @@ import com.mcn.honeydew.ui.base.MvpView;
 
 public interface SettingsMvpView extends MvpView {
 
-    void setUserData(UserDetailResponse userData);
+    void setUserData(UserDetailResponse userData, boolean facebookLogin);
 
     void openLoginActivity();
 
-    void showEditNameDialog();
+    void showEditNameDialog(boolean facebookLogin);
 
     void showChangePasswordActivity();
 

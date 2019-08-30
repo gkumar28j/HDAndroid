@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
@@ -106,6 +107,9 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
 
     @BindView(R.id.daily_reminder_expired_time_textview)
     TextView dailyReminderExpiredTimeTextView;
+
+    @BindView(R.id.imageView_edit_email)
+    ImageView editEmailImageView;
 
 
     public static SettingsFragment newInstance() {
@@ -230,13 +234,20 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
     }
 
     @Override
-    public void setUserData(UserDetailResponse userData) {
+    public void setUserData(UserDetailResponse userData, boolean facebookLogin) {
 
         if (userData == null) return;
+
+        if (facebookLogin) {
+            editEmailImageView.setVisibility(View.GONE);
+        } else {
+            editEmailImageView.setVisibility(View.VISIBLE);
+        }
 
         mUserNameTextView.setText(userData.getUserName());
         mEmailTextView.setText(userData.getPrimaryEmail());
         mPhoneTextView.setText(userData.getPrimaryMobile());
+
 
     }
 
@@ -254,10 +265,12 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
     }
 
     @Override
-    public void showEditNameDialog() {
+    public void showEditNameDialog(boolean facebookLogin) {
+
         EditNameDialog dialog = EditNameDialog.newInstance();
         dialog.setListener(this);
         dialog.show(getChildFragmentManager());
+
     }
 
     @Override

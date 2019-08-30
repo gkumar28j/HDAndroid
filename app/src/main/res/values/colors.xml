@@ -65,4 +65,7 @@
     <color name="splash_shareable">#65afe1</color>
 
 
+    <color name="notification_read_color">#e7eeff</color>
+
+
 </resources>

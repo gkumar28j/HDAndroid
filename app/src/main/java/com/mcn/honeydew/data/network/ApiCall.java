@@ -56,6 +56,8 @@ import com.mcn.honeydew.data.network.model.response.GetListSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.GetProximityResponse;
 import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.data.network.model.response.LocateAccountResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationReadResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.PushNotificationSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
@@ -89,6 +91,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -171,7 +174,7 @@ public interface ApiCall {
 
     String ENDPOINT_GET_ALL_BLUETOOTH_ITEMS = API_VERSION + "/api/Notification/GetAllPushNotification";
 
-  //  String ENDPOINT_GET_LIST_SETTINGS = API_VERSION + "/api/item/GetListSettings";
+    //  String ENDPOINT_GET_LIST_SETTINGS = API_VERSION + "/api/item/GetListSettings";
 
 
     String ENDPOINT_UPDATE_EMAIL = API_VERSION + "/api/Account/EmailUpdate";
@@ -184,6 +187,9 @@ public interface ApiCall {
 
     String ENDPOINT_REMINDER_TIME = API_VERSION + "/api/Account/BluetoothReminderTime";
 
+    String ENDPOINT_NOTIFICATION_LIST_CALL = API_VERSION + "/api/Notification/GetAllSystemNotification";
+
+    String ENDPOINT_NOTIFICATION_LIST_READ_UPDATE_CALL = API_VERSION + "/api/Notification/ReadNotification";
 
 
     @POST(ENDPOINT_SERVER_LOGIN)
@@ -429,6 +435,15 @@ public interface ApiCall {
     @POST(ENDPOINT_REMINDER_TIME)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
     Observable<ReminderTimeResponse> doSaveReminderTime(@Body ReminderTimeRequest request);
+
+
+    @GET(ENDPOINT_NOTIFICATION_LIST_CALL)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<NotificationListResponse> doGetNotificationList(@Query("PageIndex") int pageIndex, @Query("PageSize") int pageSize);
+
+    @PUT(ENDPOINT_NOTIFICATION_LIST_READ_UPDATE_CALL)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<NotificationReadResponse> doUpdateNotificationRead(@Query("NotificationId") int notificationId);
 
 
     class Factory {

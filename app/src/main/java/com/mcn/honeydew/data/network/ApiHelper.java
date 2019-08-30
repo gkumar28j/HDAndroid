@@ -54,6 +54,8 @@ import com.mcn.honeydew.data.network.model.response.GetListSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.GetProximityResponse;
 import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.data.network.model.response.LocateAccountResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationReadResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.PushNotificationSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
@@ -75,6 +77,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Query;
 
 /**
  * Created by amit on 14/2/18.
@@ -191,5 +194,9 @@ public interface ApiHelper {
     Observable<DailyReminderExpiredResponse> doSaveDailyReminderExpired(DailyReminderExpiringRequest request);
 
     Observable<ReminderTimeResponse> doSaveReminderTime(ReminderTimeRequest request);
+
+    Observable<NotificationListResponse> doGetNotificationList(int pageIndex, int pageSize);
+
+    Observable<NotificationReadResponse> doUpdateNotificationRead(@Query("NotificationId") int notificationId);
 
 }

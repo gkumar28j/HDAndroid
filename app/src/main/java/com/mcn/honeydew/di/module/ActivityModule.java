@@ -71,6 +71,7 @@ import com.mcn.honeydew.ui.myList.MyListAdapter;
 import com.mcn.honeydew.ui.myList.MyListMvpPresenter;
 import com.mcn.honeydew.ui.myList.MyListMvpView;
 import com.mcn.honeydew.ui.myList.MyListPresenter;
+import com.mcn.honeydew.ui.notifications.NotificationAdapter;
 import com.mcn.honeydew.ui.notifications.NotificationsMvpPresenter;
 import com.mcn.honeydew.ui.notifications.NotificationsMvpView;
 import com.mcn.honeydew.ui.notifications.NotificationsPresenter;
@@ -87,14 +88,12 @@ import com.mcn.honeydew.ui.register.RegisterPresenter;
 import com.mcn.honeydew.ui.settings.SettingsMvpPresenter;
 import com.mcn.honeydew.ui.settings.SettingsMvpView;
 import com.mcn.honeydew.ui.settings.SettingsPresenter;
-import com.mcn.honeydew.ui.settings.editEmail.EditEmailDialog;
 import com.mcn.honeydew.ui.settings.editEmail.EditEmailDialogPresenter;
 import com.mcn.honeydew.ui.settings.editEmail.EditEmailMvpPresenter;
 import com.mcn.honeydew.ui.settings.editEmail.EditEmailMvpView;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialogMvpPresenter;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialogMvpView;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialogPresenter;
-import com.mcn.honeydew.ui.settings.timePicker.TimeLoopPickerDialog;
 import com.mcn.honeydew.ui.settings.timePicker.TimePickerMvpPresenter;
 import com.mcn.honeydew.ui.settings.timePicker.TimePickerMvpView;
 import com.mcn.honeydew.ui.settings.timePicker.TimePickerPresenter;
@@ -358,18 +357,23 @@ public class ActivityModule {
     }
 
     @Provides
-    InProgressMvpPresenter<InProgressMvpView> provideInProgressPresenter(InProgressPresenter<InProgressMvpView> presenter){
+    InProgressMvpPresenter<InProgressMvpView> provideInProgressPresenter(InProgressPresenter<InProgressMvpView> presenter) {
         return presenter;
     }
 
 
     @Provides
-    EditEmailMvpPresenter<EditEmailMvpView> provideEditEmailDialogPresenter(EditEmailDialogPresenter<EditEmailMvpView> presenter){
+    EditEmailMvpPresenter<EditEmailMvpView> provideEditEmailDialogPresenter(EditEmailDialogPresenter<EditEmailMvpView> presenter) {
         return presenter;
     }
 
     @Provides
-    TimePickerMvpPresenter<TimePickerMvpView> provideTimePickerPresenter(TimePickerPresenter<TimePickerMvpView> presenter){
+    TimePickerMvpPresenter<TimePickerMvpView> provideTimePickerPresenter(TimePickerPresenter<TimePickerMvpView> presenter) {
         return presenter;
     }
+
+   /* @Provides
+    NotificationAdapter provideNotificationAdapter() {
+        return new NotificationAdapter();
+    }*/
 }

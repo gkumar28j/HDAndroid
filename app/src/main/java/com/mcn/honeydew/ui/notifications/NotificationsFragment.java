@@ -1,48 +1,50 @@
 package com.mcn.honeydew.ui.notifications;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SwitchCompat;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.mcn.honeydew.R;
-import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.base.BaseFragment;
-import com.mcn.honeydew.ui.main.MainActivity;
-import com.mcn.honeydew.ui.notifications.settings.NotificationSettingsActivity;
+import com.mcn.honeydew.utils.EndlessRecyclerOnScrollListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by amit on 20/2/18.
  */
 
-public class NotificationsFragment extends BaseFragment implements NotificationsMvpView {
+public class NotificationsFragment extends BaseFragment implements NotificationsMvpView,
+        SwipeRefreshLayout.OnRefreshListener, NotificationAdapter.ContentItemListener {
 
     private static final String TAG = "NotificationsFragment";
-
+    private EndlessRecyclerOnScrollListener mEndlessRecyclerOnScrollListener;
 
     @Inject
     NotificationsMvpPresenter<NotificationsMvpView> mPresenter;
 
-    @BindView(R.id.reyclerview)
-    RecyclerView recyclerView;
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
+
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout refreshLayout;
+
+    //@Inject
+    NotificationAdapter mListAdapter;
 
     public static NotificationsFragment newInstance() {
         Bundle args = new Bundle();
@@ -69,12 +71,28 @@ public class NotificationsFragment extends BaseFragment implements Notifications
 
     @Override
     protected void setUp(View view) {
+        int color = getResources().getColor(R.color.colorPrimary);
+        refreshLayout.setColorSchemeColors(color, color, color, color);
+        refreshLayout.setOnRefreshListener(this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mPresenter.onViewPrepared();
+        mEndlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore() {
+
+                if (!mListAdapter.isLoading()) {
+                    mPresenter.loadMoreData();
+                }
+
+            }
+        };
+        mPresenter.loadData();
+        mRecyclerView.addOnScrollListener(mEndlessRecyclerOnScrollListener);
 
 
     }
-
 
 
     @Override
@@ -83,4 +101,56 @@ public class NotificationsFragment extends BaseFragment implements Notifications
         super.onDestroyView();
     }
 
+    @Override
+    public void onRefresh() {
+        mEndlessRecyclerOnScrollListener.reset();
+        mPresenter.refreshData();
+    }
+
+    @Override
+    public void onContentClick(NotificationListResponse.NotificationListData clickedData) {
+
+        if (clickedData.getNotificationId() == 0) {
+
+
+
+        } else {
+            if (!clickedData.isRead()) {
+                mPresenter.setIsRead(clickedData.getNotificationId());
+            }
+
+            getBaseActivity().onNotificationClicked(clickedData.getListHeaderColor(),
+                    clickedData.getListName(), clickedData.getListId());
+        }
+
+
+    }
+
+
+    @Override
+    public void showContentLoading(boolean loading) {
+
+        if (mListAdapter != null) {
+            mListAdapter.setLoading(loading);
+        }
+
+    }
+
+    @Override
+    public void showContentList(List<NotificationListResponse.NotificationListData> contentDataModelList) {
+
+        refreshLayout.setRefreshing(false);
+        if (mListAdapter == null) {
+            mListAdapter = new NotificationAdapter(new ArrayList<>(contentDataModelList), this);
+            mRecyclerView.setAdapter(mListAdapter);
+        }
+        mListAdapter.setLoading(false);
+        mListAdapter.replaceData(new ArrayList<>(contentDataModelList));
+
+    }
+
+    @Override
+    public void showEmptyView(boolean b) {
+
+    }
 }

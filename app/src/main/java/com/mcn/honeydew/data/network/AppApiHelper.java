@@ -54,6 +54,8 @@ import com.mcn.honeydew.data.network.model.response.GetListSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.GetProximityResponse;
 import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.data.network.model.response.LocateAccountResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationReadResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.PushNotificationSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
@@ -359,6 +361,16 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Observable<ReminderTimeResponse> doSaveReminderTime(ReminderTimeRequest request) {
         return mApiCall.doSaveReminderTime(request);
+    }
+
+    @Override
+    public Observable<NotificationListResponse> doGetNotificationList(int pageIndex, int pageSize) {
+        return mApiCall.doGetNotificationList(pageIndex,pageSize);
+    }
+
+    @Override
+    public Observable<NotificationReadResponse> doUpdateNotificationRead(int notificationId) {
+        return mApiCall.doUpdateNotificationRead(notificationId);
     }
 
 

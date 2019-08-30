@@ -10,7 +10,14 @@ import com.mcn.honeydew.ui.base.MvpPresenter;
 @PerActivity
 public interface NotificationsMvpPresenter<V extends NotificationsMvpView> extends MvpPresenter<V> {
 
-    void onViewPrepared();
+
+    void loadData();
+
+    void loadMoreData();
+
+    void refreshData();
+
+    void setIsRead(int notificationId);
 
 
 }
