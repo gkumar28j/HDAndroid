@@ -149,6 +149,8 @@ public abstract class BaseFragment extends Fragment implements MvpView {
 
         void onListSharedSuccess();
 
+        void onResetNotification();
+
         void onNotificationClicked(String color, String listName, int listId);
 
     }

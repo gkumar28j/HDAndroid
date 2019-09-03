@@ -228,6 +228,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
     }
 
     @Override
+    public void onResetNotification() {
+
+    }
+
+    @Override
     public void onNotificationClicked(String color, String listName, int listId) {
 
     }

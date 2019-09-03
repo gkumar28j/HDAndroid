@@ -56,6 +56,7 @@ import com.mcn.honeydew.data.network.model.response.GetListSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.GetProximityResponse;
 import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.data.network.model.response.LocateAccountResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationCountResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationReadResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
@@ -63,6 +64,7 @@ import com.mcn.honeydew.data.network.model.response.PushNotificationSettingsResp
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
 import com.mcn.honeydew.data.network.model.response.RecentLocationAddItemsResponse;
 import com.mcn.honeydew.data.network.model.response.ReminderTimeResponse;
+import com.mcn.honeydew.data.network.model.response.ResetNotificationCountResponse;
 import com.mcn.honeydew.data.network.model.response.ResetPasswordResponse;
 import com.mcn.honeydew.data.network.model.response.SendOtpResponse;
 import com.mcn.honeydew.data.network.model.response.ShareListResponse;
@@ -190,6 +192,11 @@ public interface ApiCall {
     String ENDPOINT_NOTIFICATION_LIST_CALL = API_VERSION + "/api/Notification/GetAllSystemNotification";
 
     String ENDPOINT_NOTIFICATION_LIST_READ_UPDATE_CALL = API_VERSION + "/api/Notification/ReadNotification";
+
+    String ENDPOINT_GET_NOTIFICATION_COUNT = API_VERSION + "/api/Notification/GetSystemNotificationCount";
+
+    String ENDPOINT_RESET_NOTIFICATION_COUNT = API_VERSION + "/api/Notification/ResetSystemNotificationCount";
+
 
 
     @POST(ENDPOINT_SERVER_LOGIN)
@@ -444,6 +451,16 @@ public interface ApiCall {
     @PUT(ENDPOINT_NOTIFICATION_LIST_READ_UPDATE_CALL)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
     Observable<NotificationReadResponse> doUpdateNotificationRead(@Query("NotificationId") int notificationId);
+
+
+    @PUT(ENDPOINT_RESET_NOTIFICATION_COUNT)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<ResetNotificationCountResponse> doResetNotificationCount();
+
+
+    @GET(ENDPOINT_GET_NOTIFICATION_COUNT)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<NotificationCountResponse> doGetNotificationCount();
 
 
     class Factory {

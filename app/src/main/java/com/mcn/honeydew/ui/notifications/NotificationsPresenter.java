@@ -6,6 +6,7 @@ import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationReadResponse;
+import com.mcn.honeydew.data.network.model.response.ResetNotificationCountResponse;
 import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.rx.SchedulerProvider;
 
@@ -80,6 +81,45 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
                         }
 
                         getMvpView().hideLoading();
+
+                    }
+
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().hideLoading();
+                        handleApiError(throwable);
+                    }
+                });
+
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void resetNotification() {
+
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().showMessage(R.string.connection_error);
+            return;
+        }
+
+        getDataManager().doResetNotificationCount()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<ResetNotificationCountResponse>() {
+                    @Override
+                    public void accept(ResetNotificationCountResponse response) throws Exception {
+
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
+                        getMvpView().hideLoading();
+                        getMvpView().onResetNotification();
 
                     }
 

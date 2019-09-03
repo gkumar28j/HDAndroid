@@ -61,6 +61,7 @@ import com.mcn.honeydew.data.network.model.response.GetListSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.GetProximityResponse;
 import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.data.network.model.response.LocateAccountResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationCountResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationReadResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
@@ -68,6 +69,7 @@ import com.mcn.honeydew.data.network.model.response.PushNotificationSettingsResp
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
 import com.mcn.honeydew.data.network.model.response.RecentLocationAddItemsResponse;
 import com.mcn.honeydew.data.network.model.response.ReminderTimeResponse;
+import com.mcn.honeydew.data.network.model.response.ResetNotificationCountResponse;
 import com.mcn.honeydew.data.network.model.response.ResetPasswordResponse;
 import com.mcn.honeydew.data.network.model.response.SendOtpResponse;
 import com.mcn.honeydew.data.network.model.response.ShareListResponse;
@@ -630,6 +632,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<NotificationReadResponse> doUpdateNotificationRead(int notificationId) {
         return mApiHelper.doUpdateNotificationRead(notificationId);
+    }
+
+    @Override
+    public Observable<NotificationCountResponse> doGetNotificationCount() {
+        return mApiHelper.doGetNotificationCount();
+    }
+
+    @Override
+    public Observable<ResetNotificationCountResponse> doResetNotificationCount() {
+        return mApiHelper.doResetNotificationCount();
     }
 
 

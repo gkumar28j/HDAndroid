@@ -19,4 +19,6 @@ public interface MainMvpView extends MvpView {
 
     void onBluetoothFoundConnected();
 
+    void onNotificationFetched(int count);
+
 }

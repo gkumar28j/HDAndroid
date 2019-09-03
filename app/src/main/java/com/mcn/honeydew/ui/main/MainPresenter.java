@@ -15,6 +15,7 @@ import com.mcn.honeydew.data.network.ApiHeader;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
 import com.mcn.honeydew.data.network.model.request.UpdateDeviceInfoRequest;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationCountResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.AppConstants;
@@ -204,6 +205,46 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
 
                     }
                 });
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void fetchNotificationCount() {
+
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().showMessage(R.string.connection_error);
+            return;
+        }
+
+        getDataManager().doGetNotificationCount()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<NotificationCountResponse>() {
+                    @Override
+                    public void accept(NotificationCountResponse response) throws Exception {
+
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
+                        getMvpView().hideLoading();
+                        getMvpView().onNotificationFetched(response.getSystemNotificationCount());
+
+                    }
+
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().hideLoading();
+                        handleApiError(throwable);
+                    }
+                });
+
+
     }
 
     private class SendNotification extends AsyncTask<String, Void, Boolean> {

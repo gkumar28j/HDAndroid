@@ -29,8 +29,8 @@ public class ColorSettingsFragment extends BaseFragment implements ColorSettings
     @BindView(R.id.colorPickerView)
     ColorPickerView colorPickerView;
 
-    @BindView(R.id.preview)
-    View colorPreview;
+   /* @BindView(R.id.preview)
+    View colorPreview;*/
 
     private boolean isTouched = false;
 
@@ -99,7 +99,7 @@ public class ColorSettingsFragment extends BaseFragment implements ColorSettings
                     if (colorString.equalsIgnoreCase("FFFFFF") || colorString.equalsIgnoreCase("FFFFFE")) {
                         return;
                     }
-                    colorPreview.setBackgroundColor(colorEnvelope.getColor());
+                 //   colorPreview.setBackgroundColor(colorEnvelope.getColor());
                     mColorCode = "#".concat(colorPickerView.getColorHtml());
                     ((MainActivity) getActivity()).updateColorCode(mColorCode);
 
@@ -142,7 +142,7 @@ public class ColorSettingsFragment extends BaseFragment implements ColorSettings
         // Saving color code
         if (!TextUtils.isEmpty(mColorCode)) {
             colorPickerView.setSavedColor(Color.parseColor(mColorCode));
-            colorPreview.setBackgroundColor(Color.parseColor(mColorCode));
+           // colorPreview.setBackgroundColor(Color.parseColor(mColorCode));
         }
     }
 

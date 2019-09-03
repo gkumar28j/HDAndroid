@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -19,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,7 +39,6 @@ import com.mcn.honeydew.ui.addlist.AddListFragment;
 import com.mcn.honeydew.ui.base.BaseActivity;
 import com.mcn.honeydew.ui.colorSettings.ColorSettingsFragment;
 import com.mcn.honeydew.ui.home.HomeListFragment;
-import com.mcn.honeydew.ui.in_progress.InProgressFragment;
 import com.mcn.honeydew.ui.list_settings.ListSettingsFragment;
 import com.mcn.honeydew.ui.login.LoginActivity;
 import com.mcn.honeydew.ui.myList.MyListFragment;
@@ -44,6 +46,9 @@ import com.mcn.honeydew.ui.notifications.NotificationsFragment;
 import com.mcn.honeydew.ui.settings.SettingsFragment;
 import com.mcn.honeydew.ui.sharelist.ShareListFragment;
 import com.mcn.honeydew.ui.views.BottomNavigationViewHelper;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.inject.Inject;
 
@@ -98,12 +103,21 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     private MyListResponseData mAddItemData = null;
     private MyListResponseData mEditItemData = null;
+    private Timer updatenotificationtimer;
+    private UpdateNotificationTask myTimerTask;
+    private static long UPDATE_START_TIME = 2 * 1000;
+    private static long UPDATE_REFRESH_TIME = 10 * 1000;
 
+    View badge;
+
+    int count;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
     }
+
+    TextView notificationTextView;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -158,6 +172,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                     mMenuItemSelected == R.id.navigation_share_list ||
                     mMenuItemSelected == R.id.navigation_add_item ||
                     mMenuItemSelected == R.id.navigation_my_list) {
+                removeBadge();
                 navigation.inflateMenu(R.menu.navigation_list_detail);
             } else {
                 navigation.inflateMenu(R.menu.navigation);
@@ -186,6 +201,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         }
+
+
         selectFragment(menuItemSelected);
         setUp();
 
@@ -212,6 +229,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         if (fragment != null && !(fragment instanceof HomeListFragment)) {
             onBackPressed();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopUpdateNotificationTimer();
     }
 
     @Override
@@ -253,7 +276,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     protected void onResume() {
         super.onResume();
-
+        startUpdateNotificationTimer();
     }
 
     private void selectFragment(MenuItem item) {
@@ -284,6 +307,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 fragment = AddListFragment.newInstance();
                 break;
             case R.id.navigation_home:
+                initCount();
+                startUpdateNotificationTimer();
                 title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 title.setText("");
                 title.setVisibility(View.GONE);
@@ -397,12 +422,18 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     }
 
     @Override
+    public void onResetNotification() {
+        removeBadge();
+
+    }
+
+    @Override
     public void onNotificationClicked(String color, String listName, int listId) {
         if (!color.startsWith("#")) {
             headerColor = "#".concat(color);
         } else
             headerColor = color;
-        navigateToListFragment(color,listName,listId);
+        navigateToListFragment(color, listName, listId);
 
     }
 
@@ -481,6 +512,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     public void updateColorCode(String colorCode) {
         mAddItemData.setListHeaderColor(colorCode);
+        if (!colorCode.startsWith("#")) {
+            headerColor = "#".concat(colorCode);
+        } else{
+            headerColor = colorCode;
+        }
+
+        title.setBackgroundColor(Color.parseColor(headerColor));
     }
 
     public void hideTabs() {
@@ -507,6 +545,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @Override
     public void showMyListFragment(MyHomeListData data) {
+        //  stopUpdateNotificationTimer();
+        removeBadge();
 
         MyListResponseData mData = new MyListResponseData();
         mData.setListHeaderColor(data.getListHeaderColor());
@@ -520,16 +560,19 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         navigation.setSelectedItemId(R.id.navigation_my_list);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
     }
 
-    public void navigateToListFragment(String listHeadingColor, String listName, int listId){
-
+    public void navigateToListFragment(String listHeadingColor, String listName, int listId) {
+        //   stopUpdateNotificationTimer();
+        removeBadge();
         MyListResponseData mData = new MyListResponseData();
         mData.setListHeaderColor(listHeadingColor);
         mData.setListName(listName);
         mData.setListId(listId);
         mAddItemData = mData;
-      //  mPresenter.saveSelectedList(data);
+        //  mPresenter.saveSelectedList(data);
         navigation.getMenu().clear();
         navigation.inflateMenu(R.menu.navigation_list_detail);
         navigation.setItemIconTintList(null);
@@ -603,6 +646,18 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     public void onBluetoothFoundConnected() {
         // Check if bluetooth notification is enabled? if enabled, call connect/disconnect API
         mPresenter.checkAndCallBluetoothApi();
+    }
+
+    @Override
+    public void onNotificationFetched(int count) {
+
+        if (count == 0) {
+            removeBadge();
+        } else {
+            showBadge(count);
+        }
+
+
     }
 
 
@@ -741,9 +796,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
         backImageView.setVisibility(View.VISIBLE);
         //fragment = InProgressFragment.newInstance();
-        fragment = ListSettingsFragment.newInstance(mAddItemData.getListId(),mAddItemData.getListHeaderColor());
-      //  title.setText("InProgress");
-      //  title.setVisibility(View.VISIBLE);
+        fragment = ListSettingsFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListHeaderColor());
+        //  title.setText("InProgress");
+        //  title.setVisibility(View.VISIBLE);
         if (fragment != null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -768,7 +823,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         }
 
 
-
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
 
@@ -779,8 +833,92 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     }
 
 
-    private void showHomeFragmenet() {
-        MenuItem homeItem = navigation.getMenu().getItem(2);
-        navigation.setSelectedItemId(homeItem.getItemId());
+    public void removeBadge() {
+        if (badge == null) {
+            return;
+        }
+
+        if (badge.getVisibility() == View.VISIBLE) {
+            badge.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void showBadge(int count) {
+
+       /* if (mMenuItemSelected == R.id.navigation_home || mMenuItemSelected == R.id.navigation_add_list) {
+
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+            BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(0);
+
+            //  if (badge == null) {
+            badge = LayoutInflater.from(this).inflate(R.layout.notification_count_badge, menuView, false);
+            //   }
+
+            itemView.addView(badge);
+            TextView text = (TextView) badge.findViewById(R.id.badge_text_view);
+            text.setVisibility(View.VISIBLE);
+            text.setText(String.valueOf(count));
+
+        }*/
+        if (notificationTextView == null) {
+            return;
+        }
+        notificationTextView.setVisibility(View.VISIBLE);
+        notificationTextView.setText(String.valueOf(count));
+
+    }
+
+
+    private void startUpdateNotificationTimer() {
+        if (updatenotificationtimer != null) {
+            updatenotificationtimer.cancel();
+        }
+        updatenotificationtimer = new Timer();
+        myTimerTask = new UpdateNotificationTask();
+        updatenotificationtimer.schedule(myTimerTask, UPDATE_START_TIME,
+                UPDATE_REFRESH_TIME);
+    }
+
+    private class UpdateNotificationTask extends TimerTask {
+
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    mPresenter.fetchNotificationCount();
+
+                }
+            });
+        }
+    }
+
+    private void stopUpdateNotificationTimer() {
+        if (updatenotificationtimer != null) {
+            updatenotificationtimer.cancel();
+        }
+        myTimerTask = null;
+
+    }
+
+
+    private void initCount() {
+        if (menuItemSelected.getItemId() == R.id.navigation_home || menuItemSelected.getItemId() == R.id.navigation_add_list) {
+
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+            BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(0);
+
+            //  if (badge == null) {
+            badge = LayoutInflater.from(this).inflate(R.layout.notification_count_badge, menuView, false);
+            //   }
+
+            itemView.addView(badge);
+            notificationTextView = (TextView) badge.findViewById(R.id.badge_text_view);
+            //  notificationTextView.setVisibility(View.VISIBLE);
+            //  notificationTextView.setText(String.valueOf(count));
+        }
     }
 }

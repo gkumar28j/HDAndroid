@@ -1,6 +1,7 @@
 package com.mcn.honeydew.ui.notifications;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
+import com.mcn.honeydew.ui.BluetoothDescActivity;
 import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.utils.EndlessRecyclerOnScrollListener;
 
@@ -89,6 +91,7 @@ public class NotificationsFragment extends BaseFragment implements Notifications
             }
         };
         mPresenter.loadData();
+        mPresenter.resetNotification();
         mRecyclerView.addOnScrollListener(mEndlessRecyclerOnScrollListener);
 
 
@@ -112,6 +115,9 @@ public class NotificationsFragment extends BaseFragment implements Notifications
 
         if (clickedData.getNotificationId() == 0) {
 
+            Intent intent = new Intent(getBaseActivity(), BluetoothDescActivity.class);
+            intent.putExtra("description",clickedData.getMessage());
+            startActivity(intent);
 
 
         } else {
@@ -151,6 +157,14 @@ public class NotificationsFragment extends BaseFragment implements Notifications
 
     @Override
     public void showEmptyView(boolean b) {
+
+    }
+
+    @Override
+    public void onResetNotification() {
+
+
+        getBaseActivity().onResetNotification();
 
     }
 }

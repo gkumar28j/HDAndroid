@@ -19,5 +19,7 @@ public interface NotificationsMvpPresenter<V extends NotificationsMvpView> exten
 
     void setIsRead(int notificationId);
 
+    void resetNotification();
+
 
 }

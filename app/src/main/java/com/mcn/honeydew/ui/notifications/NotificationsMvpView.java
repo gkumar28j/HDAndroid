@@ -16,4 +16,6 @@ public interface NotificationsMvpView extends MvpView {
     void showContentList(List<NotificationListResponse.NotificationListData> contentDataModelList);
 
     void showEmptyView(boolean b);
+
+    void onResetNotification();
 }

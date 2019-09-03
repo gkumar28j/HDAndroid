@@ -91,8 +91,6 @@ public class NotificationAdapter extends LoadMoreBaseAdapter<NotificationListRes
             ButterKnife.bind(this, itemView);
             mItemListener = listener;
             itemView.setOnClickListener(this);
-
-
         }
 
         public void setItem(NotificationListResponse.NotificationListData data, Context mcontext) {
