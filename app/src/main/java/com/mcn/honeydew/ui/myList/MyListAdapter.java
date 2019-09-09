@@ -158,6 +158,12 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         @BindView(R.id.time_text)
         TextView timeTextView;
 
+        @BindView(R.id.camera_icon)
+        ImageView cameraImageView;
+
+        @BindView(R.id.red_view)
+        View redView;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -166,12 +172,21 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             editTextView.setOnClickListener(this);
             changeStatusImageView.setOnClickListener(this);
             mNavigateImageView.setOnClickListener(this);
+            cameraImageView.setOnClickListener(this);
             swipeLayout.setSwipeListener(this);
         }
 
         public void bind(MyListResponseData data, final ViewHolder holder) {
             //  3/16/2018 2:05:31 PM;
             mAddressHeadingTextView.setText(data.getItemName());
+
+            if (data.getPhoto() != null) {
+
+                cameraImageView.setVisibility(View.VISIBLE);
+
+            } else {
+                cameraImageView.setVisibility(View.GONE);
+            }
 
             if (data.getLocation() != null) {
                 mAddressTextView.setVisibility(View.VISIBLE);
@@ -268,6 +283,13 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
                 }
             });
             // binderHelper.bind(swipeLayout, String.valueOf(data.getItemId()));
+
+
+            if(data.isShowExpired()){
+                redView.setVisibility(View.VISIBLE);
+            }else {
+                redView.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override
@@ -324,7 +346,18 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
                     notifyItemChanged(getLayoutPosition());
 
                     break;
+
+
+                case R.id.camera_icon:
+
+                    mCallback.onCameraIconClicked(list.get(getLayoutPosition()),getLayoutPosition());
+
+
+                    break;
+
                 default:
+
+                    break;
 
             }
 
@@ -377,6 +410,8 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         void navigateToMap(String latitude, String longitude, String destLocation);
 
         void onStartEditing(boolean state);
+
+        void onCameraIconClicked(MyListResponseData data, int layoutPosition);
 
     }
 

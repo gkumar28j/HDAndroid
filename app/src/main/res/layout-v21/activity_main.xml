@@ -27,7 +27,8 @@
             <RelativeLayout
                 android:id="@+id/icon_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="8dp">
 
 
                 <ImageView
@@ -88,8 +89,9 @@
                 android:layout_below="@id/icon_layout"
                 android:gravity="center"
                 android:maxLines="1"
-                android:padding="5dp"
-                tools:text="hhhhd" />
+                android:padding="8dp"
+                tools:text="hhhhd"
+               />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 

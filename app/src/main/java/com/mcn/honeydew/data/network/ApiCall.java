@@ -82,7 +82,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -92,8 +94,10 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -133,6 +137,7 @@ public interface ApiCall {
     String ENDPOINT_RECENT_LOCATION_ITEMS_LIST_CALL_URL = API_VERSION + "/api/item/recentlocations?location=";
 
     String ENDPOINT_ADD_UPDATE_ITEMS_LIST_CALL_URL = API_VERSION + "/api/item/AddUpdateItem";
+
     String ENDPOINT_GET_USER_SETTINGS_URL = API_VERSION + "/api/account/GetUserSettings";
 
 
@@ -197,7 +202,7 @@ public interface ApiCall {
 
     String ENDPOINT_RESET_NOTIFICATION_COUNT = API_VERSION + "/api/Notification/ResetSystemNotificationCount";
 
-
+    String ENDPOINT_ADD_UPDATE_ITEMS_NEW_LIST_CALL_URL = API_VERSION + "/api/item/AddUpdateItemnew";
 
     @POST(ENDPOINT_SERVER_LOGIN)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PUBLIC_API)
@@ -342,9 +347,24 @@ public interface ApiCall {
 
     // Add Items ---Post Items call
 
+
     @POST(ENDPOINT_ADD_UPDATE_ITEMS_LIST_CALL_URL)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
-    Observable<AddUpdateItemResponse> doAddUpdateItemsCall(@Body AddUpdateItemRequest request);
+    Observable<AddUpdateItemResponse> doAddUpdateItemsCall(@Body RequestBody request);
+
+    @Multipart
+    @POST(ENDPOINT_ADD_UPDATE_ITEMS_NEW_LIST_CALL_URL)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<AddUpdateItemResponse> doUpdateRecentItemsCall(@Part("ItemId") RequestBody ItemId,
+                                                              @Part("ItemName") RequestBody ItemName,
+                                                              @Part("ItemTime") RequestBody ItemTime,
+                                                              @Part("Latitude") RequestBody Latitude,
+                                                              @Part("ListId") RequestBody ListId,
+                                                              @Part("ListName") RequestBody ListName,
+                                                              @Part("Longitude") RequestBody Longitude,
+                                                              @Part("Location") RequestBody Location,
+                                                              @Part("StatusId") RequestBody StatusId,
+                                                              @Part MultipartBody.Part image);
 
     // Get User Setting
     @GET(ENDPOINT_GET_USER_SETTINGS_URL)

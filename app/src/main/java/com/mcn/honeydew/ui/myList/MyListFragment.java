@@ -23,6 +23,7 @@ import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.services.GeoFenceFilterService;
 import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
+import com.mcn.honeydew.ui.myListDetail.MyListDetailImageActivity;
 import com.mcn.honeydew.utils.AppConstants;
 import com.mcn.honeydew.utils.draghelper.OnStartDragListener;
 import com.mcn.honeydew.utils.draghelper.SimpleItemTouchHelperCallback;
@@ -233,6 +234,7 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
     @Override
     public void onEditItem(MyListResponseData data) {
 
+        data.setListName(listName);
         getBaseActivity().editItemsFromList(data);
         ((MainActivity) getActivity()).syncItems();
 
@@ -264,6 +266,15 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
         } else {
             isEditOnProgress = false;
         }
+
+    }
+
+    @Override
+    public void onCameraIconClicked(MyListResponseData data, int layoutPosition) {
+
+        Intent intent = new Intent(getBaseActivity(),MyListDetailImageActivity.class);
+        intent.putExtra("url",data.getPhoto());
+        startActivity(intent);
 
     }
 

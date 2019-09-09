@@ -300,7 +300,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 break;
             case R.id.navigation_add_list:
                 title.setText("");
-                title.setVisibility(View.VISIBLE);
+                title.setVisibility(View.GONE);
                 title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 settingImageView.setVisibility(View.GONE);
                 listSettingImageView.setVisibility(View.GONE);
@@ -334,7 +334,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 if (isEdit) {
                     editItemsFromList(mEditItemData);
                 } else {
-                    title.setText(mAddItemData.getListName());
+                    title.setText("'"+mAddItemData.getListName()+"'");
                     title.setVisibility(View.VISIBLE);
                     title.setBackgroundColor(Color.parseColor(headerColor));
                     fragment = MyListFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListName());
@@ -344,7 +344,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             case R.id.navigation_add_item:
                 settingImageView.setVisibility(View.GONE);
                 listSettingImageView.setVisibility(View.GONE);
-                title.setText(getResources().getString(R.string.recent_items_actionbar_heading));
+                title.setText("");
+                title.setText("'"+mAddItemData.getListName()+"'");
+             //   title.setText(getResources().getString(R.string.recent_items_actionbar_heading));
                 title.setVisibility(View.VISIBLE);
                 title.setBackgroundColor(Color.parseColor(headerColor));
                 MyListResponseData data = new MyListResponseData();
@@ -472,7 +474,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         mPresenter.onDetach();
         super.onDestroy();
 
-
     }
 
     @Override
@@ -545,7 +546,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @Override
     public void showMyListFragment(MyHomeListData data) {
-        //  stopUpdateNotificationTimer();
+    //    stopUpdateNotificationTimer();
         removeBadge();
 
         MyListResponseData mData = new MyListResponseData();
@@ -565,7 +566,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     }
 
     public void navigateToListFragment(String listHeadingColor, String listName, int listId) {
-        //   stopUpdateNotificationTimer();
+    //    stopUpdateNotificationTimer();
         removeBadge();
         MyListResponseData mData = new MyListResponseData();
         mData.setListHeaderColor(listHeadingColor);
@@ -710,7 +711,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.length <= 0) {
                 // If user interaction was interrupted, the permission request is cancelled and you

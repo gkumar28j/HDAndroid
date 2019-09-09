@@ -14,7 +14,6 @@ import com.mcn.honeydew.data.network.model.ReorderCardsHomeRequest;
 import com.mcn.honeydew.data.network.model.ReorderHomeListData;
 import com.mcn.honeydew.data.network.model.UpdateVerificationStatusRequest;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
-import com.mcn.honeydew.data.network.model.request.AddUpdateItemRequest;
 import com.mcn.honeydew.data.network.model.request.AddUpdateListRequest;
 import com.mcn.honeydew.data.network.model.request.AllowAutoDeleteRequest;
 import com.mcn.honeydew.data.network.model.request.BluetoothRequest;
@@ -78,7 +77,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Query;
 
 /**
@@ -145,7 +145,7 @@ public interface ApiHelper {
 
     Observable<UpdateHeaderColorResponse> doUpdateHeaderColorCall(UpdateHeaderColorRequest request);
 
-    Observable<AddUpdateItemResponse> doAddUpdateItemsCall(AddUpdateItemRequest request);
+    Observable<AddUpdateItemResponse> doAddUpdateItemsCall(RequestBody request);
 
     Observable<GetUserSettingResponse> doGetUserSettingsCall(int listId);
 
@@ -202,5 +202,17 @@ public interface ApiHelper {
     Observable<NotificationReadResponse> doUpdateNotificationRead(@Query("NotificationId") int notificationId);
 
     Observable<NotificationCountResponse> doGetNotificationCount();
+
     Observable<ResetNotificationCountResponse> doResetNotificationCount();
+
+    Observable<AddUpdateItemResponse> doUpdateRecentItemsCall(RequestBody ItemId,
+                                                              RequestBody ItemName,
+                                                              RequestBody ItemTime,
+                                                              RequestBody Latitude,
+                                                              RequestBody ListId,
+                                                              RequestBody ListName,
+                                                              RequestBody Location,
+                                                              RequestBody Longitude,
+                                                              RequestBody StatusId,
+                                                              MultipartBody.Part image);
 }

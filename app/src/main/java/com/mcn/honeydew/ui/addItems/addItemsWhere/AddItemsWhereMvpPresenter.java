@@ -16,7 +16,7 @@ public interface AddItemsWhereMvpPresenter<V extends AddItemsWhereMvpView> exten
     void getNearbySearchResults(Double Lat, Double Lng, int radius, String key, String type, double smallestWidth);
 
     void onAddItems(int ItemId, String ItemName, String ItemTime, String Latitude, int ListId, String ListName,
-                    String Location, String Longitude, int StatusId);
+                    String Location, String Longitude, int StatusId, String url);
 
     void deleteRecentLocation();
 

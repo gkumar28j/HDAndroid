@@ -69,6 +69,18 @@ public class MyListResponseData {
     @Expose
     private boolean isAllowDelete;
 
+    @SerializedName("ShowExpired")
+    @Expose
+    private boolean ShowExpired;
+
+
+    public boolean isShowExpired() {
+        return ShowExpired;
+    }
+
+    public void setShowExpired(boolean showExpired) {
+        ShowExpired = showExpired;
+    }
 
     public int getItemId() {
         return itemId;

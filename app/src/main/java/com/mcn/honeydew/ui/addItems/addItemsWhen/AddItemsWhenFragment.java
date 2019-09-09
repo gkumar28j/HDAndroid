@@ -198,9 +198,11 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
         String location = frgment.getLocation();
         int itemId = frgment.getMyListData().getItemId();
 
+        String url = frgment.getFilePath();
+
         if (location == null || location.equals("")) {
             mPresenter.onAddItems(itemId, frgment.getItemName(), ((AddItemsFragment) getParentFragment()).getDateTimeText().toString().trim()
-                    , "", listId, listName, "", "", frgment.getMyListData().getStatusId());
+                    , "", listId, listName, "", "", frgment.getMyListData().getStatusId(),url);
         } else {
             // Location loc = ((AddItemsFragment) getParentFragment()).getCurrentLocation();
             Location loc = ((AddItemsFragment) getParentFragment()).getCurrentRequestedLocation();
@@ -227,7 +229,7 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
     public void onResume() {
         super.onResume();
         ((AddItemsFragment) getParentFragment()).hideLocationState();
-        ((AddItemsFragment) getParentFragment()).setActionbarTitle(getResources().getString(R.string.recent_items_actionbar_heading));
+     //   ((AddItemsFragment) getParentFragment()).setActionbarTitle(getResources().getString(R.string.recent_items_actionbar_heading));
     }
 
     @Override
@@ -242,6 +244,8 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
         String DateTimeText = fragment.getDateTimeText();
 
         String itemName = fragment.getItemName();
+
+        String url = fragment.getFilePath();
 
         StringBuilder latitude = new StringBuilder();
         StringBuilder longitude = new StringBuilder();
@@ -259,7 +263,7 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
         String location = fragment.getLocation();
         int itemId = fragment.getMyListData().getItemId();
         mPresenter.onAddItems(itemId, itemName, DateTimeText, lat, listId, listName,
-                location, lng, fragment.getMyListData().getStatusId());
+                location, lng, fragment.getMyListData().getStatusId(),url);
     }
 
     @Override

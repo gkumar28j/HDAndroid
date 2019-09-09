@@ -14,7 +14,6 @@ import com.mcn.honeydew.data.network.model.ReorderCardsHomeRequest;
 import com.mcn.honeydew.data.network.model.ReorderHomeListData;
 import com.mcn.honeydew.data.network.model.UpdateVerificationStatusRequest;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
-import com.mcn.honeydew.data.network.model.request.AddUpdateItemRequest;
 import com.mcn.honeydew.data.network.model.request.AddUpdateListRequest;
 import com.mcn.honeydew.data.network.model.request.AllowAutoDeleteRequest;
 import com.mcn.honeydew.data.network.model.request.BluetoothRequest;
@@ -81,6 +80,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 
 /**
@@ -236,7 +237,7 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<AddUpdateItemResponse> doAddUpdateItemsCall(AddUpdateItemRequest request) {
+    public Observable<AddUpdateItemResponse> doAddUpdateItemsCall(RequestBody request) {
         return mApiCall.doAddUpdateItemsCall(request);
     }
 
@@ -367,7 +368,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Observable<NotificationListResponse> doGetNotificationList(int pageIndex, int pageSize) {
-        return mApiCall.doGetNotificationList(pageIndex,pageSize);
+        return mApiCall.doGetNotificationList(pageIndex, pageSize);
     }
 
     @Override
@@ -383,6 +384,29 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Observable<ResetNotificationCountResponse> doResetNotificationCount() {
         return mApiCall.doResetNotificationCount();
+    }
+
+    @Override
+    public Observable<AddUpdateItemResponse> doUpdateRecentItemsCall(RequestBody ItemId,
+                                                                     RequestBody ItemName,
+                                                                     RequestBody ItemTime,
+                                                                     RequestBody Latitude,
+                                                                     RequestBody ListId,
+                                                                     RequestBody ListName,
+                                                                     RequestBody Location,
+                                                                     RequestBody Longitude,
+                                                                     RequestBody StatusId,
+                                                                     MultipartBody.Part image) {
+        return mApiCall.doUpdateRecentItemsCall(ItemId,
+                ItemName,
+                ItemTime,
+                Latitude,
+                ListId,
+                ListName,
+                Location,
+                Longitude,
+                StatusId,
+                image);
     }
 
 

@@ -89,7 +89,7 @@
                 android:layout_below="@id/icon_layout"
                 android:gravity="center"
                 android:maxLines="1"
-                android:padding="5dp"
+                android:padding="8dp"
                 tools:text="hhhhd" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>

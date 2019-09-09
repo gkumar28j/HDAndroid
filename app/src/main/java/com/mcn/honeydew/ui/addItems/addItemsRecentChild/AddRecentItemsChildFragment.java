@@ -1,15 +1,24 @@
 package com.mcn.honeydew.ui.addItems.addItemsRecentChild;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Color;
 import android.graphics.Rect;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,20 +32,29 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.addItems.AddItemsFragment;
 import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
+import com.mcn.honeydew.utils.AppConstants;
+import com.mcn.honeydew.utils.ImageUtils;
 import com.mcn.honeydew.utils.ScreenUtils;
 import com.weigan.loopview.LoopView;
 import com.weigan.loopview.OnItemSelectedListener;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -50,6 +68,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
 /**
  * Created by gkumar on 9/3/18.
@@ -66,10 +85,13 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     }
 
     private static final int SPEECH_REQUEST_CODE = 104;
-
+    private static final int REQUEST_CAMERA = 124;
+    private static final int SELECT_FILE = 125;
     private boolean mKeyboardVisible = false;
 
     ArrayList<String> mList = new ArrayList<>();
+
+    String currentPhotoPath = "";
 
 
     @Inject
@@ -86,8 +108,19 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     ImageView deleteImageView;
 
 
-    @BindView(R.id.empty_space_view)
-    View emptySpaceView;
+    @BindView(R.id.image_view)
+    ImageView captureImageView;
+
+    @BindView(R.id.image_view_loopview)
+    ImageView imageLoopView; // this image is shown when keyboard open up
+
+
+    @BindView(R.id.cardview)
+    CardView cardSpaceView;
+
+
+   /* @BindView(R.id.cardview_loop)
+    CardView cardLoopView;*/
 
     @Inject
     LinearLayoutManager mLayoutManager;
@@ -100,8 +133,25 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     @BindView(R.id.empty_recent_data)
     TextView emptyView;
 
+    @BindView(R.id.camera_imageview)
+    ImageView cameraImageView;
+
     @BindView(R.id.loopView)
     LoopView mLoopView;
+
+    @BindView(R.id.loop_layout)
+    LinearLayout linearLayout;
+
+    @BindView(R.id.add_item_title_textview)
+    TextView mHeadingTextView;
+
+    @BindView(R.id.view_lay)
+    LinearLayout imageLayout;
+
+    @BindView(R.id.scroll_view)
+    ScrollView scrollView;
+
+    int heightImageView = 0;
 
 
     @Nullable
@@ -120,13 +170,45 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
     @Override
     protected void setUp(View view) {
+
         int totalHeight = ScreenUtils.getScreenHeight(getActivity());
         int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
-        emptySpaceView.getLayoutParams().height = (int) ((availiableHeight * 2.0) / 5.0);
-        emptySpaceView.requestLayout();
-        if (((AddItemsFragment) getParentFragment()).getMyListData().getItemName() != null) {
-            mEditText.setText(((AddItemsFragment) getParentFragment()).getMyListData().getItemName());
-            ((AddItemsFragment) getParentFragment()).setItemName(mEditText.getText().toString().trim());
+
+        int height = (int) ((availiableHeight * 3.0) / 10.0);
+        heightImageView = height;
+        int width = height + (height / 3);
+        captureImageView.getLayoutParams().height = height;
+        captureImageView.getLayoutParams().width = width;
+
+        captureImageView.requestLayout();
+        captureImageView.setVisibility(View.VISIBLE);
+
+        AddItemsFragment fragment = ((AddItemsFragment) getParentFragment());
+
+
+        if (fragment != null) {
+
+            if (fragment.getMyListData().getItemName() != null) {
+                mEditText.setText(((AddItemsFragment) getParentFragment()).getMyListData().getItemName());
+                ((AddItemsFragment) getParentFragment()).setItemName(mEditText.getText().toString().trim());
+                mHeadingTextView.setText("Edit Items");
+            } else {
+                mHeadingTextView.setText(getString(R.string.recent_items_actionbar_heading));
+            }
+
+            if (fragment.getFilePath() != null) {
+                cardSpaceView.setVisibility(View.VISIBLE);
+                //     cardLoopView.setVisibility(View.VISIBLE);
+                File newFile = new File(((AddItemsFragment) getParentFragment()).getFilePath());
+                captureImageView.setImageURI(Uri.fromFile(newFile));
+                imageLoopView.setImageURI(Uri.fromFile(newFile));
+            } else if (fragment.getPhoto() != null && !fragment.getPhoto().equals("")) {
+                cardSpaceView.setVisibility(View.VISIBLE);
+                //    cardLoopView.setVisibility(View.VISIBLE);
+                Glide.with(getBaseActivity()).load(AppConstants.BASE_URL + fragment.getPhoto()).into(captureImageView);
+                Glide.with(getBaseActivity()).load(AppConstants.BASE_URL + fragment.getPhoto()).into(imageLoopView);
+            }
+
         }
 
         mEditText.setTag(false);
@@ -279,7 +361,12 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
             mEditText.setText(spokenText);
             getFilter().filter(spokenText);
 
+        } else if (requestCode == SELECT_FILE && resultCode == Activity.RESULT_OK) {
+            onSelectFromGalleryResult(data);
+        } else if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
+            onCaptureImageResult(data);
         }
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -365,8 +452,6 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         if (mParentFragment.getMyListData().getItemId() != 0) {
             mParentFragment.setActionbarTitle(getResources().getString(R.string.recent_items_fragment_edit_title));
 
-        } else {
-            mParentFragment.setActionbarTitle(getResources().getString(R.string.recent_items_actionbar_heading));
         }
 
     }
@@ -402,6 +487,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
             if (mKeyboardVisible != isKeyboardNowVisible) {
                 if (isKeyboardNowVisible) {
                     onKeyboardShown();
+
                 } else {
                     onKeyboardHidden();
                 }
@@ -412,13 +498,25 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     };
 
     private void onKeyboardShown() {
+        imageLayout.setVisibility(View.GONE);
+        //    captureImageView.setVisibility(View.GONE);
+        imageLoopView.setVisibility(View.VISIBLE);
 
-        emptySpaceView.setVisibility(View.GONE);
+        if (imageLoopView.getDrawable() != null) {
+            linearLayout.setBackgroundColor(Color.parseColor("#BF000000"));  // BF - 75% // 80 - 50%
+            mLoopView.setCenterTextColor(Color.parseColor("#FFFFFF"));
+        }
+
         ((MainActivity) getActivity()).hideTabs();
     }
 
     private void onKeyboardHidden() {
-        emptySpaceView.setVisibility(View.VISIBLE);
+        imageLayout.setVisibility(View.VISIBLE);
+        //   captureImageView.setVisibility(View.VISIBLE);
+        imageLoopView.setVisibility(View.GONE);
+
+        linearLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        mLoopView.setCenterTextColor(Color.parseColor("#313131"));
         ((MainActivity) getActivity()).showTabs();
     }
 
@@ -440,12 +538,13 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
             mPresenter.onAddItems(fragment.getMyListData().getItemId(), mEditText.getText().toString().trim(),
                     fragment.getDateTimeText(), fragment.getMyListData().getLatitude(), fragment.getMyListData().getListId(), fragment.getMyListData().getListName(),
                     fragment.getMyListData().getLocation(), fragment.getMyListData().getLongitude(),
-                    fragment.getMyListData().getStatusId());
+                    fragment.getMyListData().getStatusId(), fragment.getFilePath());
         } else {
 
             // Creating new item
             mPresenter.onAddItems(0, mEditText.getText().toString().trim(),
-                    "", "", fragment.getMyListData().getListId(), fragment.getMyListData().getListName(), "", "", 0);
+                    "", "", fragment.getMyListData().getListId(),
+                    fragment.getMyListData().getListName(), "", "", 0, fragment.getFilePath());
         }
 
 
@@ -531,5 +630,161 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         }
 
         return capMatcher.appendTail(capBuffer).toString();
+    }
+
+
+    @OnClick(R.id.camera_imageview)
+    public void onCameraClick() {
+
+        if (mEditText.getText().toString().trim().equals("")) {
+            showDialog();
+            return;
+        }
+
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(getBaseActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                selectImage();
+
+            } else {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 126);
+
+            }
+        } else {
+            selectImage();
+        }
+
+
+    }
+
+
+    private void selectImage() {
+        final CharSequence[] items = {"Camera", "Gallery",};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getBaseActivity());
+        builder.setTitle("Select Photo");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                if (items[item].equals("Camera")) {
+                    dispatchTakePictureIntent();
+                } else if (items[item].equals("Gallery")) {
+                    galleryIntent();
+                }
+            }
+        });
+        builder.show();
+    }
+
+
+    private void galleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+    }
+
+
+    private void onCaptureImageResult(Intent data) {
+
+        if (currentPhotoPath.equals("")) {
+            return;
+        }
+        cardSpaceView.setVisibility(View.VISIBLE);
+        //   cardLoopView.setVisibility(View.VISIBLE);
+        File file = new File(currentPhotoPath);
+
+        if (!file.exists()) {
+            return;
+        }
+        Uri uri = Uri.fromFile(file);
+
+        ImageUtils imageUtils = new ImageUtils(getBaseActivity(), captureImageView);
+
+        String imagePath = imageUtils.compressImage(uri);
+
+
+        if (imageUtils.getBitmap() != null) {
+            captureImageView.setImageBitmap(imageUtils.getBitmap());
+            imageLoopView.setImageBitmap(imageUtils.getBitmap());
+        } else {
+            captureImageView.setImageURI(uri);
+            imageLoopView.setImageURI(uri);
+        }
+
+        if (((AddItemsFragment) getParentFragment()) != null) {
+            ((AddItemsFragment) getParentFragment()).setFilePath(imagePath);
+        }
+
+    }
+
+    private void onSelectFromGalleryResult(Intent data) {
+        cardSpaceView.setVisibility(View.VISIBLE);
+        //    cardLoopView.setVisibility(View.VISIBLE);
+        Uri picUri = data.getData();
+
+        ImageUtils imageUtils = new ImageUtils(getBaseActivity(), captureImageView);
+
+        String imagePath = imageUtils.compressImage(picUri);
+
+        if (imageUtils.getBitmap() != null) {
+            captureImageView.setImageBitmap(imageUtils.getBitmap());
+            imageLoopView.setImageBitmap(imageUtils.getBitmap());
+        } else {
+            captureImageView.setImageURI(picUri);
+            imageLoopView.setImageURI(picUri);
+        }
+
+        if (((AddItemsFragment) getParentFragment()) != null) {
+            ((AddItemsFragment) getParentFragment()).setFilePath(imagePath);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            selectImage();
+        }
+    }
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getBaseActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void dispatchTakePictureIntent() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getBaseActivity().getPackageManager()) != null) {
+
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getBaseActivity(),
+                        "com.mcn.honeydew.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+            }
+        }
     }
 }

@@ -40,6 +40,9 @@ public class AddUpdateItemRequest {
     @SerializedName("StatusId")
     @Expose
     private int statusId;
+    @SerializedName("FilePath")
+    @Expose
+    private String FilePath;
 
     public int getItemId() {
         return itemId;
@@ -119,6 +122,14 @@ public class AddUpdateItemRequest {
 
     public void setStatusId(int statusId) {
         this.statusId = statusId;
+    }
+
+    public String getFilePath() {
+        return FilePath;
+    }
+
+    public void setFilePath(String filePath) {
+        FilePath = filePath;
     }
 
 }

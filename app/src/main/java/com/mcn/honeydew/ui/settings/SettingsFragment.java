@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -13,11 +14,13 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
@@ -71,6 +74,9 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
 
     @BindView(R.id.phone_textView)
     TextView mPhoneTextView;
+
+    @BindView(R.id.password_layout)
+    LinearLayout passwordLayout;
 
 
     // proximity
@@ -240,8 +246,10 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
 
         if (facebookLogin) {
             editEmailImageView.setVisibility(View.GONE);
+            passwordLayout.setVisibility(View.GONE);
         } else {
             editEmailImageView.setVisibility(View.VISIBLE);
+            passwordLayout.setVisibility(View.VISIBLE);
         }
 
         mUserNameTextView.setText(userData.getUserName());

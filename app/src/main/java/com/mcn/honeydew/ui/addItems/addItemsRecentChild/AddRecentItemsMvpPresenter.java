@@ -11,7 +11,7 @@ public interface AddRecentItemsMvpPresenter<V extends AddRecentItemsMvpView> ext
     void onViewPrepared();
 
     void onAddItems(int ItemId, String ItemName, String ItemTime, String Latitude, int ListId, String ListName,
-                    String Location, String Longitude, int StatusId);
+                    String Location, String Longitude, int StatusId, String url);
 
     void deleteRecentItems();
 

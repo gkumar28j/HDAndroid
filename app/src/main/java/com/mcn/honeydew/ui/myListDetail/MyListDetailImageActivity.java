@@ -1,37 +1,40 @@
-package com.mcn.honeydew.ui;
+package com.mcn.honeydew.ui.myListDetail;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
-
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.ui.base.BaseActivity;
+import com.mcn.honeydew.utils.AppConstants;
+import com.mcn.honeydew.utils.TouchImageView;
 
-import butterknife.BindView;
+public class MyListDetailImageActivity extends BaseActivity {
 
-public class BluetoothDescActivity extends BaseActivity {
 
-    TextView mTextView;
+    ImageView imageView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetooth_desc);
+        setContentView(R.layout.activity_my_list_detail_image);
 
         if(getSupportActionBar()!=null){
 
-            getSupportActionBar().setTitle("Version Update");
+            getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         }
 
-        mTextView = findViewById(R.id.bluetooth_description_textview);
+        imageView = findViewById(R.id.pdf_image);
         if(getIntent()!=null){
 
-            String desc = getIntent().getStringExtra("description");
-            mTextView.setText(desc);
+            String desc = getIntent().getStringExtra("url");
+            String completeUrl = AppConstants.BASE_URL+desc;
+            Glide.with(this).load(completeUrl).skipMemoryCache(true).into(imageView);
 
         }
     }

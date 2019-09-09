@@ -399,8 +399,10 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
         String lat = latitude.substring(0, latitude.length() - 1);
         String lng = longitude.substring(0, longitude.length() - 1);
 
+        String url = fragment.getFilePath();
+
         mPresenter.onAddItems(itemId, itemName, DateTimeText, lat, listId, listName,
-                mEditText.getText().toString().trim(), lng, fragment.getMyListData().getStatusId());
+                mEditText.getText().toString().trim(), lng, fragment.getMyListData().getStatusId(),url);
 
 
     }
@@ -536,9 +538,11 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
 
         int itemId = fragment.getMyListData().getItemId();
 
+        String url = fragment.getFilePath();
+
         if (fragment.getMyListData().getLocation() != null && fragment.getMyListData().getLocation().equals(mEditText.getText().toString().trim())) {
             mPresenter.onAddItems(itemId, itemName, DateTimeText, fragment.getMyListData().getLatitude(), listId, listName,
-                    mEditText.getText().toString().trim(), fragment.getMyListData().getLongitude(), fragment.getMyListData().getStatusId());
+                    mEditText.getText().toString().trim(), fragment.getMyListData().getLongitude(), fragment.getMyListData().getStatusId(),url);
         } else {
             mPresenter.fetchLatLng(mEditText.getText().toString().trim(), latitude, longitude, AppConstants.GOOGLE_NEARBY_SEARCH_RADIUS, AppConstants.PLACE_KEY);
         }
@@ -625,7 +629,7 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
         super.onResume();
         view.getViewTreeObserver()
                 .addOnGlobalLayoutListener(mLayoutKeyboardVisibilityListener);
-        ((AddItemsFragment) getParentFragment()).setActionbarTitle(getResources().getString(R.string.recent_location_actionbar_heading));
+     //   ((AddItemsFragment) getParentFragment()).setActionbarTitle(getResources().getString(R.string.recent_location_actionbar_heading));
         ((AddItemsFragment) getParentFragment()).showLocationState();
     }
 

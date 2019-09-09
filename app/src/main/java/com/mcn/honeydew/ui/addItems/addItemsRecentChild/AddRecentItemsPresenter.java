@@ -1,24 +1,30 @@
 package com.mcn.honeydew.ui.addItems.addItemsRecentChild;
 
+import android.annotation.SuppressLint;
+
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
-import com.mcn.honeydew.data.network.model.request.AddUpdateItemRequest;
 import com.mcn.honeydew.data.network.model.response.AddUpdateItemResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteRecentItemsResponse;
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
 import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.rx.SchedulerProvider;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by gkumar on 9/3/18.
  */
 
-public class AddRecentItemsPresenter<V extends AddRecentItemsMvpView> extends BasePresenter<V> implements AddRecentItemsMvpPresenter<V>{
+public class AddRecentItemsPresenter<V extends AddRecentItemsMvpView> extends BasePresenter<V> implements AddRecentItemsMvpPresenter<V> {
 
     @Inject
     public AddRecentItemsPresenter(DataManager dataManager, SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
@@ -67,8 +73,9 @@ public class AddRecentItemsPresenter<V extends AddRecentItemsMvpView> extends Ba
                 });
     }
 
+    @SuppressLint("CheckResult")
     @Override
-    public void onAddItems(int ItemId, String ItemName, String ItemTime, String Latitude, int ListId, String ListName, String Location, String Longitude, int StatusId) {
+    public void onAddItems(int ItemId, String ItemName, String ItemTime, String Latitude, int ListId, String ListName, String Location, String Longitude, int StatusId, String url) {
         if (!getMvpView().isNetworkConnected()) {
             getMvpView().showMessage(R.string.connection_error);
             getMvpView().addItemsCallFailed();
@@ -76,7 +83,7 @@ public class AddRecentItemsPresenter<V extends AddRecentItemsMvpView> extends Ba
         }
         getMvpView().showLoading();
 
-        final AddUpdateItemRequest request = new AddUpdateItemRequest();
+       /* final AddUpdateItemRequest request = new AddUpdateItemRequest();
         request.setItemId(ItemId);
         request.setItemName(ItemName);
         request.setItemTime(ItemTime);
@@ -87,9 +94,28 @@ public class AddRecentItemsPresenter<V extends AddRecentItemsMvpView> extends Ba
         request.setLocation(Location);
         request.setStatusId(StatusId);
         request.setPhoto("");
+        request.setFilePath(url);*/
+        MultipartBody.Part body = null;
+        if (url != null) {
+            File file = new File(url);
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
+            body =
+                    MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+        }
 
-        getDataManager().doAddUpdateItemsCall(request)
+        RequestBody ItemIds = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(ItemId));
+        RequestBody ItemNames = RequestBody.create(MediaType.parse("multipart/form-data"), ItemName!=null?ItemName:"");
+        RequestBody ItemTimes = RequestBody.create(MediaType.parse("multipart/form-data"), ItemTime!=null?ItemTime:"");
+        RequestBody Latitudes = RequestBody.create(MediaType.parse("multipart/form-data"), Latitude!=null?Latitude:"");
+        RequestBody ListIds = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(ListId));
+        RequestBody ListNames = RequestBody.create(MediaType.parse("multipart/form-data"), ListName!=null?ListName:"");
+        RequestBody Longitudes = RequestBody.create(MediaType.parse("multipart/form-data"), Longitude!=null?Longitude:"");
+        RequestBody Locations = RequestBody.create(MediaType.parse("multipart/form-data"), Location!=null?Location:"");
+        RequestBody StatusIds = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(StatusId));
+
+        getDataManager().doUpdateRecentItemsCall(ItemIds, ItemNames, ItemTimes, Latitudes, ListIds, ListNames, Longitudes, Locations, StatusIds, body)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<AddUpdateItemResponse>() {
@@ -100,8 +126,6 @@ public class AddRecentItemsPresenter<V extends AddRecentItemsMvpView> extends Ba
                         }
                         if (response.getErrorObject().getStatus() == 1) {
                             getMvpView().itemSuccesfullyAdded();
-                        } else {
-
                         }
                         getMvpView().hideLoading();
 

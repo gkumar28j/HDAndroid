@@ -4,6 +4,7 @@ package com.mcn.honeydew.ui.addItems;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -77,6 +78,8 @@ public class AddItemsFragment extends BaseFragment implements AddItemsMvpView, B
     private int itemId = 0;
     public String ItemName = "";
 
+    public String photo;
+
     public String dateTimeText = "";
 
     public static String WHEN_TAG = "when";
@@ -97,6 +100,8 @@ public class AddItemsFragment extends BaseFragment implements AddItemsMvpView, B
     SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
 
     MyListResponseData myListData = null;
+
+    private String filePath;
 
     public static AddItemsFragment newInstance(MyListResponseData data) {
         Bundle args = new Bundle();
@@ -137,6 +142,12 @@ public class AddItemsFragment extends BaseFragment implements AddItemsMvpView, B
 
                     String finalString = newFormat.format(date);
                     setDateTimeText(finalString);
+                }
+
+                if(myListData.getPhoto()!=null){
+                    setPhoto(myListData.getPhoto());
+                }else {
+                    setPhoto("");
                 }
             }
 
@@ -524,5 +535,21 @@ public class AddItemsFragment extends BaseFragment implements AddItemsMvpView, B
         mcurrent = getBaseActivity().getCurrentLocation();
         setCurrentLocation(mcurrent);
         return mcurrent;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
