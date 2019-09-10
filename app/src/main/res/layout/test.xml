@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/view_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/add_item_title_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textview_size_m1"
+                tools:text="Add items" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="200dp"
+                    android:layout_height="120dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="null"
+                    android:scaleType="center" />
+
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <RelativeLayout
+                    android:id="@+id/heading_linear_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recent_items_location_delete_lay_height"
+                    android:background="@color/colorPrimary"
+                    android:padding="@dimen/when_where_done_button_common_margin">
+
+                    <TextView
+                        android:id="@+id/recent_search_heading_text_view"
+                        style="@style/AddItemsDeleteHeadingTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/your_most_popular_items" />
+
+                    <ImageView
+
+                        android:id="@+id/delete_image_view"
+                        android:layout_width="@dimen/delete_items_image_height_width"
+                        android:layout_height="@dimen/delete_items_image_height_width"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/delete_img_heading_lay_padding"
+                        android:src="@drawable/ic_delete" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/location_layout_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorPrimary"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/when_where_done_button_common_margin"
+                    android:paddingTop="@dimen/when_where_done_button_common_margin"
+                    android:paddingRight="@dimen/when_where_done_button_common_margin"
+                    android:weightSum="1">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.85"
+                        android:background="@drawable/search_background"
+                        android:padding="@dimen/when_where_done_button_common_margin">
+
+                        <EditText
+                            android:id="@+id/search_edit_text"
+                            style="@style/AddItemsEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:hint="@string/hint_search_items_add_items"
+                            android:imeOptions="actionDone"
+                            android:inputType="textCapWords"
+                            android:maxLength="30" />
+
+                        <ImageView
+                            android:id="@+id/voice_recognition_image"
+                            android:layout_width="@dimen/record_audio_img_width_height"
+                            android:layout_height="@dimen/record_audio_img_width_height"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_voice_recognition_disable" />
+
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.15"
+                        android:gravity="center_horizontal">
+
+                        <ImageView
+                            android:id="@+id/camera_imageview"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_camera_white" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/location_layout_bottom"
+                    android:layout_below="@id/heading_linear_lay">
+
+
+                    <ImageView
+                        android:id="@+id/image_view_loopview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="null"
+                        android:scaleType="center"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/loop_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
+
+                        <com.weigan.loopview.LoopView
+                            android:id="@+id/loopView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            app:awv_textsize="17"
+
+                            />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/empty_recent_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/empty_recent_items_message"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+</LinearLayout>
