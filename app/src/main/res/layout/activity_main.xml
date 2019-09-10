@@ -101,11 +101,14 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentBottom="true"
-        android:animateLayoutChanges="false"
         android:background="@android:color/white"
         app:elevation="8dp"
+        android:animateLayoutChanges="false"
         app:itemIconTint="@drawable/tab_selector"
-        app:itemTextColor="@drawable/tab_selector" />
+        app:itemTextColor="@drawable/tab_selector"
+        app:labelVisibilityMode="labeled"
+        app:itemHorizontalTranslationEnabled="false"
+        />
 
 
     <FrameLayout

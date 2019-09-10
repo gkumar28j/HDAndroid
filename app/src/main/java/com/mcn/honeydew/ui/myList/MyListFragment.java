@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.request.ChangeItemStatusRequest;
 import com.mcn.honeydew.data.network.model.response.MyListResponseData;
@@ -25,6 +26,7 @@ import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.myListDetail.MyListDetailImageActivity;
 import com.mcn.honeydew.utils.AppConstants;
+import com.mcn.honeydew.utils.TouchOrZoomImageView;
 import com.mcn.honeydew.utils.draghelper.OnStartDragListener;
 import com.mcn.honeydew.utils.draghelper.SimpleItemTouchHelperCallback;
 

@@ -1,47 +1,82 @@
 package com.mcn.honeydew.ui.myListDetail;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.OnOutsidePhotoTapListener;
+import com.github.chrisbanes.photoview.OnPhotoTapListener;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.mcn.honeydew.R;
-import com.mcn.honeydew.ui.base.BaseActivity;
 import com.mcn.honeydew.utils.AppConstants;
-import com.mcn.honeydew.utils.TouchImageView;
+import com.mcn.honeydew.utils.SwipeBackActivity;
+import com.mcn.honeydew.utils.SwipeBackLayout;
 
-public class MyListDetailImageActivity extends BaseActivity {
+public class MyListDetailImageActivity extends SwipeBackActivity {
 
+    PhotoView imageView;
 
-    ImageView imageView;
+    SwipeBackLayout swipeBackLayout;
 
+    String url = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list_detail_image);
 
-        if(getSupportActionBar()!=null){
+      /*  if(getSupportActionBar()!=null){
 
             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        }
+        }*/
 
+        swipeBackLayout = (SwipeBackLayout) findViewById(R.id.swipe_layout);
         imageView = findViewById(R.id.pdf_image);
-        if(getIntent()!=null){
 
+        if (getIntent() != null) {
             String desc = getIntent().getStringExtra("url");
-            String completeUrl = AppConstants.BASE_URL+desc;
-            Glide.with(this).load(completeUrl).skipMemoryCache(true).into(imageView);
-
+            url = AppConstants.BASE_URL + desc;
         }
+
+        initViews();
+
     }
 
-    @Override
-    protected void setUp() {
 
+    private void initViews() {
+        if(url==null){
+            return;
+        }
+
+        Glide.with(this).load(url).into(imageView);
+        swipeBackLayout.setEnableFlingBack(true);
+        imageView.setOnPhotoTapListener(new OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(ImageView view, float x, float y) {
+
+                finish();
+
+            }
+        });
+
+        imageView.setOnOutsidePhotoTapListener(new OnOutsidePhotoTapListener() {
+            @Override
+            public void onOutsidePhotoTap(ImageView imageView) {
+                finish();
+            }
+        });
+
+
+        setDragDirectMode(SwipeBackLayout.DragDirectMode.VERTICAL);
+        swipeBackLayout.setOnPullToBackListener(new SwipeBackLayout.SwipeBackListener() {
+            @Override
+            public void onViewPositionChanged(float fractionAnchor, float fractionScreen) {
+                //  progressBar.setProgress((int) (progressBar.getMax() * fractionAnchor));
+            }
+        });
     }
 
 
@@ -54,7 +89,7 @@ public class MyListDetailImageActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case android.R.id.home:
                 finish();

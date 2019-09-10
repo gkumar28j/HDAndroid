@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
@@ -152,7 +153,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             if (getIntent().getAction() != null && getIntent().getAction().equals(GeoFenceFilterService.ACTION_NOTIFICATION)) {
                 navigation.inflateMenu(R.menu.navigation);
                 menuItemSelected = navigation.getMenu().getItem(1);
-                BottomNavigationViewHelper.disableShiftMode(navigation);
+            //    BottomNavigationViewHelper.disableShiftMode(navigation);
+                navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
                 navigation.setItemIconTintList(null);
                 navigation.setSelectedItemId(menuItemSelected.getItemId());
                 navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -186,7 +188,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             mEditItemData = gson.fromJson(editData, MyListResponseData.class);
 
             menuItemSelected = navigation.getMenu().findItem(mMenuItemSelected);
-            BottomNavigationViewHelper.disableShiftMode(navigation);
+        //    BottomNavigationViewHelper.disableShiftMode(navigation);
+            navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+            clippPadding(navigation);
             navigation.setItemIconTintList(null);
             navigation.setSelectedItemId(menuItemSelected.getItemId());
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -194,8 +198,11 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         } else {
 
             navigation.inflateMenu(R.menu.navigation);
+            clippPadding(navigation);
             menuItemSelected = navigation.getMenu().getItem(2);
-            BottomNavigationViewHelper.disableShiftMode(navigation);
+        //    BottomNavigationViewHelper.disableShiftMode(navigation);
+
+            navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             navigation.setItemIconTintList(null);
             navigation.setSelectedItemId(menuItemSelected.getItemId());
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -323,8 +330,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 navigation.getMenu().clear();
                 navigation.inflateMenu(R.menu.navigation);
                 navigation.setItemIconTintList(null);
+                clippPadding(navigation);
                 navigation.setSelectedItemId(R.id.navigation_home);
-                BottomNavigationViewHelper.disableShiftMode(navigation);
+            //    BottomNavigationViewHelper.disableShiftMode(navigation);
+                navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
                 navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
                 break;
@@ -493,7 +502,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             navigation.getMenu().clear();
             navigation.inflateMenu(R.menu.navigation);
             navigation.setItemIconTintList(null);
-            BottomNavigationViewHelper.disableShiftMode(navigation);
+            clippPadding(navigation);
+        //    BottomNavigationViewHelper.disableShiftMode(navigation);
+            navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
         MenuItem homeItem = navigation.getMenu().getItem(2);
@@ -558,8 +569,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         navigation.getMenu().clear();
         navigation.inflateMenu(R.menu.navigation_list_detail);
         navigation.setItemIconTintList(null);
+        clippPadding(navigation);
         navigation.setSelectedItemId(R.id.navigation_my_list);
-        BottomNavigationViewHelper.disableShiftMode(navigation);
+    //    BottomNavigationViewHelper.disableShiftMode(navigation);
+        navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
@@ -577,8 +590,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         navigation.getMenu().clear();
         navigation.inflateMenu(R.menu.navigation_list_detail);
         navigation.setItemIconTintList(null);
+        clippPadding(navigation);
         navigation.setSelectedItemId(R.id.navigation_my_list);
-        BottomNavigationViewHelper.disableShiftMode(navigation);
+    //    BottomNavigationViewHelper.disableShiftMode(navigation);
+        navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
@@ -921,5 +936,19 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             //  notificationTextView.setVisibility(View.VISIBLE);
             //  notificationTextView.setText(String.valueOf(count));
         }
+    }
+
+    void clippPadding(BottomNavigationView view){
+
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+
+        for (int i = 0; i < menuView.getChildCount(); i++) {
+            BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
+            View activeLabel = itemView.findViewById(R.id.largeLabel);
+            if (activeLabel != null && activeLabel instanceof TextView) {
+                ((TextView)activeLabel).setPadding(0,0,0,0);
+            }
+        }
+
     }
 }

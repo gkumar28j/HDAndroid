@@ -30,6 +30,16 @@
     <style name="AppThemeFullScreen" parent="AppTheme.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
+
+    </style>
+
+
+    <style name="AppThemeFullScreenImage" parent="AppTheme.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+
     </style>
 
     <style name="AppThemeRegister" parent="AppTheme.NoActionBar">
