@@ -1,8 +1,8 @@
 package com.mcn.honeydew.di.module;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.mcn.honeydew.di.ActivityContext;
 import com.mcn.honeydew.di.PerActivity;
@@ -71,7 +71,6 @@ import com.mcn.honeydew.ui.myList.MyListAdapter;
 import com.mcn.honeydew.ui.myList.MyListMvpPresenter;
 import com.mcn.honeydew.ui.myList.MyListMvpView;
 import com.mcn.honeydew.ui.myList.MyListPresenter;
-import com.mcn.honeydew.ui.notifications.NotificationAdapter;
 import com.mcn.honeydew.ui.notifications.NotificationsMvpPresenter;
 import com.mcn.honeydew.ui.notifications.NotificationsMvpView;
 import com.mcn.honeydew.ui.notifications.NotificationsPresenter;

@@ -1,14 +1,12 @@
 package com.mcn.honeydew.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.ui.base.BaseActivity;
-
-import butterknife.BindView;
 
 public class BluetoothDescActivity extends BaseActivity {
 

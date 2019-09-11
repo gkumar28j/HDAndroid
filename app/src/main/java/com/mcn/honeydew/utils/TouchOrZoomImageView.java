@@ -11,7 +11,7 @@ import android.view.View;
 
 
 
-public class TouchOrZoomImageView extends android.support.v7.widget.AppCompatImageView {
+public class TouchOrZoomImageView extends androidx.appcompat.widget.AppCompatImageView {
     Matrix mMatrix = new Matrix();
 
     // We can be in one of these 3 states

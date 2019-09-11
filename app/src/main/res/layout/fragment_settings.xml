@@ -249,7 +249,7 @@
                 android:layout_weight="1"
                 tools:text="Daily Expiring Reminders" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_daily_expiring_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -301,7 +301,7 @@
                 android:layout_weight="1"
                 tools:text="Daily Expired items" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_daily_expired_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -365,7 +365,7 @@
                   android:text="@string/bluetooth_subheading_text" />-->
 
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_bluetooth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

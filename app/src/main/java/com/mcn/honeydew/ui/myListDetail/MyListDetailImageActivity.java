@@ -1,10 +1,19 @@
 package com.mcn.honeydew.ui.myListDetail;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.github.chrisbanes.photoview.OnOutsidePhotoTapListener;
 import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -21,6 +30,8 @@ public class MyListDetailImageActivity extends SwipeBackActivity {
 
     String url = null;
 
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +46,7 @@ public class MyListDetailImageActivity extends SwipeBackActivity {
 
         swipeBackLayout = (SwipeBackLayout) findViewById(R.id.swipe_layout);
         imageView = findViewById(R.id.pdf_image);
+        progressBar = findViewById(R.id.progress_bar);
 
         if (getIntent() != null) {
             String desc = getIntent().getStringExtra("url");
@@ -47,12 +59,35 @@ public class MyListDetailImageActivity extends SwipeBackActivity {
 
 
     private void initViews() {
-        if(url==null){
+        if (url == null) {
             return;
         }
+        progressBar.setVisibility(View.VISIBLE);
 
-        Glide.with(this).load(url).into(imageView);
+        // Glide.with(this).load(url).into(imageView);
+
+        Glide.with(this)
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+
+                        progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).into(imageView);
+
+
         swipeBackLayout.setEnableFlingBack(true);
+
+
         imageView.setOnPhotoTapListener(new OnPhotoTapListener() {
             @Override
             public void onPhotoTap(ImageView view, float x, float y) {

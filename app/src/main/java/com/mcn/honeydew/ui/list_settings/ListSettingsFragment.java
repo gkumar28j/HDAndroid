@@ -2,7 +2,7 @@ package com.mcn.honeydew.ui.list_settings;
 
 
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

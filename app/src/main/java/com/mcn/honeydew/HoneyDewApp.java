@@ -1,7 +1,7 @@
 package com.mcn.honeydew;
 
 import android.content.Context;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
 import com.mcn.honeydew.data.DataManager;
@@ -9,7 +9,7 @@ import com.mcn.honeydew.data.network.model.UserDetailResponse;
 import com.mcn.honeydew.di.component.ApplicationComponent;
 import com.mcn.honeydew.di.component.DaggerApplicationComponent;
 import com.mcn.honeydew.di.module.ApplicationModule;
-import android.arch.lifecycle.ProcessLifecycleOwner;
+import androidx.lifecycle.ProcessLifecycleOwner;
 import javax.inject.Inject;
 
 import io.fabric.sdk.android.Fabric;

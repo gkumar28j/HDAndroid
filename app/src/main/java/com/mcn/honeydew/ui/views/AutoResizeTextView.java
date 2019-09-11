@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
 
-public class AutoResizeTextView extends android.support.v7.widget.AppCompatTextView {
+public class AutoResizeTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     // Minimum text size for this text view
     public static final float MIN_TEXT_SIZE = 5;

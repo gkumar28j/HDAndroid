@@ -27,23 +27,28 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
-
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+import com.mcn.honeydew.BuildConfig;
 import com.mcn.honeydew.HoneyDewApp;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
+import com.mcn.honeydew.data.network.ApiCall;
 import com.mcn.honeydew.data.network.ApiHeader;
+import com.mcn.honeydew.data.network.model.request.UpdateDeviceInfoRequest;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
+import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.di.component.DaggerServiceComponent;
 import com.mcn.honeydew.di.component.ServiceComponent;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.utils.AppConstants;
+import com.mcn.honeydew.utils.CommonUtils;
 import com.mcn.honeydew.utils.NotificationType;
 
 import org.apache.http.HttpEntity;
@@ -61,6 +66,9 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.mcn.honeydew.utils.NotificationType.EXPIRED_ITEM;
@@ -299,4 +307,46 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
+    @Override
+    public void onNewToken(@NonNull String token) {
+     //   super.onNewToken(token);
+        Timber.d("FCM Token: " + token);
+
+        if (mDataManager.getCurrentUserLoggedInMode() ==
+                DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER.getType()) {
+            // If you want to send messages to this application instance or
+            // manage this apps subscriptions on the server side, send the
+            // Instance ID token to your app server.
+            sendRegistrationToServer(token);
+        } else {
+
+            mDataManager.saveDeviceId(token);
+            mDataManager.sendDeviceIdToServer(false);
+
+        }
+    }
+
+    private void sendRegistrationToServer(String token) {
+        mDataManager.doUpdateDeviceInfo(new UpdateDeviceInfoRequest(0.0, 0.0, String.valueOf(BuildConfig.VERSION_NAME), ApiCall.API_VERSION, BuildConfig.VERSION_NAME, token, AppConstants.DEVICE_TYPE, CommonUtils.getOffsetTimeZone(),
+                CommonUtils.getOffsetTimeZone(),
+                CommonUtils.getTimeZoneOffsetName()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<UpdateDeviceInfoResponse>() {
+                    @Override
+                    public void accept(UpdateDeviceInfoResponse response) throws Exception {
+                        mDataManager.sendDeviceIdToServer(true);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+
+                    }
+                });
+        mDataManager.doUpdateDeviceInfo(new UpdateDeviceInfoRequest(0.0, 0.0, String.valueOf(BuildConfig.VERSION_NAME), ApiCall.API_VERSION, BuildConfig.VERSION_NAME, token, AppConstants.DEVICE_TYPE, CommonUtils.getOffsetTimeZone(),
+                CommonUtils.getOffsetTimeZone(),
+                CommonUtils.getTimeZoneOffsetName()));
+        mDataManager.sendDeviceIdToServer(true);
+    }
 }

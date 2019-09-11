@@ -1,6 +1,6 @@
 package com.mcn.honeydew.ui.base;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 /**
  * Created by amit on 15/2/18.
