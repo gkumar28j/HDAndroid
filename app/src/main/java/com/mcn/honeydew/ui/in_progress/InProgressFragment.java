@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.di.component.ActivityComponent;
@@ -35,6 +36,9 @@ public class InProgressFragment extends BaseFragment implements InProgressMvpVie
 
     @BindView(R.id.toggle_progress)
     SwitchCompat progressToggleSwitch;
+
+    @BindView(R.id.relative_lay)
+    RelativeLayout mainLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,7 @@ public class InProgressFragment extends BaseFragment implements InProgressMvpVie
 
     @Override
     protected void setUp(View view) {
+
 
     }
 

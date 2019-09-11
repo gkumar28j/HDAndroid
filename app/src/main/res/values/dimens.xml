@@ -90,7 +90,8 @@
     <!-- Bottom Menu Override -->
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
-
+    <dimen name="add_items_imageview_width">200dp</dimen>
+    <dimen name="add_items_upload_image_view_height">120dp</dimen>
 
 
 </resources>

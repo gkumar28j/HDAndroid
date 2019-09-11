@@ -9,10 +9,6 @@ import android.graphics.Rect;
 import android.location.Location;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -34,6 +30,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.CustomLocationData;
@@ -132,6 +133,9 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
     @BindView(R.id.loopView)
     LoopView mLoopView;
 
+    @BindView(R.id.add_item_title_textview)
+    TextView headingTextView;
+
     String previousLocation = "";
     String tempLocation = "";
     View view;
@@ -187,6 +191,11 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
             previousLocation = loc;
             mEditText.setText(loc);
             ((AddItemsFragment) getParentFragment()).setLocation(loc);
+        }
+        if (((AddItemsFragment) getParentFragment()).getMyListData().getItemName() != null) {
+            headingTextView.setText("Edit Items");
+        } else {
+            headingTextView.setText(getString(R.string.recent_items_actionbar_heading));
         }
         mEditText.setTag(false);
         mEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -402,7 +411,7 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
         String url = fragment.getFilePath();
 
         mPresenter.onAddItems(itemId, itemName, DateTimeText, lat, listId, listName,
-                mEditText.getText().toString().trim(), lng, fragment.getMyListData().getStatusId(),url);
+                mEditText.getText().toString().trim(), lng, fragment.getMyListData().getStatusId(), url);
 
 
     }
@@ -542,7 +551,7 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
 
         if (fragment.getMyListData().getLocation() != null && fragment.getMyListData().getLocation().equals(mEditText.getText().toString().trim())) {
             mPresenter.onAddItems(itemId, itemName, DateTimeText, fragment.getMyListData().getLatitude(), listId, listName,
-                    mEditText.getText().toString().trim(), fragment.getMyListData().getLongitude(), fragment.getMyListData().getStatusId(),url);
+                    mEditText.getText().toString().trim(), fragment.getMyListData().getLongitude(), fragment.getMyListData().getStatusId(), url);
         } else {
             mPresenter.fetchLatLng(mEditText.getText().toString().trim(), latitude, longitude, AppConstants.GOOGLE_NEARBY_SEARCH_RADIUS, AppConstants.PLACE_KEY);
         }
@@ -629,7 +638,7 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
         super.onResume();
         view.getViewTreeObserver()
                 .addOnGlobalLayoutListener(mLayoutKeyboardVisibilityListener);
-     //   ((AddItemsFragment) getParentFragment()).setActionbarTitle(getResources().getString(R.string.recent_location_actionbar_heading));
+        //   ((AddItemsFragment) getParentFragment()).setActionbarTitle(getResources().getString(R.string.recent_location_actionbar_heading));
         ((AddItemsFragment) getParentFragment()).showLocationState();
     }
 

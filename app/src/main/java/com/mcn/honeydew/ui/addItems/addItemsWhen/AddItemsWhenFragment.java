@@ -70,6 +70,8 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
     int year, month, day;
     private int listId = 0;
     private String listName = "";
+    @BindView(R.id.add_item_title_textview)
+    TextView headingTextView;
 
 //    @BindView(R.id.empty_date_time_text_view)
 //    TextView mEmptyTextView;
@@ -97,6 +99,13 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
         int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
         emptySpaceView.getLayoutParams().height = (int) ((availiableHeight * 2.0) / 5.0);
         emptySpaceView.requestLayout();
+
+
+        if (((AddItemsFragment) getParentFragment()).getMyListData().getItemName() != null) {
+            headingTextView.setText("Edit Items");
+        } else {
+            headingTextView.setText(getString(R.string.recent_items_actionbar_heading));
+        }
         if (((AddItemsFragment) getParentFragment()).getMyListData().getItemTime() != null) {
             // mEmptyTextView.setVisibility(View.GONE);
             // dateTextView.setVisibility(View.VISIBLE);
@@ -136,6 +145,8 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
             showTimePicker();
         }
     };
+
+
 
 
     private void showTimePicker() {
@@ -228,6 +239,7 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
     @Override
     public void onResume() {
         super.onResume();
+
         ((AddItemsFragment) getParentFragment()).hideLocationState();
      //   ((AddItemsFragment) getParentFragment()).setActionbarTitle(getResources().getString(R.string.recent_items_actionbar_heading));
     }

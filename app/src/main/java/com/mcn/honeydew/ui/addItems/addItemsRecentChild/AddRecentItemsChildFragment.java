@@ -14,12 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -37,6 +31,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.bumptech.glide.Glide;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
@@ -46,7 +47,6 @@ import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.utils.AppConstants;
 import com.mcn.honeydew.utils.ImageUtils;
-import com.mcn.honeydew.utils.ScreenUtils;
 import com.weigan.loopview.LoopView;
 import com.weigan.loopview.OnItemSelectedListener;
 
@@ -153,6 +153,12 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
     int heightImageView = 0;
 
+    @BindView(R.id.loop_cardview)
+    CardView loopCardView;
+
+    @BindView(R.id.card_loop_lay)
+    LinearLayout loopLayout;
+
 
     @Nullable
     @Override
@@ -171,7 +177,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     @Override
     protected void setUp(View view) {
 
-        int totalHeight = ScreenUtils.getScreenHeight(getActivity());
+       /* int totalHeight = ScreenUtils.getScreenHeight(getActivity());
         int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
 
         int height = (int) ((availiableHeight * 3.0) / 10.0);
@@ -181,7 +187,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         captureImageView.getLayoutParams().width = width;
 
         captureImageView.requestLayout();
-        captureImageView.setVisibility(View.VISIBLE);
+        captureImageView.setVisibility(View.VISIBLE);*/
 
         AddItemsFragment fragment = ((AddItemsFragment) getParentFragment());
 
@@ -197,14 +203,14 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
             }
 
             if (fragment.getFilePath() != null) {
+                imageLayout.setVisibility(View.VISIBLE);
                 cardSpaceView.setVisibility(View.VISIBLE);
-                //     cardLoopView.setVisibility(View.VISIBLE);
                 File newFile = new File(((AddItemsFragment) getParentFragment()).getFilePath());
                 captureImageView.setImageURI(Uri.fromFile(newFile));
                 imageLoopView.setImageURI(Uri.fromFile(newFile));
             } else if (fragment.getPhoto() != null && !fragment.getPhoto().equals("")) {
+                imageLayout.setVisibility(View.VISIBLE);
                 cardSpaceView.setVisibility(View.VISIBLE);
-                //    cardLoopView.setVisibility(View.VISIBLE);
                 Glide.with(getBaseActivity()).load(AppConstants.BASE_URL + fragment.getPhoto()).into(captureImageView);
                 Glide.with(getBaseActivity()).load(AppConstants.BASE_URL + fragment.getPhoto()).into(imageLoopView);
             }
@@ -448,11 +454,11 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         super.onResume();
         view.getViewTreeObserver()
                 .addOnGlobalLayoutListener(mLayoutKeyboardVisibilityListener);
-        AddItemsFragment mParentFragment = ((AddItemsFragment) getParentFragment());
+      /*  AddItemsFragment mParentFragment = ((AddItemsFragment) getParentFragment());
         if (mParentFragment.getMyListData().getItemId() != 0) {
             mParentFragment.setActionbarTitle(getResources().getString(R.string.recent_items_fragment_edit_title));
 
-        }
+        }*/
 
     }
 
@@ -499,12 +505,11 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
     private void onKeyboardShown() {
         imageLayout.setVisibility(View.GONE);
-        //    captureImageView.setVisibility(View.GONE);
-        imageLoopView.setVisibility(View.VISIBLE);
 
         if (imageLoopView.getDrawable() != null) {
             linearLayout.setBackgroundColor(Color.parseColor("#BF000000"));  // BF - 75% // 80 - 50%
             mLoopView.setCenterTextColor(Color.parseColor("#FFFFFF"));
+            loopLayout.setVisibility(View.VISIBLE);
         }
 
         ((MainActivity) getActivity()).hideTabs();
@@ -512,9 +517,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
     private void onKeyboardHidden() {
         imageLayout.setVisibility(View.VISIBLE);
-        //   captureImageView.setVisibility(View.VISIBLE);
-        imageLoopView.setVisibility(View.GONE);
-
+        loopLayout.setVisibility(View.GONE);
         linearLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
         mLoopView.setCenterTextColor(Color.parseColor("#313131"));
         ((MainActivity) getActivity()).showTabs();
@@ -691,6 +694,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         if (currentPhotoPath.equals("")) {
             return;
         }
+        imageLayout.setVisibility(View.VISIBLE);
         cardSpaceView.setVisibility(View.VISIBLE);
         //   cardLoopView.setVisibility(View.VISIBLE);
         File file = new File(currentPhotoPath);
@@ -720,6 +724,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     }
 
     private void onSelectFromGalleryResult(Intent data) {
+        imageLayout.setVisibility(View.VISIBLE);
         cardSpaceView.setVisibility(View.VISIBLE);
         //    cardLoopView.setVisibility(View.VISIBLE);
         Uri picUri = data.getData();

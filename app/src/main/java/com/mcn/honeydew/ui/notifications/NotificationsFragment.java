@@ -126,7 +126,7 @@ public class NotificationsFragment extends BaseFragment implements Notifications
             }
 
             getBaseActivity().onNotificationClicked(clickedData.getListHeaderColor(),
-                    clickedData.getListName(), clickedData.getListId());
+                    clickedData.getListName(), clickedData.getListId(), clickedData.isOwner());
         }
 
 

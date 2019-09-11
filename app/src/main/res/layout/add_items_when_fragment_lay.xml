@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -8,12 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/empty_space_view"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/add_items_main_lay_margin_top"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" />
+        <TextView
+            android:id="@+id/add_item_title_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textview_size_m1"
+            tools:text="Add items" />
 
         <TextView
             android:id="@+id/choose_date_time_heading_text_view"
@@ -24,6 +31,12 @@
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/choose_date_time_popular_items" />
+
+        <View
+            android:id="@+id/empty_space_view"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/add_items_main_lay_margin_top"
+            android:layout_below="@id/add_item_title_textview" />
 
         <com.weigan.loopview.DateTimePickerView
             android:id="@+id/date_time_loopView"

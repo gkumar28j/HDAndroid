@@ -345,10 +345,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             case R.id.navigation_my_list:
                 listSettingImageView.setVisibility(View.VISIBLE);
                 settingImageView.setVisibility(View.GONE);
+                title.setText("'"+mAddItemData.getListName()+"'");
                 if (isEdit) {
                     editItemsFromList(mEditItemData);
                 } else {
-                    title.setText("'"+mAddItemData.getListName()+"'");
                     title.setVisibility(View.VISIBLE);
                     title.setBackgroundColor(Color.parseColor(headerColor));
                     fragment = MyListFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListName());
@@ -418,11 +418,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     // coming from edit of mylist
     @Override
     public void editItemsFromList(MyListResponseData data) {
-
+        settingImageView.setVisibility(View.GONE);
+        listSettingImageView.setVisibility(View.GONE);
+        title.setText("'"+data.getListName()+"'");
+        title.setVisibility(View.VISIBLE);
         mEditItemData = data;
         fragment = AddItemsFragment.newInstance(mEditItemData);
-        title.setText("Edit Item");
-        title.setVisibility(View.VISIBLE);
         isEdit = true;
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -444,12 +445,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     }
 
     @Override
-    public void onNotificationClicked(String color, String listName, int listId) {
+    public void onNotificationClicked(String color, String listName, int listId, boolean isOwner) {
         if (!color.startsWith("#")) {
             headerColor = "#".concat(color);
         } else
             headerColor = color;
-        navigateToListFragment(color, listName, listId);
+        navigateToListFragment(color, listName, listId, isOwner);
 
     }
 
@@ -569,6 +570,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         mData.setListHeaderColor(data.getListHeaderColor());
         mData.setListName(data.getListName());
         mData.setListId(data.getListId());
+        mData.setOwner(data.isIsOwner());
         mAddItemData = mData;
         mPresenter.saveSelectedList(data);
         navigation.getMenu().clear();
@@ -583,13 +585,14 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     }
 
-    public void navigateToListFragment(String listHeadingColor, String listName, int listId) {
+    public void navigateToListFragment(String listHeadingColor, String listName, int listId, boolean isOwner) {
     //    stopUpdateNotificationTimer();
         removeBadge();
         MyListResponseData mData = new MyListResponseData();
         mData.setListHeaderColor(listHeadingColor);
         mData.setListName(listName);
         mData.setListId(listId);
+        mData.setOwner(isOwner);
         mAddItemData = mData;
         //  mPresenter.saveSelectedList(data);
         navigation.getMenu().clear();
@@ -817,7 +820,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
         backImageView.setVisibility(View.VISIBLE);
         //fragment = InProgressFragment.newInstance();
-        fragment = ListSettingsFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListHeaderColor());
+        fragment = ListSettingsFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListHeaderColor(),mAddItemData.isOwner());
         //  title.setText("InProgress");
         //  title.setVisibility(View.VISIBLE);
         if (fragment != null) {

@@ -233,7 +233,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
     }
 
     @Override
-    public void onNotificationClicked(String color, String listName, int listId) {
+    public void onNotificationClicked(String color, String listName, int listId , boolean isOwner) {
 
     }
 

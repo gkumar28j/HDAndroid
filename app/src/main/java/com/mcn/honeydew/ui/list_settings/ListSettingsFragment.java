@@ -12,6 +12,7 @@ import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.GetListSettingsResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.base.BaseFragment;
+import com.mcn.honeydew.ui.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -32,15 +33,19 @@ public class ListSettingsFragment extends BaseFragment implements ListSettingsMv
     @BindView(R.id.layout_switch)
     RelativeLayout mSwitchRelativeLayout;
 
+
+    boolean isOwner = false;
+
     public ListSettingsFragment() {
         // Required empty public constructor
     }
 
-    public static ListSettingsFragment newInstance(int listId, String colorCode) {
+    public static ListSettingsFragment newInstance(int listId, String colorCode, boolean owner) {
         ListSettingsFragment fragment = new ListSettingsFragment();
         Bundle args = new Bundle();
         args.putInt("listId", listId);
         args.putString("colorCode", colorCode);
+        args.putBoolean("isowner",owner);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,6 +55,7 @@ public class ListSettingsFragment extends BaseFragment implements ListSettingsMv
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mListId = getArguments().getInt("listId");
+            isOwner = getArguments().getBoolean("isowner");
         }
     }
 
@@ -79,14 +85,13 @@ public class ListSettingsFragment extends BaseFragment implements ListSettingsMv
 
         mInProgressSwitchCompat.setChecked(settings.isInProgress());
 
-       /* if (((MainActivity) getBaseActivity()).isOwner) {
+        if (isOwner) {
             mInProgressSwitchCompat.setEnabled(true);
-            mSwitchRelativeLayout.setAlpha(1f);
+            mSwitchRelativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
         } else {
             mInProgressSwitchCompat.setEnabled(false);
-            mSwitchRelativeLayout.setAlpha(0.5f);
+            mSwitchRelativeLayout.setBackgroundColor(getResources().getColor(R.color.bg_color));
         }
-*/
     }
 
 
