@@ -247,6 +247,12 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
 
     }
 
+    @Override
+    public void saveInProgressValue(boolean isProgress) {
+
+
+    }
+
     private class SendNotification extends AsyncTask<String, Void, Boolean> {
         String url = AppConstants.BASE_URL + "v1_2/api/Account/BluetoothConnectDisconnet";
 

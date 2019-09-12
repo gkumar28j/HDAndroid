@@ -88,4 +88,8 @@ public interface PreferencesHelper {
 
     boolean isBluetoothDeviceConnected();
 
+    void setInProgressValue(boolean isInProgress);
+
+    boolean isInProgressValue();
+
 }

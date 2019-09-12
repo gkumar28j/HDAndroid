@@ -280,7 +280,7 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
 
 
     @Override
-    public void replceData(List<MyListResponseData> myListResponseData) {
+    public void replceData(List<MyListResponseData> myListResponseData, boolean inProgressValue) {
         if (!isAdded()) {
             return;
         }
@@ -290,7 +290,7 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
         } else {
             emptyView.setVisibility(View.GONE);
         }
-        mAdapter.replaceList(myListResponseData);
+        mAdapter.replaceList(myListResponseData,inProgressValue);
     }
 
     @Override

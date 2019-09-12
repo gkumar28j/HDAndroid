@@ -24,14 +24,15 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
@@ -71,9 +72,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-import static com.mcn.honeydew.utils.NotificationType.EXPIRED_ITEM;
-import static com.mcn.honeydew.utils.NotificationType.EXPIRE_ITEM;
-
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
@@ -85,6 +83,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String LIST_NAME = "ListName";
     public static final String LIST_HEADER_COLOR = "headercolor";
     public static final String IS_OWNER = "IsOwner";
+    public static final String IS_IN_PROGRESS = "InProgress";
 
     public static final String KEY_SYNC_REQUIRED = "SyncRequired";
 
@@ -117,6 +116,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String listName = "";
             String listHeaderColor = "";
             String isOwner = "0";
+            String isInProgress = "0";
             Bundle bundle = new Bundle();
 
 
@@ -148,6 +148,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (remoteMessage.getData().containsKey(IS_OWNER)) {
                 isOwner = remoteMessage.getData().get(IS_OWNER);
                 bundle.putString(IS_OWNER, isOwner);
+            }
+
+
+            if (remoteMessage.getData().containsKey(IS_IN_PROGRESS)) {
+                isInProgress = remoteMessage.getData().get(IS_IN_PROGRESS);
+                bundle.putString(IS_IN_PROGRESS, isInProgress);
             }
 
             if (notificationType.equalsIgnoreCase(NotificationType.DELETE_LIST) ||
@@ -309,7 +315,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(@NonNull String token) {
-     //   super.onNewToken(token);
+        //   super.onNewToken(token);
         Timber.d("FCM Token: " + token);
 
         if (mDataManager.getCurrentUserLoggedInMode() ==

@@ -73,7 +73,6 @@ public class MyListResponseData {
     @Expose
     private boolean ShowExpired;
 
-
     public boolean isShowExpired() {
         return ShowExpired;
     }

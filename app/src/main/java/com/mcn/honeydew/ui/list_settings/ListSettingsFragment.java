@@ -61,7 +61,15 @@ public class ListSettingsFragment extends BaseFragment implements ListSettingsMv
 
     @Override
     protected void setUp(View view) {
+
         mPresenter.getListSettings(mListId);
+        if (isOwner) {
+            mInProgressSwitchCompat.setEnabled(true);
+            mSwitchRelativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
+        } else {
+            mInProgressSwitchCompat.setEnabled(false);
+            mSwitchRelativeLayout.setBackgroundColor(getResources().getColor(R.color.bg_color));
+        }
     }
 
     @Override
@@ -85,13 +93,6 @@ public class ListSettingsFragment extends BaseFragment implements ListSettingsMv
 
         mInProgressSwitchCompat.setChecked(settings.isInProgress());
 
-        if (isOwner) {
-            mInProgressSwitchCompat.setEnabled(true);
-            mSwitchRelativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            mInProgressSwitchCompat.setEnabled(false);
-            mSwitchRelativeLayout.setBackgroundColor(getResources().getColor(R.color.bg_color));
-        }
     }
 
 

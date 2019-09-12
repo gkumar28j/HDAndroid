@@ -66,6 +66,10 @@ public class MyHomeListData {
     private boolean isSharedByOwner;
 
     @Expose
+    @SerializedName("InProgress")
+    private boolean InProgress;
+
+    @Expose
     @SerializedName("ItemsByList")
     private ArrayList<MyHomeChildData> myHomeChildData;
 
@@ -193,6 +197,14 @@ public class MyHomeListData {
         this.myHomeChildData = itemsByList;
     }
 
+
+    public boolean isInProgress() {
+        return InProgress;
+    }
+
+    public void setInProgress(boolean inProgress) {
+        InProgress = inProgress;
+    }
 
 
 

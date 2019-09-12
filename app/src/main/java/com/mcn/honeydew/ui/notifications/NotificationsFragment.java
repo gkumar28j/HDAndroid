@@ -3,15 +3,17 @@ package com.mcn.honeydew.ui.notifications;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.mcn.honeydew.R;
+import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.BluetoothDescActivity;
@@ -47,6 +49,7 @@ public class NotificationsFragment extends BaseFragment implements Notifications
 
     //@Inject
     NotificationAdapter mListAdapter;
+
 
     public static NotificationsFragment newInstance() {
         Bundle args = new Bundle();
@@ -116,7 +119,7 @@ public class NotificationsFragment extends BaseFragment implements Notifications
         if (clickedData.getNotificationId() == 0) {
 
             Intent intent = new Intent(getBaseActivity(), BluetoothDescActivity.class);
-            intent.putExtra("description",clickedData.getMessage());
+            intent.putExtra("description", clickedData.getMessage());
             startActivity(intent);
 
 
@@ -126,7 +129,9 @@ public class NotificationsFragment extends BaseFragment implements Notifications
             }
 
             getBaseActivity().onNotificationClicked(clickedData.getListHeaderColor(),
-                    clickedData.getListName(), clickedData.getListId(), clickedData.isOwner());
+                    clickedData.getListName(), clickedData.getListId(), clickedData.isOwner(), clickedData.getInProgress());
+
+
         }
 
 

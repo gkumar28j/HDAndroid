@@ -2,7 +2,6 @@ package com.mcn.honeydew.ui.myList;
 
 import android.content.Context;
 import android.graphics.Paint;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -10,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
@@ -41,9 +42,9 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
     private Callback mCallback;
     private ArrayList<MyListResponseData> list = new ArrayList<>();
     private OnStartDragListener mDragStartListener;
+    private boolean isInProgress;
 
     private int openedCount = 0;
-
 
     SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy hh:mm:ss a");
     SimpleDateFormat newFormat = new SimpleDateFormat("d MMM yy, hh:mm a");
@@ -92,13 +93,14 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         return list.size();
     }
 
-    public void replaceList(List<MyListResponseData> myListResponseData) {
+    public void replaceList(List<MyListResponseData> myListResponseData, boolean inProgressValue) {
 
         if (!list.isEmpty()) {
 
             list.clear();
         }
         list.addAll(myListResponseData);
+        isInProgress = inProgressValue;
         notifyDataSetChanged();
     }
 
@@ -232,7 +234,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
                 mAddressHeadingTextView.setPaintFlags(0);
             } else if (data.getStatusId() == MyListFragment.STATUS_IN_PROCESS) {
                 mAddressHeadingTextView.setTextColor(mContext.getResources().getColor(R.color.black));
-                changeStatusImageView.setImageResource(R.drawable.ic_cart);
+                changeStatusImageView.setImageResource(R.drawable.ic_status_in_progress);
                 mAddressHeadingTextView.setPaintFlags(0);
             } else if (data.getStatusId() == MyListFragment.STATUS_COMPLETE) {
                 changeStatusImageView.setImageResource(R.drawable.ic_check);
@@ -285,9 +287,9 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             // binderHelper.bind(swipeLayout, String.valueOf(data.getItemId()));
 
 
-            if(data.isShowExpired()){
+            if (data.isShowExpired()) {
                 redView.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 redView.setVisibility(View.INVISIBLE);
             }
         }
@@ -325,8 +327,18 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
                     if (list.get(getLayoutPosition()).getStatusId() == MyListFragment.STATUS_NEW_LIST) {
 
-                        list.get(getLayoutPosition()).setStatusId(MyListFragment.STATUS_IN_PROCESS);
-                        request.setStatusId(MyListFragment.STATUS_IN_PROCESS);
+                        if (isInProgress) {
+
+                            list.get(getLayoutPosition()).setStatusId(MyListFragment.STATUS_IN_PROCESS);
+                            request.setStatusId(MyListFragment.STATUS_IN_PROCESS);
+
+                        } else {
+
+                            list.get(getLayoutPosition()).setStatusId(MyListFragment.STATUS_COMPLETE);
+                            request.setStatusId(MyListFragment.STATUS_COMPLETE);
+
+                        }
+
                         mCallback.changeItemStatus(request, toDoItem.getLocation());
 
                     } else if (list.get(getLayoutPosition()).getStatusId() == MyListFragment.STATUS_IN_PROCESS) {
@@ -350,7 +362,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
                 case R.id.camera_icon:
 
-                    mCallback.onCameraIconClicked(list.get(getLayoutPosition()),getLayoutPosition());
+                    mCallback.onCameraIconClicked(list.get(getLayoutPosition()), getLayoutPosition());
 
 
                     break;

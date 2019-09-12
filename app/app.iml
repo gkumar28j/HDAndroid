@@ -216,5 +216,7 @@
     <orderEntry type="library" name="Gradle: androidx.multidex:multidex:2.0.0@aar" level="project" />
     <orderEntry type="module" module-name="swipe-reveal-layout" />
     <orderEntry type="module" module-name="loopview" />
+    <orderEntry type="module" module-name="swipe-reveal-layout" />
+    <orderEntry type="module" module-name="loopview" />
   </component>
 </module>

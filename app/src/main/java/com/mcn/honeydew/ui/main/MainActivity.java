@@ -11,17 +11,6 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import com.google.android.material.bottomnavigation.LabelVisibilityMode;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -29,9 +18,20 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
@@ -63,6 +63,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
+import static com.mcn.honeydew.services.MyFirebaseMessagingService.IS_IN_PROGRESS;
 import static com.mcn.honeydew.services.MyFirebaseMessagingService.IS_OWNER;
 import static com.mcn.honeydew.services.MyFirebaseMessagingService.KEY_LIST_ID;
 import static com.mcn.honeydew.services.MyFirebaseMessagingService.KEY_NOTIFICATION_TYPE;
@@ -158,7 +159,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             if (getIntent().getAction() != null && getIntent().getAction().equals(GeoFenceFilterService.ACTION_NOTIFICATION)) {
                 navigation.inflateMenu(R.menu.navigation);
                 menuItemSelected = navigation.getMenu().getItem(1);
-            //    BottomNavigationViewHelper.disableShiftMode(navigation);
+                //    BottomNavigationViewHelper.disableShiftMode(navigation);
                 navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
                 navigation.setItemIconTintList(null);
                 navigation.setSelectedItemId(menuItemSelected.getItemId());
@@ -193,7 +194,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             mEditItemData = gson.fromJson(editData, MyListResponseData.class);
 
             menuItemSelected = navigation.getMenu().findItem(mMenuItemSelected);
-        //    BottomNavigationViewHelper.disableShiftMode(navigation);
+            //    BottomNavigationViewHelper.disableShiftMode(navigation);
             navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             clippPadding(navigation);
             navigation.setItemIconTintList(null);
@@ -205,7 +206,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             navigation.inflateMenu(R.menu.navigation);
             clippPadding(navigation);
             menuItemSelected = navigation.getMenu().getItem(2);
-        //    BottomNavigationViewHelper.disableShiftMode(navigation);
+            //    BottomNavigationViewHelper.disableShiftMode(navigation);
 
             navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             navigation.setItemIconTintList(null);
@@ -337,7 +338,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 navigation.setItemIconTintList(null);
                 clippPadding(navigation);
                 navigation.setSelectedItemId(R.id.navigation_home);
-            //    BottomNavigationViewHelper.disableShiftMode(navigation);
+                //    BottomNavigationViewHelper.disableShiftMode(navigation);
                 navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
                 navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -345,7 +346,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             case R.id.navigation_my_list:
                 listSettingImageView.setVisibility(View.VISIBLE);
                 settingImageView.setVisibility(View.GONE);
-                title.setText("'"+mAddItemData.getListName()+"'");
+                title.setText("'" + mAddItemData.getListName() + "'");
                 if (isEdit) {
                     editItemsFromList(mEditItemData);
                 } else {
@@ -359,8 +360,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 settingImageView.setVisibility(View.GONE);
                 listSettingImageView.setVisibility(View.GONE);
                 title.setText("");
-                title.setText("'"+mAddItemData.getListName()+"'");
-             //   title.setText(getResources().getString(R.string.recent_items_actionbar_heading));
+                title.setText("'" + mAddItemData.getListName() + "'");
+                //   title.setText(getResources().getString(R.string.recent_items_actionbar_heading));
                 title.setVisibility(View.VISIBLE);
                 title.setBackgroundColor(Color.parseColor(headerColor));
                 MyListResponseData data = new MyListResponseData();
@@ -420,7 +421,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     public void editItemsFromList(MyListResponseData data) {
         settingImageView.setVisibility(View.GONE);
         listSettingImageView.setVisibility(View.GONE);
-        title.setText("'"+data.getListName()+"'");
+        title.setText("'" + data.getListName() + "'");
         title.setVisibility(View.VISIBLE);
         mEditItemData = data;
         fragment = AddItemsFragment.newInstance(mEditItemData);
@@ -445,12 +446,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     }
 
     @Override
-    public void onNotificationClicked(String color, String listName, int listId, boolean isOwner) {
+    public void onNotificationClicked(String color, String listName, int listId, boolean isOwner, int inProgress) {
         if (!color.startsWith("#")) {
             headerColor = "#".concat(color);
         } else
             headerColor = color;
-        navigateToListFragment(color, listName, listId, isOwner);
+        navigateToListFragment(color, listName, listId, isOwner, inProgress);
 
     }
 
@@ -509,7 +510,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             navigation.inflateMenu(R.menu.navigation);
             navigation.setItemIconTintList(null);
             clippPadding(navigation);
-        //    BottomNavigationViewHelper.disableShiftMode(navigation);
+            //    BottomNavigationViewHelper.disableShiftMode(navigation);
             navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
@@ -532,7 +533,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         mAddItemData.setListHeaderColor(colorCode);
         if (!colorCode.startsWith("#")) {
             headerColor = "#".concat(colorCode);
-        } else{
+        } else {
             headerColor = colorCode;
         }
 
@@ -563,7 +564,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @Override
     public void showMyListFragment(MyHomeListData data) {
-    //    stopUpdateNotificationTimer();
+        //    stopUpdateNotificationTimer();
+
+        mPresenter.saveInProgressValue(data.isInProgress());
         removeBadge();
 
         MyListResponseData mData = new MyListResponseData();
@@ -578,15 +581,21 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         navigation.setItemIconTintList(null);
         clippPadding(navigation);
         navigation.setSelectedItemId(R.id.navigation_my_list);
-    //    BottomNavigationViewHelper.disableShiftMode(navigation);
+        //    BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
     }
 
-    public void navigateToListFragment(String listHeadingColor, String listName, int listId, boolean isOwner) {
-    //    stopUpdateNotificationTimer();
+    public void navigateToListFragment(String listHeadingColor, String listName, int listId, boolean isOwner, int inProgress) {
+        //    stopUpdateNotificationTimer();
+        if(inProgress==1){
+            mPresenter.saveInProgressValue(true);
+        }else {
+            mPresenter.saveInProgressValue(false);
+        }
+
         removeBadge();
         MyListResponseData mData = new MyListResponseData();
         mData.setListHeaderColor(listHeadingColor);
@@ -600,7 +609,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         navigation.setItemIconTintList(null);
         clippPadding(navigation);
         navigation.setSelectedItemId(R.id.navigation_my_list);
-    //    BottomNavigationViewHelper.disableShiftMode(navigation);
+        //    BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -631,6 +640,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 mData.setListId(Integer.valueOf(bundle.getString(KEY_LIST_ID)));
                 if (bundle.containsKey(IS_OWNER))
                     mData.setIsOwner(bundle.getString(IS_OWNER).equals("1"));
+
+                if (bundle.containsKey(IS_IN_PROGRESS))
+                    mData.setIsOwner(bundle.getString(IS_IN_PROGRESS).equals("1"));
                 showMyListFragment(mData);
                 getIntent().getExtras().remove(KEY_NOTIFICATION_TYPE);
 
@@ -820,7 +832,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
         backImageView.setVisibility(View.VISIBLE);
         //fragment = InProgressFragment.newInstance();
-        fragment = ListSettingsFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListHeaderColor(),mAddItemData.isOwner());
+        fragment = ListSettingsFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListHeaderColor(), mAddItemData.isOwner());
         //  title.setText("InProgress");
         //  title.setVisibility(View.VISIBLE);
         if (fragment != null) {
@@ -946,7 +958,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         }
     }
 
-    void clippPadding(BottomNavigationView view){
+    void clippPadding(BottomNavigationView view) {
 
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
 
@@ -954,14 +966,14 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
             View activeLabel = itemView.findViewById(R.id.largeLabel);
             if (activeLabel != null && activeLabel instanceof TextView) {
-                ((TextView)activeLabel).setPadding(0,0,0,0);
+                ((TextView) activeLabel).setPadding(0, 0, 0, 0);
             }
         }
 
     }
 
 
-    private void initFirebaseInstanceId(){
+    private void initFirebaseInstanceId() {
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -975,11 +987,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                         String token = task.getResult().getToken();
 
                         // Log and toast
-                        String msg = "Current token is : "+ token;
+                        String msg = "Current token is : " + token;
                         Log.d("FirebaseInstanceTask", msg);
-                      //  Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
+
+
 }

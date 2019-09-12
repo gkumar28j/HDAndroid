@@ -431,6 +431,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void setInProgressValue(boolean isInProgress) {
+        mPreferencesHelper.setInProgressValue(isInProgress);
+    }
+
+    @Override
+    public boolean isInProgressValue() {
+        return mPreferencesHelper.isInProgressValue();
+    }
+
+    @Override
     public int getCurrentUserLoggedInMode() {
         return mPreferencesHelper.getCurrentUserLoggedInMode();
     }

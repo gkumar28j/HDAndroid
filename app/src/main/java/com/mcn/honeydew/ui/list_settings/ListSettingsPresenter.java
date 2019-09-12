@@ -76,6 +76,8 @@ public class ListSettingsPresenter<V extends ListSettingsMvpView> extends BasePr
             return;
         }
 
+        getDataManager().setInProgressValue(status);
+
         int userProfileId = getDataManager().getUserData().getUserProfileId();
         UpdateListSettingsRequest request = new UpdateListSettingsRequest(listId, userProfileId, status);
 

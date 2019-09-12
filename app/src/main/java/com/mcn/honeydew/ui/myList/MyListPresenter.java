@@ -69,7 +69,7 @@ public class MyListPresenter<V extends MyListMvpView> extends BasePresenter<V> i
 
 
                         if (response.getErrorObject().getStatus() == 1) {
-                            getMvpView().replceData(response.getMyListResponseData());
+                            getMvpView().replceData(response.getMyListResponseData(),getDataManager().isInProgressValue());
 
                             // Setting isOwner field in saved list data. this value is not coming from push notification and its is used to show
                             // particular layout (list owner/doer)

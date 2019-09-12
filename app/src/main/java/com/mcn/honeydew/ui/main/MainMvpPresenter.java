@@ -28,4 +28,6 @@ public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V>
     void fetchBluetoothItems();
 
     void fetchNotificationCount();
+
+    void saveInProgressValue(boolean isProgress);
 }
