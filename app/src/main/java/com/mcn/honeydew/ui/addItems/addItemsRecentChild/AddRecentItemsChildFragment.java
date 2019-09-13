@@ -469,6 +469,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         if (getActivity() != null) {
             hideKeyboard();
             ((MainActivity) getActivity()).showTabs();
+            ((MainActivity)getActivity()).showHideTitle(true);
         }
 
         view.getViewTreeObserver()
@@ -505,6 +506,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
     private void onKeyboardShown() {
         imageLayout.setVisibility(View.GONE);
+        ((MainActivity)getBaseActivity()).showHideTitle(false);
 
         if (imageLoopView.getDrawable() != null) {
             linearLayout.setBackgroundColor(Color.parseColor("#BF000000"));  // BF - 75% // 80 - 50%
@@ -515,7 +517,9 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         ((MainActivity) getActivity()).hideTabs();
     }
 
+
     private void onKeyboardHidden() {
+        ((MainActivity)getBaseActivity()).showHideTitle(true);
         imageLayout.setVisibility(View.VISIBLE);
         loopLayout.setVisibility(View.GONE);
         linearLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));

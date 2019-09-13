@@ -1,19 +1,14 @@
 package com.mcn.honeydew.ui.addItems.addItemsWhen;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.RecentLocationAddItemsResponse;
@@ -22,14 +17,15 @@ import com.mcn.honeydew.ui.addItems.AddItemsFragment;
 import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.utils.AppConstants;
-import com.mcn.honeydew.utils.DatePickerFragment;
 import com.mcn.honeydew.utils.ScreenUtils;
-import com.mcn.honeydew.utils.TimePickerFragment;
 import com.weigan.loopview.DateTimePickerView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -54,9 +50,6 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
 
     View view;
 
-//    @BindView(R.id.date_time_text_view)
-//    TextView dateTextView;
-
     @BindView(R.id.choose_date_time_heading_text_view)
     TextView dateTimeHeadingTextView;
 
@@ -66,15 +59,11 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
     @BindView(R.id.date_time_loopView)
     DateTimePickerView dateTimePickerView;
 
-    private String itemTime = "";
-    int year, month, day;
     private int listId = 0;
     private String listName = "";
     @BindView(R.id.add_item_title_textview)
     TextView headingTextView;
 
-//    @BindView(R.id.empty_date_time_text_view)
-//    TextView mEmptyTextView;
 
     @Nullable
     @Override
@@ -113,95 +102,11 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
 
             dateTimePickerView.setDateTime(((AddItemsFragment) getParentFragment()).getDateTimeText());
         }
-        // showDatePicker();
     }
-
-
-//    @OnClick(R.id.date_time_text_view)
-//    public void onDateClicked() {
-//        showDatePicker();
-//    }
-//
-//    @OnClick(R.id.empty_date_time_text_view)
-//    public void onEmptyViewSelected(){
-//        showDatePicker();
-//    }
-
-    private void showDatePicker() {
-        DatePickerFragment date = new DatePickerFragment();
-        date.setCallBack(ondate);
-        date.show(getChildFragmentManager(), "Date Picker");
-    }
-
-    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
-
-        public void onDateSet(DatePicker view, int years, int monthOfYear,
-                              int dayOfMonth) {
-
-            year = years;
-            month = monthOfYear;
-            day = dayOfMonth;
-
-            showTimePicker();
-        }
-    };
-
-
-
-
-    private void showTimePicker() {
-
-        TimePickerFragment timePickerFragment = new TimePickerFragment();
-        timePickerFragment.setCallBack(onTimeSet);
-        timePickerFragment.show(getChildFragmentManager(), "Time Picker");
-
-    }
-
-    TimePickerDialog.OnTimeSetListener onTimeSet = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            Calendar cal = Calendar.getInstance();
-            cal.set(year, month, day, hourOfDay, minute);
-            SimpleDateFormat formatToShow = new SimpleDateFormat("d MMM yyyy, hh:mm a");
-
-            SimpleDateFormat formatToSend = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
-            //   ItemTime = "2018-03-13 03:10:00 PM";
-
-            String date = formatToSend.format(cal.getTime());
-            String dateToShow = formatToShow.format(cal.getTime());
-
-            String dateToSend = null;
-            if (date.contains("pm")) {
-                dateToSend = date.replace("pm", "PM");
-            } else if (date.contains("am")) {
-                dateToSend = date.replace("am", "AM");
-            }
-            //   dateTextView.setVisibility(View.VISIBLE);
-            //  dateTextView.setText(dateToShow);
-
-            //  mEmptyTextView.setVisibility(View.GONE);
-            if (dateToSend != null) {
-
-                if (((AddItemsFragment) getParentFragment()) != null) {
-                    ((AddItemsFragment) getParentFragment()).setDateTimeText(dateToSend);
-                }
-            } else {
-                if (((AddItemsFragment) getParentFragment()) != null) {
-                    ((AddItemsFragment) getParentFragment()).setDateTimeText(date);
-                }
-            }
-
-        }
-    };
 
     public void OnDoneWhenClicked(int listIds, String listNames) {
 
-//        if (dateTextView.getText().toString().trim().equals("")) {
-//            showLocationDialog();
-//            return;
-//        }
         AddItemsFragment frgment = ((AddItemsFragment) getParentFragment());
-        //  frgment.enableDisableDoneButton(false);
         listId = listIds;
         listName = listNames;
 
@@ -213,7 +118,7 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
 
         if (location == null || location.equals("")) {
             mPresenter.onAddItems(itemId, frgment.getItemName(), ((AddItemsFragment) getParentFragment()).getDateTimeText().toString().trim()
-                    , "", listId, listName, "", "", frgment.getMyListData().getStatusId(),url);
+                    , "", listId, listName, "", "", frgment.getMyListData().getStatusId(), url);
         } else {
             // Location loc = ((AddItemsFragment) getParentFragment()).getCurrentLocation();
             Location loc = ((AddItemsFragment) getParentFragment()).getCurrentRequestedLocation();
@@ -241,7 +146,7 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
         super.onResume();
 
         ((AddItemsFragment) getParentFragment()).hideLocationState();
-     //   ((AddItemsFragment) getParentFragment()).setActionbarTitle(getResources().getString(R.string.recent_items_actionbar_heading));
+
     }
 
     @Override
@@ -275,7 +180,7 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
         String location = fragment.getLocation();
         int itemId = fragment.getMyListData().getItemId();
         mPresenter.onAddItems(itemId, itemName, DateTimeText, lat, listId, listName,
-                location, lng, fragment.getMyListData().getStatusId(),url);
+                location, lng, fragment.getMyListData().getStatusId(), url);
     }
 
     @Override
@@ -286,30 +191,40 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
         }
     }
 
-    private void showLocationDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setCancelable(false);
-        dialog.setTitle(getActivity().getResources().getString(R.string.app_title));
-        dialog.setMessage(getResources().getString(R.string.date_empty_message));
-        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-
-
-        final AlertDialog alert = dialog.create();
-        alert.show();
-
-
-    }
 
     public String getStringDate() {
         if (dateTimePickerView != null) {
-            return dateTimePickerView.getSelectedDate();
+
+            String pickerTime =dateTimePickerView.getSelectedDate();
+
+            String utcTime = convertToUTC(pickerTime);
+
+            return utcTime;
+
         } else {
             return "";
         }
     }
+
+    private String convertToUTC(String time) {
+
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.ENGLISH);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.ENGLISH);
+
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        Date date = null;
+        try {
+            date = DATE_FORMAT.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String formattedDate = df.format(date);
+
+        return formattedDate;
+
+    }
+
 }

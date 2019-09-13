@@ -250,6 +250,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
     @Override
     public void saveInProgressValue(boolean isProgress) {
 
+        getDataManager().setInProgressValue(isProgress);
 
     }
 

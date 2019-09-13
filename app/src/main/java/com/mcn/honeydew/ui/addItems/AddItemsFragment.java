@@ -32,6 +32,8 @@ import com.mcn.honeydew.utils.AppConstants;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -95,7 +97,7 @@ public class AddItemsFragment extends BaseFragment implements AddItemsMvpView, B
     public Location CurrentLocation;
 
 
-    SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy hh:mm:ss a");
+    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
     SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
 
     MyListResponseData myListData = null;
@@ -131,15 +133,15 @@ public class AddItemsFragment extends BaseFragment implements AddItemsMvpView, B
                     setLocation(myListData.getLocation());
                 }
                 if (myListData.getItemTime() != null) {
-                    Date date = null;
+                 /*   Date date = null;
                     try {
                         date = formatter.parse(myListData.getItemTime());
 
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-
-                    String finalString = newFormat.format(date);
+*/
+                    String finalString = convertTimeInLocal(myListData.getItemTime());
                     setDateTimeText(finalString);
                 }
 
@@ -551,4 +553,28 @@ public class AddItemsFragment extends BaseFragment implements AddItemsMvpView, B
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+    private String convertTimeInLocal(String time) {
+
+
+        SimpleDateFormat df = new SimpleDateFormat("M/dd/yyyy hh:mm:ss a");
+        SimpleDateFormat toShow = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = null;
+        try {
+            date = df.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        toShow.setTimeZone(TimeZone.getDefault());
+
+
+        String formattedDate = toShow.format(date);
+
+        return formattedDate;
+
+    }
+
 }

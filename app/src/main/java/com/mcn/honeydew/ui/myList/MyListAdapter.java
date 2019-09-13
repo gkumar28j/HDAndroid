@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -203,25 +204,12 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             }
 
             if (data.getItemTime() != null) {
-                Date date = null;
-                try {
-                    date = formatter.parse(data.getItemTime());
 
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    timeTextView.setVisibility(View.GONE);
-                    timeTextView.setText("");
-                }
-
-                if (date != null) {
-                    String finalString = newFormat.format(date);
+                    String finalString = convertTimeInLocal(data.getItemTime());
                     timeTextView.setVisibility(View.VISIBLE);
                     timeTextView.setText(finalString.toUpperCase());
 
-                } else {
-                    timeTextView.setVisibility(View.GONE);
-                    timeTextView.setText("");
-                }
+
             } else {
                 timeTextView.setVisibility(View.GONE);
                 timeTextView.setText("");
@@ -431,5 +419,27 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         mCallback = callback;
         mDragStartListener = listener;
     }
+    private String convertTimeInLocal(String time) {
 
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+
+        SimpleDateFormat toShow = new SimpleDateFormat("d MMM yy, hh:mm a");
+
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        Date date = null;
+        try {
+            date = df.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        toShow.setTimeZone(TimeZone.getDefault());
+
+
+        String formattedDate = toShow.format(date);
+
+        return formattedDate;
+
+    }
 }

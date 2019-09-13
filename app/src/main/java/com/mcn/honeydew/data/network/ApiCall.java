@@ -123,7 +123,7 @@ public interface ApiCall {
     String ENDPOINT_LOCATE_ACCOUNT = API_VERSION + "/api/account/ValidUser";
     String ENDPOINT_SEND_OTP_FOR_RESET_PASSWORD = API_VERSION + "/api/account/SendOTPForResetPassword";
     String ENDPOINT_VERIFY_OTP = API_VERSION + "/api/account/VerifyOTPCode";
-    String ENDPOINT_HOME_DETAIL_LIST = API_VERSION + "/api/item/GetUserList";
+    String ENDPOINT_HOME_DETAIL_LIST = API_VERSION + "/api/item/GetUserListNew";
     String ENDPOINT_NOTIFICATION_SETTINGS = API_VERSION + "/api/Account/GetNotificationSettings";
     String ENDPOINT_CHANGE_PASSWORD = API_VERSION + "/api/Account/ChangeUserPassword";
     String ENDPOINT_RESET_PASSWORD = API_VERSION + "/api/account/ResetPassword";

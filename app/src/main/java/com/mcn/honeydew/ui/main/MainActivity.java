@@ -373,7 +373,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             case R.id.navigation_share_list:
                 settingImageView.setVisibility(View.GONE);
                 listSettingImageView.setVisibility(View.GONE);
-                title.setText("Share list");
+                title.setText("");
+                title.setText("'" + mAddItemData.getListName() + "'");
                 title.setVisibility(View.VISIBLE);
                 title.setBackgroundColor(Color.parseColor(headerColor));
                 fragment = ShareListFragment.newInstance();
@@ -381,7 +382,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             case R.id.navigation_color_settings:
                 settingImageView.setVisibility(View.GONE);
                 listSettingImageView.setVisibility(View.GONE);
-                title.setText("Color");
+                title.setText("");
+                title.setText("'" + mAddItemData.getListName() + "'");
                 title.setVisibility(View.VISIBLE);
                 title.setBackgroundColor(Color.parseColor(headerColor));
                 fragment = ColorSettingsFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListHeaderColor());
@@ -565,6 +567,11 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     public void showMyListFragment(MyHomeListData data) {
         //    stopUpdateNotificationTimer();
+
+        if (!data.getListHeaderColor().startsWith("#")) {
+            headerColor = "#".concat(data.getListHeaderColor());
+        } else
+            headerColor = data.getListHeaderColor();
 
         mPresenter.saveInProgressValue(data.isInProgress());
         removeBadge();
@@ -874,29 +881,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             return;
         }
 
-        if (badge.getVisibility() == View.VISIBLE) {
+      //  if (badge.getVisibility() == View.VISIBLE) {
             badge.setVisibility(View.GONE);
-        }
+     //   }
 
     }
 
     private void showBadge(int count) {
-
-       /* if (mMenuItemSelected == R.id.navigation_home || mMenuItemSelected == R.id.navigation_add_list) {
-
-            BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
-            BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(0);
-
-            //  if (badge == null) {
-            badge = LayoutInflater.from(this).inflate(R.layout.notification_count_badge, menuView, false);
-            //   }
-
-            itemView.addView(badge);
-            TextView text = (TextView) badge.findViewById(R.id.badge_text_view);
-            text.setVisibility(View.VISIBLE);
-            text.setText(String.valueOf(count));
-
-        }*/
         if (notificationTextView == null) {
             return;
         }
@@ -992,6 +983,19 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                         //  Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+
+    public void showHideTitle(boolean show){
+
+        if(show){
+
+            title.setVisibility(View.VISIBLE);
+
+        }else {
+            title.setVisibility(View.GONE);
+        }
+
     }
 
 

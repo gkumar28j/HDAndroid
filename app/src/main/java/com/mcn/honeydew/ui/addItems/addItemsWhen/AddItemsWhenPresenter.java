@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import com.google.gson.Gson;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
-import com.mcn.honeydew.data.network.model.request.AddUpdateItemRequest;
 import com.mcn.honeydew.data.network.model.response.AddUpdateItemResponse;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
 import com.mcn.honeydew.data.network.model.response.RecentLocationAddItemsResponse;
@@ -13,8 +12,13 @@ import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.rx.SchedulerProvider;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -73,13 +77,13 @@ public class AddItemsWhenPresenter<V extends AddItemsWhenMvpView> extends BasePr
 
 
         RequestBody ItemIds = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(ItemId));
-        RequestBody ItemNames = RequestBody.create(MediaType.parse("multipart/form-data"), ItemName!=null?ItemName:"");
-        RequestBody ItemTimes = RequestBody.create(MediaType.parse("multipart/form-data"), ItemTime!=null?ItemTime:"");
-        RequestBody Latitudes = RequestBody.create(MediaType.parse("multipart/form-data"), Latitude!=null?Latitude:"");
+        RequestBody ItemNames = RequestBody.create(MediaType.parse("multipart/form-data"), ItemName != null ? ItemName : "");
+        RequestBody ItemTimes = RequestBody.create(MediaType.parse("multipart/form-data"), ItemTime != null ? ItemTime : "");
+        RequestBody Latitudes = RequestBody.create(MediaType.parse("multipart/form-data"), Latitude != null ? Latitude : "");
         RequestBody ListIds = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(ListId));
-        RequestBody ListNames = RequestBody.create(MediaType.parse("multipart/form-data"), ListName!=null?ListName:"");
-        RequestBody Longitudes = RequestBody.create(MediaType.parse("multipart/form-data"), Longitude!=null?Longitude:"");
-        RequestBody Locations = RequestBody.create(MediaType.parse("multipart/form-data"), Location!=null?Location:"");
+        RequestBody ListNames = RequestBody.create(MediaType.parse("multipart/form-data"), ListName != null ? ListName : "");
+        RequestBody Longitudes = RequestBody.create(MediaType.parse("multipart/form-data"), Longitude != null ? Longitude : "");
+        RequestBody Locations = RequestBody.create(MediaType.parse("multipart/form-data"), Location != null ? Location : "");
         RequestBody StatusIds = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(StatusId));
 
 
@@ -253,4 +257,6 @@ public class AddItemsWhenPresenter<V extends AddItemsWhenMvpView> extends BasePr
                     }
                 });
     }
+
+
 }

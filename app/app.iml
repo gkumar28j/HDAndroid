@@ -218,5 +218,7 @@
     <orderEntry type="module" module-name="loopview" />
     <orderEntry type="module" module-name="swipe-reveal-layout" />
     <orderEntry type="module" module-name="loopview" />
+    <orderEntry type="module" module-name="swipe-reveal-layout" />
+    <orderEntry type="module" module-name="loopview" />
   </component>
 </module>
