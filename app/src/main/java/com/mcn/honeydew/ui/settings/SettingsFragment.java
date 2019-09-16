@@ -5,9 +5,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.SwitchCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -20,6 +17,10 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
 
 import com.facebook.login.LoginManager;
 import com.mcn.honeydew.R;
@@ -115,6 +116,18 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
     @BindView(R.id.imageView_edit_email)
     ImageView editEmailImageView;
 
+    @BindView(R.id.user_imageView)
+    ImageView userImageView;
+
+    @BindView(R.id.email_imageView)
+    ImageView emailImageView;
+
+    @BindView(R.id.phone_imageView)
+    ImageView phoneImageView;
+
+    @BindView(R.id.password_imageView)
+    ImageView passwordImageView;
+
 
     public static SettingsFragment newInstance() {
         Bundle args = new Bundle();
@@ -144,6 +157,10 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
 
     @Override
     protected void setUp(View view) {
+        userImageView.setColorFilter(ContextCompat.getColor(getBaseActivity(), R.color.gray));
+        emailImageView.setColorFilter(ContextCompat.getColor(getBaseActivity(), R.color.gray));
+        phoneImageView.setColorFilter(ContextCompat.getColor(getBaseActivity(), R.color.gray));
+        passwordImageView.setColorFilter(ContextCompat.getColor(getBaseActivity(), R.color.gray));
 
         mPresenter.toggleBluetoothSwitch();
         mPresenter.onViewPrepared();

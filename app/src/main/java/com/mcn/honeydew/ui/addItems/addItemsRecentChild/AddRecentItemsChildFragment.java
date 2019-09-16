@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +42,11 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.RecentItemsResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
@@ -146,7 +154,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     TextView mHeadingTextView;
 
     @BindView(R.id.view_lay)
-    LinearLayout imageLayout;
+    RelativeLayout imageLayout;
 
     @BindView(R.id.scroll_view)
     ScrollView scrollView;
@@ -158,6 +166,9 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
     @BindView(R.id.card_loop_lay)
     LinearLayout loopLayout;
+
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
 
     @Nullable
@@ -210,8 +221,30 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
                 imageLoopView.setImageURI(Uri.fromFile(newFile));
             } else if (fragment.getPhoto() != null && !fragment.getPhoto().equals("")) {
                 imageLayout.setVisibility(View.VISIBLE);
-                cardSpaceView.setVisibility(View.VISIBLE);
-                Glide.with(getBaseActivity()).load(AppConstants.BASE_URL + fragment.getPhoto()).into(captureImageView);
+
+
+                progressBar.setVisibility(View.VISIBLE);
+
+                Glide.with(this)
+                        .load(AppConstants.BASE_URL + fragment.getPhoto())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                progressBar.setVisibility(View.GONE);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+
+                                progressBar.setVisibility(View.GONE);
+                                cardSpaceView.setVisibility(View.VISIBLE);
+                                captureImageView.setImageDrawable(resource);
+                                return false;
+                            }
+                        }).into(captureImageView);
+
                 Glide.with(getBaseActivity()).load(AppConstants.BASE_URL + fragment.getPhoto()).into(imageLoopView);
             }
 

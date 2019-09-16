@@ -93,5 +93,11 @@
     <dimen name="add_items_imageview_width">200dp</dimen>
     <dimen name="add_items_upload_image_view_height">120dp</dimen>
 
+    <!--SettingFragment-->
+
+    <dimen name="setting_bluetooth_layout_padding">12dp</dimen>
+    <dimen name="setting_user_email_layout_margin_left">9dp</dimen>
+
+
 
 </resources>

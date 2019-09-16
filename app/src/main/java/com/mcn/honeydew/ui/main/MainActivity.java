@@ -502,6 +502,21 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @Override
     public void onBackPressed() {
+        Log.e("back pressed", "true");
+
+        if (mMenuItemSelected == R.id.navigation_home) {
+
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+
+                onBackClicked();
+                return;
+
+            }
+
+        }else {
+            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+        }
 
         isEdit = false;
         if (mMenuItemSelected == R.id.navigation_color_settings ||
@@ -516,12 +531,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
+
         MenuItem homeItem = navigation.getMenu().getItem(2);
+
         if (mMenuItemSelected != homeItem.getItemId()) {
             navigation.setSelectedItemId(homeItem.getItemId());
         } else {
-
-
             super.onBackPressed();
         }
     }
@@ -597,9 +612,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     public void navigateToListFragment(String listHeadingColor, String listName, int listId, boolean isOwner, int inProgress) {
         //    stopUpdateNotificationTimer();
-        if(inProgress==1){
+        if (inProgress == 1) {
             mPresenter.saveInProgressValue(true);
-        }else {
+        } else {
             mPresenter.saveInProgressValue(false);
         }
 
@@ -881,9 +896,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             return;
         }
 
-      //  if (badge.getVisibility() == View.VISIBLE) {
-            badge.setVisibility(View.GONE);
-     //   }
+        //  if (badge.getVisibility() == View.VISIBLE) {
+        badge.setVisibility(View.GONE);
+        //   }
 
     }
 
@@ -986,13 +1001,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     }
 
 
-    public void showHideTitle(boolean show){
+    public void showHideTitle(boolean show) {
 
-        if(show){
+        if (show) {
 
             title.setVisibility(View.VISIBLE);
 
-        }else {
+        } else {
             title.setVisibility(View.GONE);
         }
 
