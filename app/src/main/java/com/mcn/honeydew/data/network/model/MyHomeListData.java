@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class MyHomeListData {
 
-
     @Expose
     @SerializedName("ListOwnerId")
     private int listOwnerId;
@@ -39,7 +38,6 @@ public class MyHomeListData {
     @Expose
     @SerializedName("ListHeaderColor")
     private String listHeaderColor;
-
 
     @Expose
     @SerializedName("ToUserProfileId")

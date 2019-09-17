@@ -212,7 +212,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
     public void fetchNotificationCount() {
 
         if (!getMvpView().isNetworkConnected()) {
-            getMvpView().showMessage(R.string.connection_error);
+         //   getMvpView().showMessage(R.string.connection_error);
             return;
         }
 

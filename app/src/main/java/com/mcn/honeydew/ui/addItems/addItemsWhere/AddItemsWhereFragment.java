@@ -181,9 +181,9 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
         screenInches = Math.sqrt(x + y);
 
 
-        int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
+       /* int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
         emptySpaceView.getLayoutParams().height = (int) ((availiableHeight * 2.0) / 5.0);
-        emptySpaceView.requestLayout();
+        emptySpaceView.requestLayout();*/
 
 
         if (((AddItemsFragment) getParentFragment()).getMyListData().getLocation() != null) {
@@ -847,11 +847,13 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
 
     private void onKeyboardShown() {
         emptySpaceView.setVisibility(View.GONE);
+        headingTextView.setVisibility(View.GONE);
         ((MainActivity) getActivity()).hideTabs();
     }
 
     private void onKeyboardHidden() {
         emptySpaceView.setVisibility(View.VISIBLE);
+        headingTextView.setVisibility(View.VISIBLE);
         ((MainActivity) getActivity()).showTabs();
     }
 

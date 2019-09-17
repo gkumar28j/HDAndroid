@@ -84,11 +84,11 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
 
         dateTimePickerView.showDate(true);
 
-        int totalHeight = ScreenUtils.getScreenHeight(getActivity());
+     /*   int totalHeight = ScreenUtils.getScreenHeight(getActivity());
         int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
         emptySpaceView.getLayoutParams().height = (int) ((availiableHeight * 2.0) / 5.0);
         emptySpaceView.requestLayout();
-
+*/
 
         if (((AddItemsFragment) getParentFragment()).getMyListData().getItemName() != null) {
             headingTextView.setText("Edit Items");

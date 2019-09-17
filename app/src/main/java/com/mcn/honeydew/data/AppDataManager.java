@@ -60,6 +60,7 @@ import com.mcn.honeydew.data.network.model.response.GetListSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.GetProximityResponse;
 import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.data.network.model.response.LocateAccountResponse;
+import com.mcn.honeydew.data.network.model.response.MyListResponseData;
 import com.mcn.honeydew.data.network.model.response.NotificationCountResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationReadResponse;
@@ -441,6 +442,27 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveHomeResponseData(String response) {
+        mPreferencesHelper.saveHomeResponseData(response);
+    }
+
+    @Override
+    public ArrayList<MyHomeListData> getHomeResponseData() {
+        return mPreferencesHelper.getHomeResponseData();
+    }
+
+    @Override
+    public void saveNotificationResponseData(String response) {
+        mPreferencesHelper.saveNotificationResponseData(response);
+
+    }
+
+    @Override
+    public ArrayList<NotificationListResponse.NotificationListData> getNotificationData() {
+        return mPreferencesHelper.getNotificationData();
+    }
+
+    @Override
     public int getCurrentUserLoggedInMode() {
         return mPreferencesHelper.getCurrentUserLoggedInMode();
     }
@@ -660,7 +682,17 @@ public class AppDataManager implements DataManager {
                                                                      RequestBody ItemTime,
                                                                      RequestBody Latitude, RequestBody ListId,
                                                                      RequestBody ListName, RequestBody Location, RequestBody Longitude, RequestBody StatusId, MultipartBody.Part image) {
-        return mApiHelper.doUpdateRecentItemsCall(ItemId,ItemName,ItemTime,Latitude,ListId,ListName,Location,Longitude,StatusId,image);
+        return mApiHelper.doUpdateRecentItemsCall(ItemId, ItemName, ItemTime, Latitude, ListId, ListName, Location, Longitude, StatusId, image);
+    }
+
+    @Override
+    public void insertListData(int listId, String response) {
+        mDbHelper.insertListData(listId, response);
+    }
+
+    @Override
+    public ArrayList<MyListResponseData> getListData(int listId) {
+        return mDbHelper.getListData(listId);
     }
 
 

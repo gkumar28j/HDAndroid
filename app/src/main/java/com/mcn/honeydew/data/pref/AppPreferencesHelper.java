@@ -10,12 +10,14 @@ import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
 import com.mcn.honeydew.di.ApplicationContext;
 import com.mcn.honeydew.di.PreferenceInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -55,6 +57,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_BLUETOOTH_ITEM_LIST = "bluetooth_items";
     private static final String PREF_KEY_BLUETOOTH_DEVICE_CONNECTED = "bluetooth_device_connected";
     private static final String PREF_KEY_SAVE_IN_PROGRESS_VALUE = "is_in_progress";
+    private static final String PREF_KEY_SAVE_HOME_DATA = "savehomedata";
+    private static final String PREF_KEY_SAVE_NOTIFICATION_DATA = "savenotificationdata";
 
 
     private final SharedPreferences mPrefs;
@@ -285,6 +289,44 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public boolean isInProgressValue() {
         return mPrefs.getBoolean(PREF_KEY_SAVE_IN_PROGRESS_VALUE,false);
+    }
+
+    @Override
+    public void saveHomeResponseData(String response) {
+
+        mEditor.putString(PREF_KEY_SAVE_HOME_DATA,response);
+    }
+
+    @Override
+    public ArrayList<MyHomeListData> getHomeResponseData() {
+        ArrayList<MyHomeListData> arrayList = new ArrayList<>();
+        String json = mPrefs.getString(PREF_KEY_SAVE_HOME_DATA, null);
+
+        if (!TextUtils.isEmpty(json)) {
+            arrayList.addAll(Arrays.asList(new Gson().fromJson(json, MyHomeListData[].class)));
+        }
+
+        return arrayList;
+    }
+
+    @Override
+    public void saveNotificationResponseData(String response) {
+        mEditor.putString(PREF_KEY_SAVE_NOTIFICATION_DATA,response);
+    }
+
+    @Override
+    public ArrayList<NotificationListResponse.NotificationListData> getNotificationData() {
+        ArrayList<NotificationListResponse.NotificationListData> arrayList = new ArrayList<>();
+
+        String response = mPrefs.getString(PREF_KEY_SAVE_NOTIFICATION_DATA,null);
+        if (!TextUtils.isEmpty(response)) {
+
+            arrayList.addAll(Arrays.asList(new Gson().fromJson(response, NotificationListResponse.NotificationListData[].class)));
+
+        }
+
+
+        return arrayList;
     }
 }
 

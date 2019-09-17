@@ -2,6 +2,7 @@ package com.mcn.honeydew.ui.notifications;
 
 import android.annotation.SuppressLint;
 
+import com.google.gson.Gson;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
@@ -103,7 +104,7 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
     public void resetNotification() {
 
         if (!getMvpView().isNetworkConnected()) {
-            getMvpView().showMessage(R.string.connection_error);
+          //  getMvpView().showMessage(R.string.connection_error);
             return;
         }
 
@@ -139,6 +140,13 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
 
     @SuppressLint("CheckResult")
     private void getData(final boolean loadmore, final boolean refresh, final boolean showLoadingUI) {
+
+        if (!getMvpView().isNetworkConnected()) {
+        //    getMvpView().showMessage(R.string.connection_error);
+
+            getMvpView().showContentList(getDataManager().getNotificationData());
+            return;
+        }
         if (showLoadingUI) {
             //mView.showProgress();
             getMvpView().showLoading();
@@ -146,11 +154,6 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
         if (loadmore) {
             getMvpView().showContentLoading(true);
         }
-        if (!getMvpView().isNetworkConnected()) {
-            getMvpView().showMessage(R.string.connection_error);
-            return;
-        }
-
 
         getDataManager().doGetNotificationList(current_page, 10)
                 .subscribeOn(getSchedulerProvider().io())
@@ -194,6 +197,7 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
         if (!loadMore && !mList.isEmpty()) {
             Collections.sort(mList, NotificationListResponse.NotificationListData.notificationComparator);
             getMvpView().showContentList(mList);
+            getDataManager().saveNotificationResponseData(new Gson().toJson(mList));
         } else {
             mList.addAll(response.getResult());
             Collections.sort(mList, NotificationListResponse.NotificationListData.notificationComparator); // descending order sorting
@@ -214,6 +218,7 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
             mList.add(0, data);
 
             getMvpView().showContentList(mList);
+            getDataManager().saveNotificationResponseData(new Gson().toJson(mList));
         }
         if (!mList.isEmpty()) {
             getMvpView().showEmptyView(false);

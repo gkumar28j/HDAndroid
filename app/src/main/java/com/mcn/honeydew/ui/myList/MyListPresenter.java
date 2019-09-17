@@ -45,9 +45,11 @@ public class MyListPresenter<V extends MyListMvpView> extends BasePresenter<V> i
     public void getData(String Id, boolean showLoading) {
         if (!getMvpView().isNetworkConnected()) {
 
-            if (hasShownNetworkError) return;
+          /*  if (hasShownNetworkError) return;
             getMvpView().showMessage(R.string.connection_error);
-            hasShownNetworkError = true;
+            hasShownNetworkError = true;*/
+            ArrayList<MyListResponseData> responseData = getDataManager().getListData(Integer.parseInt(Id));
+            getMvpView().replceData(responseData, getDataManager().isInProgressValue());
 
             return;
         }
@@ -69,7 +71,7 @@ public class MyListPresenter<V extends MyListMvpView> extends BasePresenter<V> i
 
 
                         if (response.getErrorObject().getStatus() == 1) {
-                            getMvpView().replceData(response.getMyListResponseData(),getDataManager().isInProgressValue());
+                            getMvpView().replceData(response.getMyListResponseData(), getDataManager().isInProgressValue());
 
                             // Setting isOwner field in saved list data. this value is not coming from push notification and its is used to show
                             // particular layout (list owner/doer)
@@ -78,6 +80,8 @@ public class MyListPresenter<V extends MyListMvpView> extends BasePresenter<V> i
                                 MyHomeListData myHomeListData = getDataManager().getSavedList();
                                 myHomeListData.setIsOwner(response.getMyListResponseData().get(0).isOwner());
                                 getDataManager().saveList(myHomeListData);
+
+                                getDataManager().insertListData(myHomeListData.getListId(), new Gson().toJson(response.getMyListResponseData()));
                             }
 
 

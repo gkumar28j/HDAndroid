@@ -97,7 +97,7 @@
 
     <dimen name="setting_bluetooth_layout_padding">12dp</dimen>
     <dimen name="setting_user_email_layout_margin_left">9dp</dimen>
-
+    <dimen name="fragment_when_margin_empty_imageview">160dp</dimen>
 
 
 </resources>

@@ -182,10 +182,16 @@ public class HomePresenter<V extends HomeListMvpView> extends BasePresenter<V> i
 
         if (!getMvpView().isNetworkConnected()) {
 
-            if (hasShownNetworkError) return;
+        /*    if (hasShownNetworkError) return;
 
             getMvpView().showMessage(R.string.connection_error);
-            hasShownNetworkError = true;
+            hasShownNetworkError = true;*/
+
+            ArrayList<MyHomeListData> response = getDataManager().getHomeResponseData();
+            getMvpView().replceData(response);
+            hasShownNetworkError = false;
+            hasShownServerError = false;
+
 
             return;
         }
@@ -209,6 +215,8 @@ public class HomePresenter<V extends HomeListMvpView> extends BasePresenter<V> i
                         if (response.getErrorObject().getStatus() == 1) {
                             if (response.getResults() != null) {
                                 getMvpView().replceData(response.getResults());
+                                ArrayList<MyHomeListData> newItems = new ArrayList<>(response.getResults());
+                                getDataManager().saveHomeResponseData(new Gson().toJson(newItems));
                                 hasShownNetworkError = false;
                                 hasShownServerError = false;
                             }

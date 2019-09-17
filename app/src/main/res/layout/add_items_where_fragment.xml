@@ -26,9 +26,8 @@
         <View
             android:id="@+id/empty_space_view"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/add_items_main_lay_margin_top"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_height="@dimen/fragment_when_margin_empty_imageview"
+            android:layout_below="@id/add_item_title_textview"/>
 
         <RelativeLayout
             android:id="@+id/heading_linear_lay"
@@ -36,7 +35,6 @@
             android:layout_height="@dimen/recent_items_location_delete_lay_height"
             android:layout_below="@id/empty_space_view"
             android:background="@color/colorPrimary"
-            android:layout_marginTop="5dp"
             android:padding="@dimen/when_where_done_button_common_margin">
 
             <TextView

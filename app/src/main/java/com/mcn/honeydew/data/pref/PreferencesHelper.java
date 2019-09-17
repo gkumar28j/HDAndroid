@@ -3,9 +3,11 @@ package com.mcn.honeydew.data.pref;
 import android.location.Location;
 
 import com.mcn.honeydew.data.DataManager;
+import com.mcn.honeydew.data.network.model.HomeDetailListResponse;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
 
 import java.util.ArrayList;
@@ -91,5 +93,13 @@ public interface PreferencesHelper {
     void setInProgressValue(boolean isInProgress);
 
     boolean isInProgressValue();
+
+    void saveHomeResponseData(String response);
+
+    ArrayList<MyHomeListData> getHomeResponseData();
+
+    void saveNotificationResponseData(String response);
+
+    ArrayList<NotificationListResponse.NotificationListData> getNotificationData();
 
 }

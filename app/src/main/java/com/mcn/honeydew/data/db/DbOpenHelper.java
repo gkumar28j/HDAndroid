@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.mcn.honeydew.data.db.tables.MyListItems;
 import com.mcn.honeydew.di.ApplicationContext;
 import com.mcn.honeydew.di.DatabaseInfo;
 
@@ -18,7 +19,6 @@ import javax.inject.Singleton;
 public class DbOpenHelper extends SQLiteOpenHelper {
 
     //USER TABLE
-    public static final String USER_TABLE_NAME = "user";
     public static final String PROXIMITY_ITEMS_TABLE_NAME = "proximity_items";
 
     @Inject
@@ -30,7 +30,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-       /* db.execSQL(ProximityItem.CREATE_TABLE);*/
+        db.execSQL(MyListItems.CREATE_TABLE);
     }
 
     @Override
@@ -38,6 +38,8 @@ public class DbOpenHelper extends SQLiteOpenHelper {
        /* db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + PROXIMITY_ITEMS_TABLE_NAME);
         onCreate(db);*/
+        db.execSQL("DROP TABLE IF EXISTS " + MyListItems.TABLE_NAME);
+        onCreate(db);
     }
 
 
