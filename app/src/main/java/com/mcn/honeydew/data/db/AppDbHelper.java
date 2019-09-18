@@ -40,13 +40,13 @@ public class AppDbHelper implements DbHelper {
         contentValues.put(MyListItems.COLUMN_LIST_ID, listId);
         contentValues.put(MyListItems.COLUMN_LIST_RESPONSE, response);
 
-        if(getListData(listId).size()>0){
+        if (getListData(listId).size() > 0) {
 
 
-           int row =  db.update(MyListItems.TABLE_NAME,contentValues,"list_id =" + listId,null);
+            int row = db.update(MyListItems.TABLE_NAME, contentValues, "list_id =" + listId, null);
             Log.e("row_update", String.valueOf(row));
 
-        }else {
+        } else {
 
             long rowId = db.insert(MyListItems.TABLE_NAME, null, contentValues);
             Log.e("rowid_insert", String.valueOf(rowId));
@@ -81,5 +81,13 @@ public class AppDbHelper implements DbHelper {
         }
 
         return responseList;
+    }
+
+    @Override
+    public void deleteAllRecords() {
+
+        SQLiteDatabase db = mdbOpenHelper.getWritableDatabase();
+        db.execSQL(" DELETE FROM " + MyListItems.TABLE_NAME);
+
     }
 }

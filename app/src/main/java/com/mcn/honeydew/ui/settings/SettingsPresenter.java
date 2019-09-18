@@ -69,6 +69,7 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
                         disableFCM();
 
                         getDataManager().setUserAsLoggedOut();
+                        getDataManager().deleteAllRecords();
                         getMvpView().hideLoading();
                         getMvpView().onLogoutSuccess();
                         // clearing saved proximity settings

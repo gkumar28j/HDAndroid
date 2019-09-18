@@ -11,7 +11,7 @@
         android:id="@+id/progress_info_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0F8DFF"
+        android:background="@color/in_progress_color_background"
         android:gravity="center"
         android:padding="5dp"
         android:text="Enable for 'In-Progress' status option"

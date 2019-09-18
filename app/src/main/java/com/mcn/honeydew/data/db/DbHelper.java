@@ -21,4 +21,6 @@ public interface DbHelper {
 
     ArrayList<MyListResponseData> getListData(int listId);
 
+    void deleteAllRecords();
+
 }

@@ -722,6 +722,11 @@ public class AppDataManager implements DataManager {
         return mDbHelper.getListData(listId);
     }
 
+    @Override
+    public void deleteAllRecords() {
+        mDbHelper.deleteAllRecords();
+    }
+
 
     /*@Override
     public List<GetProximityResponse.Result> getProximityItemList() {

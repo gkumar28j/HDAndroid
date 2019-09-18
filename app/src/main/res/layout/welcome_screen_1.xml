@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+
+    <ImageView
+        android:id="@+id/screen1_imageview"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/images_spider"/>
+
+
+    <TextView
+        android:id="@+id/content_heading_screen1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Items Photos"
+        android:textColor="@color/in_progress_color_background"
+        android:layout_below="@id/screen1_imageview"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="25dp"/>
+
+    <TextView
+        android:id="@+id/content_description_screen1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Now you can add photos to your items! Wheather  it  be coupons, or photos of exactly what you need, add them simply!"
+        android:textColor="@color/gray"
+        android:layout_below="@id/content_heading_screen1"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="25dp"
+        android:padding="20dp"/>
+
+</RelativeLayout>

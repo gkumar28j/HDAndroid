@@ -15,6 +15,7 @@ import com.mcn.honeydew.ui.base.BaseActivity;
 import com.mcn.honeydew.ui.login.LoginActivity;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationActivity;
+import com.mcn.honeydew.ui.welcome.WelcomeTourActivity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -74,7 +75,11 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 
     @Override
     public void openMainActivity() {
-        Intent intent = MainActivity.getStartIntent(SplashActivity.this);
+     /*   Intent intent = MainActivity.getStartIntent(SplashActivity.this);
+        startActivity(intent);
+        finish();*/
+
+        Intent intent = WelcomeTourActivity.getStartIntent(SplashActivity.this);
         startActivity(intent);
         finish();
     }
