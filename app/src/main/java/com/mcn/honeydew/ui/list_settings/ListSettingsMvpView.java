@@ -9,4 +9,5 @@ import com.mcn.honeydew.ui.base.MvpView;
 
 public interface ListSettingsMvpView extends MvpView {
     void onListSettingFetched(GetListSettingsResponse.ListSettings settings);
+    void toggleChanges(boolean toggle);
 }

@@ -7,6 +7,7 @@ import com.mcn.honeydew.data.network.model.HomeDetailListResponse;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
+import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
 
@@ -101,5 +102,14 @@ public interface PreferencesHelper {
     void saveNotificationResponseData(String response);
 
     ArrayList<NotificationListResponse.NotificationListData> getNotificationData();
+
+    void saveSharedListData(String response);
+
+    ArrayList<GetUserSettingResponse.Result> getSharedListSetting();
+
+    void saveAppSettings(String response);
+
+    NotificationSettingsResponse getNotificationSettingResponse();
+
 
 }

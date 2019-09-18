@@ -208,11 +208,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
 
             // Setting hunter notification sound if notification type is expire item
-            if (!TextUtils.isEmpty(notificationType) && !notificationType.equalsIgnoreCase(NotificationType.EXPIRE_ITEM)) {
+            /*if (!TextUtils.isEmpty(notificationType) && !notificationType.equalsIgnoreCase(NotificationType.EXPIRE_ITEM)) {
                 mChannel.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.notification_sound), null);
             } else {
                 mChannel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), null);
-            }
+            }*/
+            mChannel.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.notification_sound), null);
 
 
             // Set the Notification Channel for the Notification Manager.
@@ -234,11 +235,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setContentIntent(pendingIntent);
 
-        if (!TextUtils.isEmpty(notificationType) && !notificationType.equalsIgnoreCase(NotificationType.EXPIRE_ITEM)) {
+       /* if (!TextUtils.isEmpty(notificationType) && !notificationType.equalsIgnoreCase(NotificationType.EXPIRE_ITEM)) {
             builder.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.notification_sound));
         } else {
             builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-        }
+        }*/
+        builder.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.notification_sound));
 
         // Set the Channel ID for Android O.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

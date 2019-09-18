@@ -10,6 +10,7 @@ import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
+import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
 import com.mcn.honeydew.di.ApplicationContext;
@@ -17,7 +18,6 @@ import com.mcn.honeydew.di.PreferenceInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -59,6 +59,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_SAVE_IN_PROGRESS_VALUE = "is_in_progress";
     private static final String PREF_KEY_SAVE_HOME_DATA = "savehomedata";
     private static final String PREF_KEY_SAVE_NOTIFICATION_DATA = "savenotificationdata";
+    private static final String PREF_KEY_SAVE_SHARE_LIST_DATA = "savesharelistdata";
+    private static final String PREF_KEY_SAVE_SETTING_APP_DATA = "saveappsettingdata";
 
 
     private final SharedPreferences mPrefs;
@@ -283,18 +285,18 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setInProgressValue(boolean isInProgress) {
-        mEditor.putBoolean(PREF_KEY_SAVE_IN_PROGRESS_VALUE,isInProgress).apply();
+        mEditor.putBoolean(PREF_KEY_SAVE_IN_PROGRESS_VALUE, isInProgress).apply();
     }
 
     @Override
     public boolean isInProgressValue() {
-        return mPrefs.getBoolean(PREF_KEY_SAVE_IN_PROGRESS_VALUE,false);
+        return mPrefs.getBoolean(PREF_KEY_SAVE_IN_PROGRESS_VALUE, false);
     }
 
     @Override
     public void saveHomeResponseData(String response) {
 
-        mEditor.putString(PREF_KEY_SAVE_HOME_DATA,response);
+        mEditor.putString(PREF_KEY_SAVE_HOME_DATA, response);
     }
 
     @Override
@@ -311,14 +313,14 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void saveNotificationResponseData(String response) {
-        mEditor.putString(PREF_KEY_SAVE_NOTIFICATION_DATA,response);
+        mEditor.putString(PREF_KEY_SAVE_NOTIFICATION_DATA, response);
     }
 
     @Override
     public ArrayList<NotificationListResponse.NotificationListData> getNotificationData() {
         ArrayList<NotificationListResponse.NotificationListData> arrayList = new ArrayList<>();
 
-        String response = mPrefs.getString(PREF_KEY_SAVE_NOTIFICATION_DATA,null);
+        String response = mPrefs.getString(PREF_KEY_SAVE_NOTIFICATION_DATA, null);
         if (!TextUtils.isEmpty(response)) {
 
             arrayList.addAll(Arrays.asList(new Gson().fromJson(response, NotificationListResponse.NotificationListData[].class)));
@@ -327,6 +329,42 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
 
         return arrayList;
+    }
+
+    @Override
+    public void saveSharedListData(String response) {
+        mEditor.putString(PREF_KEY_SAVE_SHARE_LIST_DATA, response);
+    }
+
+    @Override
+    public ArrayList<GetUserSettingResponse.Result> getSharedListSetting() {
+        ArrayList<GetUserSettingResponse.Result> arrayList = new ArrayList<>();
+
+        String response = mPrefs.getString(PREF_KEY_SAVE_SHARE_LIST_DATA, null);
+        if (!TextUtils.isEmpty(response)) {
+
+            arrayList.addAll(Arrays.asList(new Gson().fromJson(response, GetUserSettingResponse.Result[].class)));
+
+        }
+
+
+        return arrayList;
+    }
+
+    @Override
+    public void saveAppSettings(String response) {
+
+        mEditor.putString(PREF_KEY_SAVE_SETTING_APP_DATA, response);
+
+    }
+
+    @Override
+    public NotificationSettingsResponse getNotificationSettingResponse() {
+
+        NotificationSettingsResponse setting = new Gson().fromJson(mPrefs.getString(PREF_KEY_SAVE_SETTING_APP_DATA, null), NotificationSettingsResponse.class);
+
+        return setting;
+
     }
 }
 

@@ -31,7 +31,10 @@ public class ListSettingsPresenter<V extends ListSettingsMvpView> extends BasePr
     @Override
     public void getListSettings(int listId) {
         if (!getMvpView().isNetworkConnected()) {
-            getMvpView().showMessage(R.string.connection_error);
+            //getMvpView().showMessage(R.string.connection_error);
+
+            getMvpView().toggleChanges(getDataManager().isInProgressValue());
+
             return;
         }
 

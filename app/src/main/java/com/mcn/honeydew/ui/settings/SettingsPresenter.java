@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.LogoutResponse;
@@ -220,7 +221,10 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
     @SuppressLint("CheckResult")
     private void getNotificationSettings() {
         if (!getMvpView().isNetworkConnected()) {
-            getMvpView().showMessage(R.string.connection_error);
+            //getMvpView().showMessage(R.string.connection_error);
+
+            getMvpView().setProximityNotification(getDataManager().getNotificationSettingResponse());
+
             return;
         }
 
@@ -247,6 +251,7 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
 
                             getDataManager().setProximitySettings(response);
                             getMvpView().setProximityNotification(response);
+                            getDataManager().saveAppSettings(new Gson().toJson(response));
 
                         }
 

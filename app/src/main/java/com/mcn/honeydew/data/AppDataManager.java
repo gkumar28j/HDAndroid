@@ -463,6 +463,27 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveSharedListData(String response) {
+        mPreferencesHelper.saveSharedListData(response);
+    }
+
+    @Override
+    public ArrayList<GetUserSettingResponse.Result> getSharedListSetting() {
+        return mPreferencesHelper.getSharedListSetting();
+    }
+
+    @Override
+    public void saveAppSettings(String response) {
+
+        mPreferencesHelper.saveAppSettings(response);
+    }
+
+    @Override
+    public NotificationSettingsResponse getNotificationSettingResponse() {
+        return mPreferencesHelper.getNotificationSettingResponse();
+    }
+
+    @Override
     public int getCurrentUserLoggedInMode() {
         return mPreferencesHelper.getCurrentUserLoggedInMode();
     }
@@ -525,6 +546,12 @@ public class AppDataManager implements DataManager {
         setIsJustLoggedIn(true);
         setIsFacebookLogin(false);
         mPreferencesHelper.saveDeviceId(null);
+
+
+        mPreferencesHelper.saveNotificationResponseData("[]");
+        mPreferencesHelper.saveSharedListData("[]");
+        mPreferencesHelper.saveHomeResponseData("[]");
+        mPreferencesHelper.saveNotificationResponseData("[]");
 
     }
 

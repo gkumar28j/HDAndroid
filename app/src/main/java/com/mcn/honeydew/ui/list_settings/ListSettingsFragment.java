@@ -95,6 +95,11 @@ public class ListSettingsFragment extends BaseFragment implements ListSettingsMv
 
     }
 
+    @Override
+    public void toggleChanges(boolean toggle) {
+        mInProgressSwitchCompat.setChecked(toggle);
+    }
+
 
     @OnClick(R.id.switch_in_progress)
     void onSwitchClicked() {
