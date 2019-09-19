@@ -2,37 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
 
     <ImageView
         android:id="@+id/screen_imageview"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/welcome_screen_image_width"
+        android:layout_height="@dimen/welcome_screen_image_height"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_welcome_additem" />
+        android:src="@drawable/ic_welcome_color"/>
 
 
     <TextView
         android:id="@+id/content_heading_screen"
-        style="@style/WelcomeScreenHeadingTextRegularStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/WelcomeScreenHeadingTextRegularStyle"
+        android:text="@string/screen_4_heading_text"
         android:layout_below="@id/screen_imageview"
-        android:layout_marginTop="@dimen/welcome_screen_text_heading_margin_top"
         android:gravity="center"
-        android:text="@string/screen_1_heading_text" />
+        android:layout_marginTop="@dimen/welcome_screen_text_heading_margin_top"/>
 
     <TextView
         android:id="@+id/content_description_screen"
-        style="@style/WelcomeScreenDescriptionTextRegularStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/WelcomeScreenDescriptionTextRegularStyle"
+        android:text="@string/screen_4_description_text"
         android:layout_below="@id/content_heading_screen"
-        android:layout_marginTop="@dimen/welcome_screen_text_description_margin_top"
         android:gravity="center"
-        android:padding="@dimen/welcome_screen_text_description_padding"
-        android:text="@string/screen_1_description_text" />
+        android:layout_marginTop="@dimen/welcome_screen_text_description_margin_top"
+        android:padding="@dimen/welcome_screen_text_description_padding"/>
 
 </RelativeLayout>

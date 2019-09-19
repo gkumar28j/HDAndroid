@@ -38,7 +38,15 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
 
+
+    <style name="WelcomeFullScreenImage" parent="AppTheme.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
 
     </style>
 
@@ -449,6 +457,40 @@
         <item name="fontPath">Lato/Lato-Regular.ttf</item>
     </style>
 
+    <!--WelcomeActivity-->
 
+    <style name="WelcomeScreenHeadingTextRegularStyle">
+        <item name="android:textSize">@dimen/textview_size_l2</item>
+        <item name="android:textColor">@color/in_progress_color_background</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+    <style name="WelcomeScreenDescriptionTextRegularStyle">
+        <item name="android:textSize">@dimen/textview_size_m2</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
 
+    <style name="WelcomeScreenTakeTourButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="android:background">@drawable/sign_out_button</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="WelcomeScreenSKIPTextRegularStyle">
+        <item name="android:textSize">@dimen/textview_size_l1</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+    <style name="WelcomeScreenNEXTTextRegularStyle">
+        <item name="android:textSize">@dimen/textview_size_l1</item>
+        <item name="android:textColor">@color/in_progress_color_background</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
 </resources>

@@ -189,4 +189,22 @@
     <string name="heading_car_reminder">Be Reminded When Getting in Your Car</string>
     <string name="heading_daily_reminded">Be Reminded Each Day</string>
 
+
+    <!--WelcomeScreen-->
+    <string name="screen_0_heading_text">Welcome to HoneyDew List!</string>
+    <string name="screen_0_description_text">HoneyDew List is a Shareable Todo List App, designed to easily keep track of What you need, Where you need it from, and When you need it by! \nManage your todos with just one hand and voice input!</string>
+    <string name="screen_1_heading_text">Add Item Photos</string>
+    <string name="screen_1_description_text">Now you can add photos to your items! Wheather it  be coupons, or photos of exactly what you need, add them simply!</string>
+    <string name="screen_2_heading_text">Notifications</string>
+    <string name="screen_2_description_text">Use the Notifications Page to track item changes, view reminders, and see new updates to the app!</string>
+    <string name="screen_3_heading_text">Share Lists</string>
+    <string name="screen_3_description_text">Share Lists with your friends and family! And you can share lists with multiple people!\n\nLists are shared instantly with the user via text rather than email!\n\n Perfect for todo lists, shopping lists, kids chores, party preparations, vacation planning, camping events, and tracking children\'s homework!</string>
+    <string name="screen_4_heading_text">List Colors</string>
+    <string name="screen_4_description_text">Want your lists to stand out? Simply modify their color using the List Color page!</string>
+    <string name="screen_5_heading_text">In Progress</string>
+    <string name="screen_5_description_text">When sharing a list, Set items to \"In Progress\" to let your Honey know when you\'re at a location of an item, just in case they want to add something else! No more back-and-forth \"do you need anything else\" texting necessary! \n\nUse it for your personal lists too!</string>
+    <string name="screen_6_heading_text">Reminders</string>
+    <string name="screen_6_description_text">Location Reminders: Get notifications when you are within range of item locations! No more driving by!\n\nDaily Reminders: Get reminders each day at the time you choose for items that are expiring today or tomorrow, or for items that have expired.\n\nBluetooth Reminders: Get notified of expiring or expired items when your phone pairs with your car\'s Bluetooth!</string>
+
+
 </resources>

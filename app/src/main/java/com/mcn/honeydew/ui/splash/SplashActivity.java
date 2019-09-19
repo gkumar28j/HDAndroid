@@ -3,12 +3,7 @@ package com.mcn.honeydew.ui.splash;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.ui.base.BaseActivity;
@@ -17,13 +12,9 @@ import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationActivity;
 import com.mcn.honeydew.ui.welcome.WelcomeTourActivity;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 import static com.mcn.honeydew.utils.AppConstants.KEY_COUNTRY_CODE;
 import static com.mcn.honeydew.utils.AppConstants.KEY_PHONE;
@@ -75,7 +66,7 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 
     @Override
     public void openMainActivity() {
-     /*   Intent intent = MainActivity.getStartIntent(SplashActivity.this);
+   /*     Intent intent = MainActivity.getStartIntent(SplashActivity.this);
         startActivity(intent);
         finish();*/
 

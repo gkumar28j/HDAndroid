@@ -154,7 +154,7 @@ public final class CommonUtils {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"),
                 Locale.getDefault());
         Date currentLocalTime = calendar.getTime();
-        DateFormat date = new SimpleDateFormat("XXX", Locale.getDefault());
+        DateFormat date = new SimpleDateFormat("ZZZ", Locale.getDefault());
         String localTime = date.format(currentLocalTime);
         System.out.println("UTC".concat(localTime));
         return "UTC".concat(localTime);

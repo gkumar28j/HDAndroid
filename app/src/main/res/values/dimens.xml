@@ -99,5 +99,13 @@
     <dimen name="setting_user_email_layout_margin_left">9dp</dimen>
     <dimen name="fragment_when_margin_empty_imageview">160dp</dimen>
 
+    <!--WelcomeScreen-->
+
+    <dimen name="welcome_screen_text_heading_margin_top">25dp</dimen>
+    <dimen name="welcome_screen_text_description_margin_top">25dp</dimen>
+    <dimen name="welcome_screen_text_description_padding">20dp</dimen>
+    <dimen name="welcome_screen_image_height">200dp</dimen>
+    <dimen name="welcome_screen_image_width">200dp</dimen>
+
 
 </resources>

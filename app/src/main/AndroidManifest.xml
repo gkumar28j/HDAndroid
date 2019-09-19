@@ -159,7 +159,8 @@
             android:name=".ui.myListDetail.MyListDetailImageActivity"
             android:theme="@style/AppThemeFullScreenImage" />
         <activity android:name=".ui.welcome.WelcomeTourActivity"
-            android:theme="@style/AppThemeFullScreenImage"/>
+            android:theme="@style/AppThemeFullScreenImage"
+            />
 
         <receiver
             android:name=".receivers.GeofenceBroadcastReceiver"
