@@ -66,11 +66,7 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 
     @Override
     public void openMainActivity() {
-   /*     Intent intent = MainActivity.getStartIntent(SplashActivity.this);
-        startActivity(intent);
-        finish();*/
-
-        Intent intent = WelcomeTourActivity.getStartIntent(SplashActivity.this);
+        Intent intent = MainActivity.getStartIntent(SplashActivity.this);
         startActivity(intent);
         finish();
     }

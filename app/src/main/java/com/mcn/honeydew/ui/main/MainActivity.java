@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         setUnBinder(ButterKnife.bind(this));
 
         mPresenter.onAttach(this);
-        initFirebaseInstanceId();
+     //   initFirebaseInstanceId();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -992,10 +992,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
 
-                        // Log and toast
-                        String msg = "Current token is : " + token;
-                        Log.d("FirebaseInstanceTask", msg);
-                        //  Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        Log.e("fcm token main : ", token);
                     }
                 });
     }

@@ -15,5 +15,5 @@ public interface PhoneVerificationMvpView extends MvpView {
 
     void onVerificationCodeSent(String code, boolean verificationStatus);
 
-    void openMainActivity();
+    void openMainActivity(boolean b);
 }

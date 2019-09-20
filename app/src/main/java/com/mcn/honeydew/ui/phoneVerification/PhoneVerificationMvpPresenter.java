@@ -13,7 +13,7 @@ public interface PhoneVerificationMvpPresenter<V extends PhoneVerificationMvpVie
 
     void getVerificationCode(int callType, String phoneNumber, String countryCode);
 
-    void updateVerificationStatus(int status, String phoneNumber, String countryCode);
+    void updateVerificationStatus(int status, String phoneNumber, String countryCode, boolean isComingFromSettings);
 
 }
 

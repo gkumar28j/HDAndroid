@@ -61,6 +61,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_SAVE_NOTIFICATION_DATA = "savenotificationdata";
     private static final String PREF_KEY_SAVE_SHARE_LIST_DATA = "savesharelistdata";
     private static final String PREF_KEY_SAVE_SETTING_APP_DATA = "saveappsettingdata";
+    private static final String PREF_KEY_LOGIN_FIRST_TIME = "loginfirsttime";
 
 
     private final SharedPreferences mPrefs;
@@ -365,6 +366,17 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
         return setting;
 
+    }
+
+    @Override
+    public void setFirstTimeLoggedIn(boolean isFirstTime) {
+        mEditor.putBoolean(PREF_KEY_LOGIN_FIRST_TIME,isFirstTime);
+
+    }
+
+    @Override
+    public boolean isFirstTimeLoggedIn() {
+        return mPrefs.getBoolean(PREF_KEY_LOGIN_FIRST_TIME,false);
     }
 }
 

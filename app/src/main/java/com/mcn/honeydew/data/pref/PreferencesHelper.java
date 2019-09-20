@@ -111,5 +111,9 @@ public interface PreferencesHelper {
 
     NotificationSettingsResponse getNotificationSettingResponse();
 
+    void setFirstTimeLoggedIn(boolean isFirstTime);
+
+    boolean isFirstTimeLoggedIn();
+
 
 }

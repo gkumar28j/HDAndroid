@@ -1,6 +1,7 @@
 package com.mcn.honeydew.di.module;
 
 import android.content.Context;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -107,6 +108,9 @@ import com.mcn.honeydew.ui.sharelist.SharedUserListAdapter;
 import com.mcn.honeydew.ui.splash.SplashMvpPresenter;
 import com.mcn.honeydew.ui.splash.SplashMvpView;
 import com.mcn.honeydew.ui.splash.SplashPresenter;
+import com.mcn.honeydew.ui.welcome.WelcomeMvpPresenter;
+import com.mcn.honeydew.ui.welcome.WelcomeMvpView;
+import com.mcn.honeydew.ui.welcome.WelcomePresenter;
 import com.mcn.honeydew.utils.rx.AppSchedulerProvider;
 import com.mcn.honeydew.utils.rx.SchedulerProvider;
 
@@ -375,4 +379,9 @@ public class ActivityModule {
     NotificationAdapter provideNotificationAdapter() {
         return new NotificationAdapter();
     }*/
+
+    @Provides
+    WelcomeMvpPresenter<WelcomeMvpView> provideWelcomePresenter(WelcomePresenter<WelcomeMvpView> presenter) {
+        return presenter;
+    }
 }

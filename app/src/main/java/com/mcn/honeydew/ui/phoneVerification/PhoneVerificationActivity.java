@@ -21,6 +21,7 @@ import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.Countries;
 import com.mcn.honeydew.ui.base.BaseActivity;
 import com.mcn.honeydew.ui.main.MainActivity;
+import com.mcn.honeydew.ui.welcome.WelcomeTourActivity;
 import com.mcn.honeydew.utils.AppConstants;
 import com.mcn.honeydew.utils.AppLogger;
 import com.mcn.honeydew.utils.KeyboardUtils;
@@ -159,14 +160,22 @@ public class PhoneVerificationActivity extends BaseActivity implements PhoneVeri
     }
 
     @Override
-    public void openMainActivity() {
+    public void openMainActivity(boolean isFirstTimeLogin) {
 
         if (isComingFromSettings) {
             setResult(RESULT_OK);
             finish();
         } else {
-            startActivity(MainActivity.getStartIntent(this));
-            finish();
+
+            if(isFirstTimeLogin){
+                startActivity(WelcomeTourActivity.getStartIntent(this));
+                finish();
+            }else {
+                startActivity(MainActivity.getStartIntent(this));
+                finish();
+            }
+
+
         }
 
     }
@@ -330,7 +339,7 @@ public class PhoneVerificationActivity extends BaseActivity implements PhoneVeri
         mPhone = phoneEditText.getText().toString();
 
         if (isValidCode()) {
-            mPresenter.updateVerificationStatus(1, mPhone, mCountryCode);
+            mPresenter.updateVerificationStatus(1, mPhone, mCountryCode,isComingFromSettings);
         }
 
     }

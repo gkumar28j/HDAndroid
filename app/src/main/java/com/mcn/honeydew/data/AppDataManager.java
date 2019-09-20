@@ -484,6 +484,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void setFirstTimeLoggedIn(boolean isFirstTime) {
+        mPreferencesHelper.setFirstTimeLoggedIn(isFirstTime);
+    }
+
+    @Override
+    public boolean isFirstTimeLoggedIn() {
+        return mPreferencesHelper.isFirstTimeLoggedIn();
+    }
+
+    @Override
     public int getCurrentUserLoggedInMode() {
         return mPreferencesHelper.getCurrentUserLoggedInMode();
     }

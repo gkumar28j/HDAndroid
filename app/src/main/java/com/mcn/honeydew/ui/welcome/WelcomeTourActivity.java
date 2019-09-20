@@ -2,18 +2,13 @@ package com.mcn.honeydew.ui.welcome;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,7 +21,14 @@ import com.mcn.honeydew.R;
 import com.mcn.honeydew.ui.base.BaseActivity;
 import com.mcn.honeydew.ui.main.MainActivity;
 
-public class WelcomeTourActivity extends BaseActivity {
+import javax.inject.Inject;
+
+import butterknife.ButterKnife;
+
+public class WelcomeTourActivity extends BaseActivity implements WelcomeMvpView {
+
+    @Inject
+    WelcomeMvpPresenter<WelcomeMvpView> mPresenter;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, WelcomeTourActivity.class);
@@ -38,7 +40,7 @@ public class WelcomeTourActivity extends BaseActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private String[] headingText;
+
     private TextView btnSkip, btnNext;
     TextView takeTourButton;
     RelativeLayout viewPagerlayout;
@@ -58,12 +60,12 @@ public class WelcomeTourActivity extends BaseActivity {
 
         setContentView(R.layout.activity_welcome_tour);
 
-      /*  if(getSupportActionBar()!=null){
+        getActivityComponent().inject(this);
 
-            getSupportActionBar().setTitle("Version Update");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUnBinder(ButterKnife.bind(this));
 
-        }*/
+        mPresenter.onAttach(this);
+
 
         viewPager = findViewById(R.id.view_pager);
         dotsLayout = findViewById(R.id.layoutDots);
@@ -75,6 +77,12 @@ public class WelcomeTourActivity extends BaseActivity {
         skipTextView = findViewById(R.id.skip_text_view);
         tourImageView = findViewById(R.id.screen_imageview);
 
+        setUp();
+
+    }
+
+    @Override
+    protected void setUp() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -100,8 +108,6 @@ public class WelcomeTourActivity extends BaseActivity {
         tourImageView.getLayoutParams().height = widthImageView;
         tourImageView.requestLayout();
 
-        // layouts of all welcome sliders
-        // add few more layouts if you want
         layouts = new int[]{
                 R.layout.welcome_screen_1,
                 R.layout.welcome_screen_2,
@@ -110,32 +116,18 @@ public class WelcomeTourActivity extends BaseActivity {
                 R.layout.welcome_screen_5,
                 R.layout.welcome_screen_6};
 
-        headingText = new String[]{
 
-                getString(R.string.screen_1_heading_text),
-                getString(R.string.screen_2_heading_text),
-                getString(R.string.screen_3_heading_text),
-                getString(R.string.screen_4_heading_text),
-                getString(R.string.screen_5_heading_text),
-                getString(R.string.screen_6_heading_text)
-
-
-        };
-
-        // adding bottom dots
         addBottomDots(0);
-
-        // making notification bar transparent
-        //   changeStatusBarColor();
 
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
+
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchHomeScreen();
+                mPresenter.openFinishTour();
             }
         });
 
@@ -147,7 +139,7 @@ public class WelcomeTourActivity extends BaseActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    launchHomeScreen();
+                    mPresenter.openFinishTour();
                 }
             }
         });
@@ -165,14 +157,9 @@ public class WelcomeTourActivity extends BaseActivity {
         skipTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchHomeScreen();
+                mPresenter.openFinishTour();
             }
         });
-    }
-
-    @Override
-    protected void setUp() {
-
     }
 
     private void addBottomDots(int currentPage) {
@@ -198,11 +185,6 @@ public class WelcomeTourActivity extends BaseActivity {
         return viewPager.getCurrentItem() + i;
     }
 
-    private void launchHomeScreen() {
-        //  prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeTourActivity.this, MainActivity.class));
-        finish();
-    }
 
     //  viewpager change listener
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -234,6 +216,14 @@ public class WelcomeTourActivity extends BaseActivity {
         }
     };
 
+    @Override
+    public void openMainActivity() {
+
+        startActivity(MainActivity.getStartIntent(WelcomeTourActivity.this));
+        finish();
+
+    }
+
 
     /**
      * View pager adapter
@@ -264,12 +254,6 @@ public class WelcomeTourActivity extends BaseActivity {
             imageView.getLayoutParams().width = widthImageView;
             imageView.getLayoutParams().height = widthImageView;
             imageView.requestLayout();
-
-          /*  TextView headingTextView = view.findViewById(R.id.content_heading_screen);
-            TextView descriptionTextview = view.findViewById(R.id.content_description_screen);
-            headingTextView.setText(headingText[position]);
-            descriptionTextview.setText(headingText[position]);*/
-
             container.addView(view);
 
             return view;
@@ -291,5 +275,14 @@ public class WelcomeTourActivity extends BaseActivity {
             View view = (View) object;
             container.removeView(view);
         }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+
+        mPresenter.onDetach();
+        super.onDestroy();
+
     }
 }

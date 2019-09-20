@@ -116,7 +116,8 @@ public class PhoneVerificationPresenter<V extends PhoneVerificationMvpView> exte
 
     @SuppressLint("CheckResult")
     @Override
-    public void updateVerificationStatus(int status, String phoneNumber, String countryCode) {
+    public void updateVerificationStatus(int status, String phoneNumber, String countryCode, boolean isComingFromSettings) {
+
         if (!getMvpView().isNetworkConnected()) {
             getMvpView().showMessage(R.string.connection_error);
             return;
@@ -147,7 +148,10 @@ public class PhoneVerificationPresenter<V extends PhoneVerificationMvpView> exte
                             data.setIsPhoneVerified(1);
                             getDataManager().setUserData(data);
 
-                            getMvpView().openMainActivity();
+                            if(!isComingFromSettings){
+                                getDataManager().setFirstTimeLoggedIn(true);
+                            }
+                            getMvpView().openMainActivity(true);
                             enableFCM();
 
                         } else {

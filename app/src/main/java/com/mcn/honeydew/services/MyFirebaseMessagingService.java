@@ -319,6 +319,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String token) {
         //   super.onNewToken(token);
         Timber.d("FCM Token: " + token);
+        Log.e("fcm token service : ", token);
 
         if (mDataManager.getCurrentUserLoggedInMode() ==
                 DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER.getType()) {
