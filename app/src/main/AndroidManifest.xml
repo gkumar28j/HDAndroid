@@ -3,40 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mcn.honeydew">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
     <application
         android:name=".HoneyDewApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config"
-        tools:targetApi="n"
-       >
+        tools:targetApi="n">
 
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false"/>
-        <activity android:name=".ui.BluetoothDescActivity"></activity>
+        <activity
+            android:name=".ui.BluetoothDescActivity"
+            android:screenOrientation="portrait" />
 
         <activity android:name=".ui.list_settings.SettingActivity" />
 
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" /> <!-- Activities -->
         <activity
             android:name=".ui.splash.SplashActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,10 +30,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -57,27 +45,26 @@
 
                 <data android:scheme="hd" />
             </intent-filter>
-        </activity>
+        </activity> <!-- Activities -->
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeLoginFullScreen" />
         <activity
             android:name=".ui.register.RegisterActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppThemeRegister" /> <!-- android:theme="@style/AppTheme.Transparent" /> -->
-        <!-- android:theme="@style/AppTheme.Transparent" /> -->
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeRegister" />
         <activity
             android:name=".ui.phoneVerification.PhoneVerificationActivity"
-            android:theme="@style/AppTheme.Transparent" /> <!-- Facebook -->
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name" /> <!-- android:theme="@style/AppTheme.Transparent" /> -->
+        <!-- android:theme="@style/AppTheme.Transparent" /> -->
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -89,16 +76,75 @@
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
-        </activity> <!-- Receiver -->
+        </activity>
+
+        <activity
+            android:name=".ui.forgotPassword.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" /> <!-- Facebook -->
+        <activity
+            android:name=".ui.changePassword.ChangePasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity android:name=".ui.notifications.settings.NotificationSettingsActivity" /> <!-- Receiver -->
+        <activity
+            android:name=".ui.contactList.ContactListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.contactDetails.ContactDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.shareToContacts.ShareToContactsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".ui.myListDetail.MyListDetailImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeThemeFullScreen" />
+        <activity
+            android:name=".ui.welcome.WelcomeTourActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeThemeFullScreen" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ab3bd969b8d79133bbba77812d254793d7e42413" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mcn.honeydew.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
         <receiver android:name=".ui.phoneVerification.SmsReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
-        </receiver>
+        </receiver> <!-- Firebase Notifications -->
+
         <receiver
             android:name=".receivers.GeofenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
+        <!--   <service android:name=".services.MyFirebaseInstanceIDService">
+               <intent-filter>
+                   <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+               </intent-filter>
+           </service> -->
+
+        <!-- ./Firebase Notifications -->
         <receiver
             android:name=".receivers.BlueToothBroadcastReceiver"
             android:enabled="true"
@@ -112,69 +158,10 @@
                 <action android:name="android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name=".services.GeofenceTransitionsJobIntentService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name=".services.BluetoothJobIntentService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name=".services.ProximityJobIntentService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service android:name=".services.GeoFenceFilterService" />
-
-        <activity
-            android:name=".ui.forgotPassword.ForgotPasswordActivity"
-            android:theme="@style/AppTheme.Transparent" />
-        <activity
-            android:name=".ui.changePassword.ChangePasswordActivity"
-            android:theme="@style/AppTheme.Transparent" />
-        <activity android:name=".ui.notifications.settings.NotificationSettingsActivity" /> <!-- Firebase Notifications -->
-        <service android:name=".services.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-     <!--   <service android:name=".services.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service> -->
-
-        <!-- ./Firebase Notifications -->
-        <activity
-            android:name=".ui.contactList.ContactListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.contactDetails.ContactDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.shareToContacts.ShareToContactsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.myListDetail.MyListDetailImageActivity"
-            android:theme="@style/WelcomeThemeFullScreen" />
-        <activity android:name=".ui.welcome.WelcomeTourActivity"
-            android:theme="@style/WelcomeThemeFullScreen"
-            />
-
         <receiver
             android:name=".receivers.GeofenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
-
-        <service
-            android:name=".services.GeofenceTransitionsJobIntentService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- android:process=":remote" -->
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="ab3bd969b8d79133bbba77812d254793d7e42413" />
-
         <receiver
             android:name=".receivers.BootCompleteReceiver"
             android:enabled="true"
@@ -183,18 +170,50 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <service
+            android:name=".services.GeofenceTransitionsJobIntentService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.mcn.honeydew.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
-        </provider>
+        <service
+            android:name=".services.BluetoothJobIntentService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name=".services.ProximityJobIntentService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service android:name=".services.GeoFenceFilterService" /> <!-- android:process=":remote" -->
+        <service android:name=".services.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".services.GeofenceTransitionsJobIntentService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
 
     </application>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
 </manifest>
