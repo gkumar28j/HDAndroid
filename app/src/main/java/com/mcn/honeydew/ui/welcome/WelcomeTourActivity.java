@@ -2,6 +2,8 @@ package com.mcn.honeydew.ui.welcome;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.DisplayMetrics;
@@ -9,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,7 +40,7 @@ public class WelcomeTourActivity extends BaseActivity {
     private int[] layouts;
     private String[] headingText;
     private TextView btnSkip, btnNext;
-    Button takeTourButton;
+    TextView takeTourButton;
     RelativeLayout viewPagerlayout;
     RelativeLayout takeTourLayout;
     TextView skipTextView;
@@ -48,9 +52,10 @@ public class WelcomeTourActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     /*   if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }*/
+        }
+
         setContentView(R.layout.activity_welcome_tour);
 
       /*  if(getSupportActionBar()!=null){

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -41,13 +41,10 @@
     </style>
 
 
-    <style name="WelcomeFullScreenImage" parent="AppTheme.NoActionBar">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-
+    <style name="WelcomeThemeFullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
     </style>
 
     <style name="AppThemeRegister" parent="AppTheme.NoActionBar">
@@ -466,7 +463,7 @@
     </style>
     <style name="WelcomeScreenDescriptionTextRegularStyle">
         <item name="android:textSize">@dimen/textview_size_m2</item>
-        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColor">@color/dark_gray</item>
         <item name="fontPath">Lato/Lato-Regular.ttf</item>
     </style>
 
@@ -479,6 +476,13 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:foreground">?selectableItemBackground</item>
+        <item name="android:background">@drawable/sign_out_button</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="WelcomeScreenTakeTourTextViewStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/sign_out_button</item>
         <item name="fontPath">Lato/Lato-Regular.ttf</item>
     </style>

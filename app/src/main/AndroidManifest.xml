@@ -157,9 +157,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.myListDetail.MyListDetailImageActivity"
-            android:theme="@style/AppThemeFullScreenImage" />
+            android:theme="@style/WelcomeThemeFullScreen" />
         <activity android:name=".ui.welcome.WelcomeTourActivity"
-            android:theme="@style/AppThemeFullScreenImage"
+            android:theme="@style/WelcomeThemeFullScreen"
             />
 
         <receiver

@@ -100,5 +100,6 @@
         <item>@color/dot_light_screen3</item>
     </array>
 
+    <color name="tutorial_background_color">#F1F2F5</color>
 
 </resources>
