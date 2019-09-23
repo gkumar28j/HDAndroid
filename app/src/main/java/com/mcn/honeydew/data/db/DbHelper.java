@@ -1,7 +1,9 @@
 package com.mcn.honeydew.data.db;
 
 
+import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.data.network.model.response.MyListResponseData;
+import com.mcn.honeydew.data.network.model.response.ShareListResponse;
 
 import java.util.ArrayList;
 
@@ -19,7 +21,11 @@ public interface DbHelper {
 
     void insertListData(int listId,String response);
 
+    void insertShareListData(int listId, String response);
+
     ArrayList<MyListResponseData> getListData(int listId);
+
+    ArrayList<GetUserSettingResponse.Result> getShareListData(int listId);
 
     void deleteAllRecords();
 

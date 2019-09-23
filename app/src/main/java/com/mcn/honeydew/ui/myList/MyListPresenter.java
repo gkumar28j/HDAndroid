@@ -80,7 +80,6 @@ public class MyListPresenter<V extends MyListMvpView> extends BasePresenter<V> i
                                 MyHomeListData myHomeListData = getDataManager().getSavedList();
                                 myHomeListData.setIsOwner(response.getMyListResponseData().get(0).isOwner());
                                 getDataManager().saveList(myHomeListData);
-
                                 getDataManager().insertListData(myHomeListData.getListId(), new Gson().toJson(response.getMyListResponseData()));
                             }
 

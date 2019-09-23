@@ -3,7 +3,8 @@
     android:id="@+id/badge_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center|top">
+    android:gravity="center|top"
+    >
 
     <TextView
         android:id="@+id/badge_text_view"
@@ -18,5 +19,6 @@
         tools:text="9+"
         android:textColor="@android:color/white"
         android:textSize="11sp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        />
 </LinearLayout>

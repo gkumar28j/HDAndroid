@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         setUnBinder(ButterKnife.bind(this));
 
         mPresenter.onAttach(this);
-     //   initFirebaseInstanceId();
+        //   initFirebaseInstanceId();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -443,6 +443,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @Override
     public void onResetNotification() {
+        this.count = 0;
         removeBadge();
 
     }
@@ -513,7 +514,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
             }
 
-        }else {
+        } else {
             getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
         }
@@ -582,14 +583,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     public void showMyListFragment(MyHomeListData data) {
         //    stopUpdateNotificationTimer();
-
+        removeBadge();
         if (!data.getListHeaderColor().startsWith("#")) {
             headerColor = "#".concat(data.getListHeaderColor());
         } else
             headerColor = data.getListHeaderColor();
 
         mPresenter.saveInProgressValue(data.isInProgress());
-        removeBadge();
 
         MyListResponseData mData = new MyListResponseData();
         mData.setListHeaderColor(data.getListHeaderColor());
@@ -612,13 +612,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     public void navigateToListFragment(String listHeadingColor, String listName, int listId, boolean isOwner, int inProgress) {
         //    stopUpdateNotificationTimer();
+            removeBadge();
         if (inProgress == 1) {
             mPresenter.saveInProgressValue(true);
         } else {
             mPresenter.saveInProgressValue(false);
         }
-
-        removeBadge();
         MyListResponseData mData = new MyListResponseData();
         mData.setListHeaderColor(listHeadingColor);
         mData.setListName(listName);
@@ -892,17 +891,31 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
 
     public void removeBadge() {
-        if (badge == null) {
+
+        if (notificationTextView == null) {
             return;
         }
+        notificationTextView.setVisibility(View.GONE);
 
-        //  if (badge.getVisibility() == View.VISIBLE) {
-        badge.setVisibility(View.GONE);
-        //   }
 
     }
 
     private void showBadge(int count) {
+
+
+        this.count = count;
+
+        removeBadge();
+
+        if (mMenuItemSelected == R.id.navigation_color_settings ||
+                mMenuItemSelected == R.id.navigation_share_list ||
+                mMenuItemSelected == R.id.navigation_add_item ||
+                mMenuItemSelected == R.id.navigation_my_list) {
+
+            return;
+
+        }
+
         if (notificationTextView == null) {
             return;
         }
@@ -948,21 +961,23 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
 
     private void initCount() {
-        if (menuItemSelected.getItemId() == R.id.navigation_home || menuItemSelected.getItemId() == R.id.navigation_add_list) {
 
-            BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
-            BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(0);
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(0);
 
-            //  if (badge == null) {
-            badge = LayoutInflater.from(this).inflate(R.layout.notification_count_badge, menuView, false);
-            //   }
+        badge = LayoutInflater.from(this).inflate(R.layout.notification_count_badge, menuView, false);
 
-            itemView.addView(badge);
-            notificationTextView = (TextView) badge.findViewById(R.id.badge_text_view);
-            //  notificationTextView.setVisibility(View.VISIBLE);
-            //  notificationTextView.setText(String.valueOf(count));
+        itemView.addView(badge);
+        notificationTextView = (TextView) badge.findViewById(R.id.badge_text_view);
+
+
+        if (count > 0) {
+            notificationTextView.setText(String.valueOf(count));
+            notificationTextView.setVisibility(View.VISIBLE);
         }
+
     }
+
 
     void clippPadding(BottomNavigationView view) {
 

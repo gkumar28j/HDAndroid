@@ -728,8 +728,18 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void insertShareListData(int listId, String response) {
+        mDbHelper.insertShareListData(listId,response);
+    }
+
+    @Override
     public ArrayList<MyListResponseData> getListData(int listId) {
         return mDbHelper.getListData(listId);
+    }
+
+    @Override
+    public ArrayList<GetUserSettingResponse.Result> getShareListData(int listId) {
+        return mDbHelper.getShareListData(listId);
     }
 
     @Override

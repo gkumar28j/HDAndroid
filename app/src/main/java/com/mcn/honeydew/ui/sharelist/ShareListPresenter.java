@@ -45,10 +45,15 @@ public class ShareListPresenter<V extends ShareListMvpView> extends BasePresente
     @Override
     public void getUserSettings(int listId) {
         if (!getMvpView().isNetworkConnected()) {
-          //  getMvpView().showMessage(R.string.connection_error);
-            if(getDataManager().getSharedListSetting()!=null && getDataManager().getSharedListSetting().size()>0){
+            //  getMvpView().showMessage(R.string.connection_error);
+          /*  if (getDataManager().getSharedListSetting() != null && getDataManager().getSharedListSetting().size() > 0) {
                 getMvpView().onUserSettingsLoaded(getDataManager().getSharedListSetting());
-            }
+            }*/
+
+          if(getDataManager().getShareListData(listId)!=null && getDataManager().getShareListData(listId).size()>0){
+              getMvpView().onUserSettingsLoaded(getDataManager().getShareListData(listId));
+          }
+
 
             return;
         }
@@ -66,7 +71,10 @@ public class ShareListPresenter<V extends ShareListMvpView> extends BasePresente
                         getMvpView().hideLoading();
                         if (response.getErrorObject().getStatus() == 1) {
 
-                            getDataManager().saveSharedListData(new Gson().toJson(response.getResult()));
+                            // getDataManager().saveSharedListData(new Gson().toJson(response.getResult()));
+
+                            getDataManager().insertShareListData(listId, new Gson().toJson(response.getResult()));
+
                             getMvpView().onUserSettingsLoaded(response.getResult());
 
                         }
