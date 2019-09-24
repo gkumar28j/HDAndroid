@@ -32,6 +32,7 @@ import com.mcn.honeydew.ui.forgotPassword.ForgotPasswordActivity;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationActivity;
 import com.mcn.honeydew.ui.register.RegisterActivity;
+import com.mcn.honeydew.ui.welcome.WelcomeTourActivity;
 import com.mcn.honeydew.utils.CommonUtils;
 import com.mcn.honeydew.utils.KeyboardUtils;
 
@@ -214,6 +215,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, Faceboo
     @Override
     public void openForgotPasswordActivity() {
         startActivityForResult(ForgotPasswordActivity.getStartIntent(this), REQUEST_CODE_FORGOT_PASSWORD);
+    }
+
+    @Override
+    public void openTourActivity() {
+        Intent intent = WelcomeTourActivity.getStartIntent(LoginActivity.this);
+        startActivity(intent);
+        finish();
     }
 
     @Override

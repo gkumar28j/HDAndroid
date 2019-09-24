@@ -469,6 +469,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @Override
     public void onEmptyViewClicked() {
+        removeBadge();
         menuItemSelected = navigation.getMenu().getItem(2);
         navigation.setSelectedItemId(menuItemSelected.getItemId());
         fragment = AddListFragment.newInstance();
@@ -830,6 +831,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @OnClick(R.id.setting_image)
     void onSettingImageClicked() {
+        removeBadge();
 
         settingImageView.setVisibility(View.GONE);
         backImageView.setVisibility(View.VISIBLE);

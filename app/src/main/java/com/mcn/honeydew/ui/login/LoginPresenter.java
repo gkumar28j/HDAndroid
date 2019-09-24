@@ -95,7 +95,13 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
 
                         if (userDetailResponse.getIsPhoneVerified() == 1) {
                             getDataManager().setUserData(userDetailResponse);
-                            getMvpView().openMainActivity();
+
+                            if(getDataManager().isFirstTimeLoggedIn()){
+                                getMvpView().openTourActivity();
+                            }else {
+                                getMvpView().openMainActivity();
+                            }
+
 
                         } else
                             getMvpView().openPhoneVerificationActivity(userDetailResponse.getPrimaryMobile());

@@ -150,8 +150,12 @@ public class PhoneVerificationPresenter<V extends PhoneVerificationMvpView> exte
 
                             if(!isComingFromSettings){
                                 getDataManager().setFirstTimeLoggedIn(true);
+                            }else {
+                                getDataManager().setFirstTimeLoggedIn(false);
                             }
-                            getMvpView().openMainActivity(true);
+
+
+                            getMvpView().openMainActivity(getDataManager().isFirstTimeLoggedIn());
                             enableFCM();
 
                         } else {

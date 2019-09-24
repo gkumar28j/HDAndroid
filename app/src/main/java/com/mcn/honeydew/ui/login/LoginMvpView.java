@@ -16,4 +16,6 @@ public interface LoginMvpView extends MvpView {
 
     void openForgotPasswordActivity();
 
+    void openTourActivity();
+
 }

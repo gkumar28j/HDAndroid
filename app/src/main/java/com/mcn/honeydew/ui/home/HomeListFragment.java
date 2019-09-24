@@ -3,6 +3,7 @@ package com.mcn.honeydew.ui.home;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Rect;
+import android.icu.text.TimeZoneNames;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.Nullable;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +29,14 @@ import com.mcn.honeydew.utils.ItemOffsetDecoration;
 import com.mcn.honeydew.utils.draghelper.OnStartDragListener;
 import com.mcn.honeydew.utils.draghelper.SimpleItemTouchHelperCallback;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -180,7 +190,6 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
 
     @Override
     public void replceData(ArrayList<MyHomeListData> response) {
-
         if (response.isEmpty()) {
             emptyView.setVisibility(View.VISIBLE);
         } else {
@@ -397,4 +406,6 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
         }
         ((MainActivity) getActivity()).showTabs();
     }
+
+
 }

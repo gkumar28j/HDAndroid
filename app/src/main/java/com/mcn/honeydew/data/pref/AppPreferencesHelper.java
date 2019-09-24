@@ -376,7 +376,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public boolean isFirstTimeLoggedIn() {
-        return mPrefs.getBoolean(PREF_KEY_LOGIN_FIRST_TIME,false);
+        return mPrefs.getBoolean(PREF_KEY_LOGIN_FIRST_TIME,true);
     }
 }
 
