@@ -82,12 +82,13 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
     public void onViewPrepared(Context ctx) {
 
         if (!getMvpView().isNetworkConnected()) {
-            getMvpView().showMessage(R.string.connection_error);
+      //      getMvpView().showMessage(R.string.connection_error);
             return;
         }
 
 
-        if (!getDataManager().IsDeviceIdSendToServer() && getDataManager().getDeviceId() != null) {
+       // if (!getDataManager().IsDeviceIdSendToServer() && getDataManager().getDeviceId() != null) {
+        if (getDataManager().getDeviceId() != null) {
 
             getDataManager().doUpdateDeviceInfo(
                     new UpdateDeviceInfoRequest(

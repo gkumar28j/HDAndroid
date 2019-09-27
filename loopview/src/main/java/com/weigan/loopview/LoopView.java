@@ -323,6 +323,9 @@ public class LoopView extends View {
     }
 
     public final void replaceData(List<String> items) {
+        if (this.items == null) {
+            return;
+        }
         this.items.clear();
         this.items = convertData(items);
         remeasure();
@@ -382,7 +385,7 @@ public class LoopView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (items == null || items.size()==0) {
+        if (items == null || items.size() == 0) {
             return;
         }
 

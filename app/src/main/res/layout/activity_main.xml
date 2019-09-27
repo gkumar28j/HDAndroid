@@ -99,7 +99,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         app:elevation="8dp"
@@ -108,6 +108,7 @@
         app:itemTextColor="@drawable/tab_selector"
         app:labelVisibilityMode="labeled"
         app:itemHorizontalTranslationEnabled="false"
+
         />
 
 

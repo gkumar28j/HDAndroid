@@ -215,8 +215,12 @@ public class HomePresenter<V extends HomeListMvpView> extends BasePresenter<V> i
                         if (response.getErrorObject().getStatus() == 1) {
                             if (response.getResults() != null) {
                                 getMvpView().replceData(response.getResults());
+
                                 ArrayList<MyHomeListData> newItems = new ArrayList<>(response.getResults());
-                                getDataManager().saveHomeResponseData(new Gson().toJson(newItems));
+                                if(newItems.size()>0){
+                                    getDataManager().saveHomeResponseData(new Gson().toJson(newItems));
+                                }
+
                                 hasShownNetworkError = false;
                                 hasShownServerError = false;
                             }

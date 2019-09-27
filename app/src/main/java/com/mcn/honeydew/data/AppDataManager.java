@@ -2,6 +2,7 @@ package com.mcn.honeydew.data;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import com.mcn.honeydew.data.db.DbHelper;
 import com.mcn.honeydew.data.network.ApiHeader;
@@ -462,15 +463,6 @@ public class AppDataManager implements DataManager {
         return mPreferencesHelper.getNotificationData();
     }
 
-    @Override
-    public void saveSharedListData(String response) {
-        mPreferencesHelper.saveSharedListData(response);
-    }
-
-    @Override
-    public ArrayList<GetUserSettingResponse.Result> getSharedListSetting() {
-        return mPreferencesHelper.getSharedListSetting();
-    }
 
     @Override
     public void saveAppSettings(String response) {
@@ -556,12 +548,11 @@ public class AppDataManager implements DataManager {
         setIsJustLoggedIn(true);
         setIsFacebookLogin(false);
         mPreferencesHelper.saveDeviceId(null);
-
-
         mPreferencesHelper.saveNotificationResponseData("[]");
-        mPreferencesHelper.saveSharedListData("[]");
         mPreferencesHelper.saveHomeResponseData("[]");
         mPreferencesHelper.saveNotificationResponseData("[]");
+
+        Log.e("logged out","yes");
 
     }
 

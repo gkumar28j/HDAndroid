@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +26,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -321,7 +321,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 break;
             case R.id.navigation_home:
                 initCount();
-                startUpdateNotificationTimer();
                 title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 title.setText("");
                 title.setVisibility(View.GONE);
@@ -403,7 +402,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             headerColor = "#".concat(data.getListHeaderColor());
         } else
             headerColor = data.getListHeaderColor();
-
+        navigation = findViewById(R.id.navigation);
         showMyListFragment(data);
 
 
@@ -613,7 +612,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     public void navigateToListFragment(String listHeadingColor, String listName, int listId, boolean isOwner, int inProgress) {
         //    stopUpdateNotificationTimer();
-            removeBadge();
+        removeBadge();
         if (inProgress == 1) {
             mPresenter.saveInProgressValue(true);
         } else {
@@ -710,7 +709,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     public void onNotificationFetched(int count) {
 
         if (count == 0) {
-            removeBadge();
+             removeBadge();
+
         } else {
             showBadge(count);
         }
@@ -831,7 +831,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @OnClick(R.id.setting_image)
     void onSettingImageClicked() {
-        removeBadge();
 
         settingImageView.setVisibility(View.GONE);
         backImageView.setVisibility(View.VISIBLE);
@@ -894,12 +893,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     public void removeBadge() {
 
-        if (notificationTextView == null) {
+      /*  if (notificationTextView == null) {
             return;
         }
         notificationTextView.setVisibility(View.GONE);
+*/
 
-
+        navigation.removeBadge(R.id.navigation_notifications);
     }
 
     private void showBadge(int count) {
@@ -907,7 +907,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
         this.count = count;
 
-        removeBadge();
+        //    removeBadge();
 
         if (mMenuItemSelected == R.id.navigation_color_settings ||
                 mMenuItemSelected == R.id.navigation_share_list ||
@@ -917,13 +917,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             return;
 
         }
-
-        if (notificationTextView == null) {
+     /*   if (notificationTextView == null) {
             return;
         }
         notificationTextView.setVisibility(View.VISIBLE);
-        notificationTextView.setText(String.valueOf(count));
+        notificationTextView.setText(String.valueOf(count));*/
 
+        setBadgeCount(count);
     }
 
 
@@ -964,10 +964,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     private void initCount() {
 
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
-        BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(0);
+     /*   Log.e("init","showingg");
 
-        badge = LayoutInflater.from(this).inflate(R.layout.notification_count_badge, menuView, false);
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(1);
+
+
+        View badge = LayoutInflater.from(this).inflate(R.layout.notification_count_badge, itemView, false);
 
         itemView.addView(badge);
         notificationTextView = (TextView) badge.findViewById(R.id.badge_text_view);
@@ -976,7 +979,15 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         if (count > 0) {
             notificationTextView.setText(String.valueOf(count));
             notificationTextView.setVisibility(View.VISIBLE);
+        }*/
+
+
+        if (count > 0) {
+            setBadgeCount(count);
+        } else {
+            navigation.removeBadge(R.id.navigation_notifications);
         }
+
 
     }
 
@@ -1024,6 +1035,16 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         } else {
             title.setVisibility(View.GONE);
         }
+
+    }
+
+
+    void setBadgeCount(int count) {
+
+        BadgeDrawable drawable = navigation.getOrCreateBadge(R.id.navigation_notifications);
+        drawable.setBackgroundColor(getResources().getColor(R.color.in_progress_color_background));
+        drawable.setBadgeTextColor(getResources().getColor(R.color.white));
+        drawable.setNumber(count);
 
     }
 

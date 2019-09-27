@@ -2,8 +2,10 @@ package com.mcn.honeydew.ui.login;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.LoginResponse;
@@ -202,6 +204,10 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
         // Enable FCM via enable Auto-init service which generate new token and receive in FCMService
         //FirebaseMessaging.getInstance().setAutoInitEnabled(true);
 
-        String token = FirebaseInstanceId.getInstance().getToken();
+    //    String token = FirebaseInstanceId.getInstance().getToken();
+
+        Log.e("enabledFCM","yes");
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+
     }
 }

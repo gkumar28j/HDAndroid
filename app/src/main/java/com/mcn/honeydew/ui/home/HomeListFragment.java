@@ -165,6 +165,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     @Override
     public void onResume() {
         super.onResume();
+
         view.getViewTreeObserver()
                 .addOnGlobalLayoutListener(mLayoutKeyboardVisibilityListener);
         mRunnable = new Runnable() {

@@ -103,10 +103,6 @@ public interface PreferencesHelper {
 
     ArrayList<NotificationListResponse.NotificationListData> getNotificationData();
 
-    void saveSharedListData(String response);
-
-    ArrayList<GetUserSettingResponse.Result> getSharedListSetting();
-
     void saveAppSettings(String response);
 
     NotificationSettingsResponse getNotificationSettingResponse();

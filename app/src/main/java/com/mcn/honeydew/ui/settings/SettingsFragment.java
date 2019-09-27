@@ -383,6 +383,10 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
     @Override
     public void setProximityNotification(NotificationSettingsResponse results) {
 
+        if (results == null) {
+            return;
+        }
+
         NotificationSettingsResponse.NotificationSettings notificationSettings = results.getResults().get(0);
 
         if (notificationSettings.isProximityNotification()) {

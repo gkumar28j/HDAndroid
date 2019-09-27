@@ -297,7 +297,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void saveHomeResponseData(String response) {
 
-        mEditor.putString(PREF_KEY_SAVE_HOME_DATA, response);
+        mEditor.putString(PREF_KEY_SAVE_HOME_DATA, response).apply();
     }
 
     @Override
@@ -314,7 +314,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void saveNotificationResponseData(String response) {
-        mEditor.putString(PREF_KEY_SAVE_NOTIFICATION_DATA, response);
+        mEditor.putString(PREF_KEY_SAVE_NOTIFICATION_DATA, response).apply();
     }
 
     @Override
@@ -332,30 +332,11 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return arrayList;
     }
 
-    @Override
-    public void saveSharedListData(String response) {
-        mEditor.putString(PREF_KEY_SAVE_SHARE_LIST_DATA, response);
-    }
-
-    @Override
-    public ArrayList<GetUserSettingResponse.Result> getSharedListSetting() {
-        ArrayList<GetUserSettingResponse.Result> arrayList = new ArrayList<>();
-
-        String response = mPrefs.getString(PREF_KEY_SAVE_SHARE_LIST_DATA, null);
-        if (!TextUtils.isEmpty(response)) {
-
-            arrayList.addAll(Arrays.asList(new Gson().fromJson(response, GetUserSettingResponse.Result[].class)));
-
-        }
-
-
-        return arrayList;
-    }
 
     @Override
     public void saveAppSettings(String response) {
 
-        mEditor.putString(PREF_KEY_SAVE_SETTING_APP_DATA, response);
+        mEditor.putString(PREF_KEY_SAVE_SETTING_APP_DATA, response).apply();
 
     }
 
@@ -370,7 +351,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setFirstTimeLoggedIn(boolean isFirstTime) {
-        mEditor.putBoolean(PREF_KEY_LOGIN_FIRST_TIME,isFirstTime);
+        mEditor.putBoolean(PREF_KEY_LOGIN_FIRST_TIME,isFirstTime).apply();
 
     }
 
