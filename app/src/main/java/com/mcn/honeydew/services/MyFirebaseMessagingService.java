@@ -22,12 +22,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -77,6 +75,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     private static final String CHANNEL_ID = "5";
     public static final String KEY_NOTIFICATION_TYPE = "type";
+    public static final String KEY_NOTIFICATION_CONTENT_AVAILABLE = "content-available";
     public static final String NOTIFICATION_TYPE = "notificationType";
     private static final String KEY_MESSAGE = "message";
     public static final String KEY_LIST_ID = "ListId";
@@ -117,6 +116,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String listHeaderColor = "";
             String isOwner = "0";
             String isInProgress = "0";
+            String contentAvailable = "0";
             Bundle bundle = new Bundle();
 
 
@@ -156,6 +156,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 bundle.putString(IS_IN_PROGRESS, isInProgress);
             }
 
+            if (remoteMessage.getData().containsKey(KEY_NOTIFICATION_CONTENT_AVAILABLE)) {
+
+                contentAvailable = remoteMessage.getData().get(KEY_NOTIFICATION_CONTENT_AVAILABLE);
+
+            }
+
             if (notificationType.equalsIgnoreCase(NotificationType.DELETE_LIST) ||
                     notificationType.equalsIgnoreCase(NotificationType.UNSHARE_LIST) ||
                     notificationType.equalsIgnoreCase(NotificationType.DELETE_SHARE_LIST) ||
@@ -175,8 +181,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // mType = remoteMessage.getData().get("ExpiredItem");
                 bundle.putString(KEY_NOTIFICATION_TYPE, notificationType);
 
-                // Calling API to fetch new list of bluetooth items
-                fetchBluetoothItem(bundle, notificationType);
+
+
+                if (contentAvailable.equals("1")) {
+
+                    fetchBluetoothItem(bundle, notificationType); // silent notification
+                } else {
+
+                    // Calling API to fetch new list of bluetooth items
+                    sendNotification(mMessage, bundle, notificationType); // case of expired item at setting time
+
+                }
+
             } else {
                 // Show notification & sync items
 

@@ -180,10 +180,12 @@
                 <action android:name="android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED" />
             </intent-filter>
         </receiver>
+
         <receiver
             android:name=".receivers.GeofenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
+
         <receiver
             android:name=".receivers.BootCompleteReceiver"
             android:enabled="true"
@@ -192,6 +194,8 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+
         <service
             android:name=".services.GeofenceTransitionsJobIntentService"
             android:exported="true"
