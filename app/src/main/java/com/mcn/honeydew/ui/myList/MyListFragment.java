@@ -324,4 +324,9 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
         mSwipeRefreshLayout.setRefreshing(true);
         mPresenter.getData(Id, false);
     }
-}
+
+
+    public void scrollToTop() {
+        mRecyclerview.smoothScrollToPosition(mAdapter.getItemCount()-1);
+
+    }}

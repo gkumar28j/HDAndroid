@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
 public class NotificationsFragment extends BaseFragment implements NotificationsMvpView,
         SwipeRefreshLayout.OnRefreshListener, NotificationAdapter.ContentItemListener {
 
-    private static final String TAG = "NotificationsFragment";
+    public static final String TAG = "NotificationsFragment";
     private EndlessRecyclerOnScrollListener mEndlessRecyclerOnScrollListener;
 
     @Inject

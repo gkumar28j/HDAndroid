@@ -3,22 +3,21 @@ package com.mcn.honeydew.ui.home;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Rect;
-import android.icu.text.TimeZoneNames;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.ItemTouchHelper;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
@@ -29,14 +28,7 @@ import com.mcn.honeydew.utils.ItemOffsetDecoration;
 import com.mcn.honeydew.utils.draghelper.OnStartDragListener;
 import com.mcn.honeydew.utils.draghelper.SimpleItemTouchHelperCallback;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -51,7 +43,9 @@ import butterknife.OnClick;
 public class HomeListFragment extends BaseFragment implements HomeListMvpView, HomeListChildAdapter.Listener,
         HomeListAdapter.Callback, OnStartDragListener {
 
-    private static final String TAG = "HomeListFragment";
+
+
+    public static final String TAG = "HomeListFragment";
     private boolean mKeyboardVisible = false;
     @Inject
     HomeMvpPresenter<HomeListMvpView> mPresenter;
@@ -79,7 +73,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     Runnable mRunnable;
 
     private boolean isEditOnProgress = false;
-
+    GridLayoutManager layoutManager;
     private int currentEditPosition = -1;
     View view;
 
@@ -111,7 +105,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     @Override
     protected void setUp(View view) {
         homeRecyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager = new GridLayoutManager(getActivity(), 2);
 
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getActivity(), R.dimen.card_margin_my_list_home);
         homeRecyclerView.addItemDecoration(itemDecoration);
@@ -166,6 +160,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     public void onResume() {
         super.onResume();
 
+        ((MainActivity) getActivity()).showHideTitle(false);
         view.getViewTreeObserver()
                 .addOnGlobalLayoutListener(mLayoutKeyboardVisibilityListener);
         mRunnable = new Runnable() {
@@ -408,5 +403,9 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
         ((MainActivity) getActivity()).showTabs();
     }
 
+    public void scrollToTop() {
+        homeRecyclerView.smoothScrollToPosition(0);
+
+    }
 
 }

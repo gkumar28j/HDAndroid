@@ -216,13 +216,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         }
 
 
-        selectFragment(menuItemSelected);
+        //    selectFragment(menuItemSelected);
+        initHomeFragment();
         setUp();
 
         mPresenter.checkLoginSession();
 
         mPresenter.checkBluetoothConnectivity();
-
     }
 
     @Override
@@ -293,6 +293,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     }
 
     private void selectFragment(MenuItem item) {
+
         backImageView.setVisibility(View.GONE);
         menuItemSelected = item;
         mMenuItemSelected = menuItemSelected.getItemId();
@@ -326,9 +327,23 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 title.setVisibility(View.GONE);
                 settingImageView.setVisibility(View.VISIBLE);
                 listSettingImageView.setVisibility(View.GONE);
+
+
+                if (fragment instanceof HomeListFragment) {
+
+                    ((HomeListFragment) fragment).scrollToTop();
+
+                    return;
+
+                }
+
                 fragment = HomeListFragment.newInstance();
+
                 break;
             case R.id.navigation_list_detail_home:
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                title.setText("");
+                title.setVisibility(View.VISIBLE);
                 isEdit = false;
                 settingImageView.setVisibility(View.GONE);
                 listSettingImageView.setVisibility(View.GONE);
@@ -351,6 +366,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 } else {
                     title.setVisibility(View.VISIBLE);
                     title.setBackgroundColor(Color.parseColor(headerColor));
+                    if (fragment instanceof MyListFragment) {
+
+                        ((MyListFragment) fragment).scrollToTop();
+
+                        return;
+
+                    }
                     fragment = MyListFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListName());
                 }
                 break;
@@ -388,11 +410,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 fragment = ColorSettingsFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListHeaderColor());
                 break;
         }
+
+
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
-
     }
 
     @Override
@@ -709,7 +732,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     public void onNotificationFetched(int count) {
 
         if (count == 0) {
-             removeBadge();
+            removeBadge();
 
         } else {
             showBadge(count);
@@ -1046,6 +1069,17 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         drawable.setBadgeTextColor(getResources().getColor(R.color.white));
         drawable.setNumber(count);
 
+    }
+
+    void initHomeFragment() {
+        title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        title.setText("");
+        title.setVisibility(View.GONE);
+        fragment = HomeListFragment.newInstance();
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        }
     }
 
 

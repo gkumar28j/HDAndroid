@@ -38,7 +38,7 @@ import butterknife.OnClick;
 
 public class AddListFragment extends BaseFragment implements AddListMvpView {
 
-    private static final String TAG = "AddListFragment";
+    public static final String TAG = "AddListFragment";
 
     @Inject
     AddListMvpPresenter<AddListMvpView> mPresenter;
