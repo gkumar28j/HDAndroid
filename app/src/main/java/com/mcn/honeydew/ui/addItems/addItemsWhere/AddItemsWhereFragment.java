@@ -166,24 +166,22 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
 
     @Override
     protected void setUp(View view) {
-        WindowManager windowManager = (WindowManager) getBaseActivity()
-                .getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(dm);
-        int totalHeight = dm.heightPixels;
 
-        int widthPixels = dm.widthPixels;
-
-        double wi = (double) widthPixels / (double) dm.xdpi;
-        double hi = (double) totalHeight / (double) dm.ydpi;
-        double x = Math.pow(wi, 2);
-        double y = Math.pow(hi, 2);
-        screenInches = Math.sqrt(x + y);
+        screenInches = ScreenUtils.getScreenSizeInInches(getBaseActivity());
 
 
        /* int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
         emptySpaceView.getLayoutParams().height = (int) ((availiableHeight * 2.0) / 5.0);
         emptySpaceView.requestLayout();*/
+
+       if(screenInches>=5.5){
+           emptySpaceView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_where_fragment_empty_space_height_large_screen);
+           emptySpaceView.requestLayout();
+       }else {
+           emptySpaceView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_where_fragment_empty_space_height_small_screen);
+           emptySpaceView.requestLayout();
+       }
+
 
 
         if (((AddItemsFragment) getParentFragment()).getMyListData().getLocation() != null) {
@@ -648,6 +646,7 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
 
         if (getActivity() != null) {
             hideKeyboard();
+            ((MainActivity) getActivity()).showHideTitle(true);
             ((MainActivity) getActivity()).showTabs();
         }
 
@@ -846,12 +845,14 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
     };
 
     private void onKeyboardShown() {
+        ((MainActivity) getBaseActivity()).showHideTitle(false);
         emptySpaceView.setVisibility(View.GONE);
         headingTextView.setVisibility(View.GONE);
         ((MainActivity) getActivity()).hideTabs();
     }
 
     private void onKeyboardHidden() {
+        ((MainActivity) getBaseActivity()).showHideTitle(true);
         emptySpaceView.setVisibility(View.VISIBLE);
         headingTextView.setVisibility(View.VISIBLE);
         ((MainActivity) getActivity()).showTabs();

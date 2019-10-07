@@ -435,7 +435,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     // navigate to the addItemsFragment from myList when items are empty
     @Override
     public void onAddItemsClicked(MyListResponseData data) {
-        mAddItemData = data;
+      //  mAddItemData = data;
         navigation.setSelectedItemId(R.id.navigation_add_item);
 
     }

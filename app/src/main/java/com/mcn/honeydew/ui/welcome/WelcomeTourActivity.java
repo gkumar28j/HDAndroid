@@ -97,7 +97,7 @@ public class WelcomeTourActivity extends BaseActivity implements WelcomeMvpView 
 
         int widthImageView;
 
-        if (screenInches > 5.0) {
+        if (screenInches >= 5.5) {
             widthImageView = (int) (devicewidth * 0.7f);
         } else {
             widthImageView = (int) (devicewidth * 0.5f);

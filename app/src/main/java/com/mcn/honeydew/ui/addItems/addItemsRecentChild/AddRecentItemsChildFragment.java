@@ -55,6 +55,7 @@ import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.utils.AppConstants;
 import com.mcn.honeydew.utils.ImageUtils;
+import com.mcn.honeydew.utils.ScreenUtils;
 import com.weigan.loopview.LoopView;
 import com.weigan.loopview.OnItemSelectedListener;
 
@@ -170,6 +171,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
+    double screenInches;
 
     @Nullable
     @Override
@@ -187,7 +189,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
     @Override
     protected void setUp(View view) {
-
+        screenInches = ScreenUtils.getScreenSizeInInches(getBaseActivity());
        /* int totalHeight = ScreenUtils.getScreenHeight(getActivity());
         int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
 
@@ -199,6 +201,22 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
         captureImageView.requestLayout();
         captureImageView.setVisibility(View.VISIBLE);*/
+
+        if(screenInches>=5.5){
+            captureImageView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_recent_fragment_empty_space_height_large_screen);
+            captureImageView.requestLayout();
+
+
+            imageLoopView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_recent_fragment_empty_space_height_large_screen);
+            imageLoopView.requestLayout();
+        }else {
+            captureImageView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_recent_fragment_empty_space_height_small_screen);
+            captureImageView.requestLayout();
+
+            imageLoopView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_recent_fragment_empty_space_height_small_screen);
+            imageLoopView.requestLayout();
+        }
+
 
         AddItemsFragment fragment = ((AddItemsFragment) getParentFragment());
 

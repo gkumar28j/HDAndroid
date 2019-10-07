@@ -50,4 +50,23 @@ public class ScreenUtils {
         }
         return actionBarHeight;
     }
+
+    public static double getScreenSizeInInches(Context context){
+
+        WindowManager windowManager = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        int totalHeight = dm.heightPixels;
+
+        int widthPixels = dm.widthPixels;
+
+        double wi = (double) widthPixels / (double) dm.xdpi;
+        double hi = (double) totalHeight / (double) dm.ydpi;
+        double x = Math.pow(wi, 2);
+        double y = Math.pow(hi, 2);
+        double screenInches = Math.sqrt(x + y);
+        return screenInches;
+    }
+
 }

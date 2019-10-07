@@ -108,4 +108,15 @@
     <dimen name="welcome_screen_image_width">200dp</dimen>
 
 
+    <!--AddItemsFragment-->
+    <dimen name="add_items_recent_fragment_empty_space_height_small_screen">100dp</dimen>
+    <dimen name="add_items_recent_fragment_empty_space_height_large_screen">120dp</dimen>
+
+    <dimen name="add_items_when_fragment_empty_space_height_small_screen">140dp</dimen>
+    <dimen name="add_items_when_fragment_empty_space_height_large_screen">160dp</dimen>
+
+    <dimen name="add_items_where_fragment_empty_space_height_small_screen">100dp</dimen>
+    <dimen name="add_items_where_fragment_empty_space_height_large_screen">160dp</dimen>
+
+
 </resources>

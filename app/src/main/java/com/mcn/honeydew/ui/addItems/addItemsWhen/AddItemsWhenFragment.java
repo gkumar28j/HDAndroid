@@ -64,6 +64,8 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
     @BindView(R.id.add_item_title_textview)
     TextView headingTextView;
 
+    double screenInches;
+
 
     @Nullable
     @Override
@@ -81,6 +83,20 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
 
     @Override
     protected void setUp(View view) {
+        screenInches = ScreenUtils.getScreenSizeInInches(getBaseActivity());
+
+
+       /* int availiableHeight = (int) (totalHeight - (ScreenUtils.getStatusBarHeight(getActivity()) + (2 * (ScreenUtils.getActionBarHeight(getActivity())))));
+        emptySpaceView.getLayoutParams().height = (int) ((availiableHeight * 2.0) / 5.0);
+        emptySpaceView.requestLayout();*/
+
+        if(screenInches>=5.5){
+            emptySpaceView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_when_fragment_empty_space_height_large_screen);
+            emptySpaceView.requestLayout();
+        }else {
+            emptySpaceView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_when_fragment_empty_space_height_small_screen);
+            emptySpaceView.requestLayout();
+        }
 
         dateTimePickerView.showDate(true);
 
