@@ -331,7 +331,7 @@
     <style name="BluetoothSettingsText">
         <item name="android:textSize">@dimen/textview_size_m2</item>
         <item name="android:textColor">@color/black</item>
-        <item name="fontPath">Lato/Lato-Bold.ttf</item>
+        <item name="fontPath">Lato/Lato-Regular.ttf</item>
 
     </style>
 

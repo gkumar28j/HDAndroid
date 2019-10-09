@@ -1,7 +1,10 @@
 package com.mcn.honeydew.ui.home;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +19,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcn.honeydew.R;
@@ -24,6 +26,7 @@ import com.mcn.honeydew.data.network.model.MyHomeListData;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
+import com.mcn.honeydew.utils.AppConstants;
 import com.mcn.honeydew.utils.ItemOffsetDecoration;
 import com.mcn.honeydew.utils.draghelper.OnStartDragListener;
 import com.mcn.honeydew.utils.draghelper.SimpleItemTouchHelperCallback;
@@ -42,7 +45,6 @@ import butterknife.OnClick;
 
 public class HomeListFragment extends BaseFragment implements HomeListMvpView, HomeListChildAdapter.Listener,
         HomeListAdapter.Callback, OnStartDragListener {
-
 
 
     public static final String TAG = "HomeListFragment";
@@ -76,6 +78,9 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     GridLayoutManager layoutManager;
     private int currentEditPosition = -1;
     View view;
+
+    HomeBroadcastReceiver receiver;
+    IntentFilter intentFilter;
 
     public static HomeListFragment newInstance() {
         Bundle args = new Bundle();
@@ -146,6 +151,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
         });
 
         TIME_DELAY = 0;
+        registerReceiver();
 
     }
 
@@ -163,7 +169,8 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
         ((MainActivity) getActivity()).showHideTitle(false);
         view.getViewTreeObserver()
                 .addOnGlobalLayoutListener(mLayoutKeyboardVisibilityListener);
-        mRunnable = new Runnable() {
+        getBaseActivity().registerReceiver(receiver, intentFilter);
+        /*mRunnable = new Runnable() {
             @Override
             public void run() {
 
@@ -179,7 +186,12 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
                 handler.postDelayed(this, TIME_DELAY);
             }
         };
-        handler.postDelayed(mRunnable, TIME_DELAY);
+        handler.postDelayed(mRunnable, TIME_DELAY);*/
+
+        if (!isEditOnProgress) {
+
+            mPresenter.onViewPrepared(true);
+        }
 
         mPresenter.fetchBluetoothList();
     }
@@ -234,7 +246,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     @Override
     public void onPause() {
         super.onPause();
-
+        getBaseActivity().unregisterReceiver(receiver);
         getBaseActivity().hideKeyboard();
         if ((getActivity()) != null) {
             ((MainActivity) getActivity()).showTabs();
@@ -405,6 +417,27 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
 
     public void scrollToTop() {
         homeRecyclerView.smoothScrollToPosition(0);
+
+    }
+
+    private class HomeBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(AppConstants.ACTION_REFRESH_HOME)) {
+                if (!isEditOnProgress) {
+
+                    mPresenter.onViewPrepared(false);
+                }
+            }
+
+        }
+    }
+
+
+    private void registerReceiver() {
+        receiver = new HomeBroadcastReceiver();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(AppConstants.ACTION_REFRESH_HOME);
 
     }
 

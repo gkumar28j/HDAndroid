@@ -1,7 +1,10 @@
 package com.mcn.honeydew.ui.myList;
 
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -329,4 +332,30 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
     public void scrollToTop() {
         mRecyclerview.smoothScrollToPosition(mAdapter.getItemCount()-1);
 
-    }}
+    }
+
+
+   /* private class MyListBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(AppConstants.ACTION_REFRESH_HOME)) {
+                if (!isEditOnProgress) {
+
+                    mPresenter.onViewPrepared(false);
+                }
+            }
+
+        }
+    }
+
+
+    private void registerReceiver() {
+        receiver = new MyListBroadcastReceiver();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(AppConstants.ACTION_REFRESH_HOME);
+
+    }*/
+
+
+
+}

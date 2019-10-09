@@ -70,6 +70,9 @@ public final class AppConstants {
 
     public static final String ACTION_ITEM_COMPLETE = "com.mcn.honeydew.ACTION_ITEM_COMPLETE";
 
+    public static final String ACTION_REFRESH_HOME = "com.mcn.honeydew.ACTION_HOME_REFRESH";
+    public static final String ACTION_REFRESH_MY_LIST = "com.mcn.honeydew.ACTION_HOME_REFRESH";
+
 
     private AppConstants() {
         // This utility class is not publicly instantiable

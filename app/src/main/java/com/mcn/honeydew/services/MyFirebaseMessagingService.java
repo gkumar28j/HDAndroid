@@ -30,6 +30,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -161,6 +162,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 contentAvailable = remoteMessage.getData().get(KEY_NOTIFICATION_CONTENT_AVAILABLE);
 
             }
+
+
+            refreshHomeFragment();
 
             if (notificationType.equalsIgnoreCase(NotificationType.DELETE_LIST) ||
                     notificationType.equalsIgnoreCase(NotificationType.UNSHARE_LIST) ||
@@ -374,4 +378,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 CommonUtils.getTimeZoneOffsetName()));
         mDataManager.sendDeviceIdToServer(true);
     }
+
+
+    private void refreshHomeFragment(){
+        Intent intent = new Intent(AppConstants.ACTION_REFRESH_HOME);
+        sendBroadcast(intent);
+    }
+
 }

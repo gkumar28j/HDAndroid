@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -174,6 +176,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
                 24,
                 fullText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new StyleSpan(Typeface.BOLD),0,24,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         mBluetoothNotificationHeadingTextView.setText(builder);
 
@@ -186,6 +189,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
                 16,
                 expiringText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder1.setSpan(new StyleSpan(Typeface.BOLD),0,16,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         dailyReminderExpiringHeadingTextView.setText(builder1);
 
 
@@ -198,6 +202,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
                 16,
                 expiredText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder2.setSpan(new StyleSpan(Typeface.BOLD),0,16,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         dailyReminderExpiredHeadingTextView.setText(builder2);
 
 
