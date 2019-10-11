@@ -130,6 +130,9 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
     @BindView(R.id.password_imageView)
     ImageView passwordImageView;
 
+    @BindView(R.id.textView2)
+    TextView locationReminderTextView;
+
 
     public static SettingsFragment newInstance() {
         Bundle args = new Bundle();
@@ -204,6 +207,11 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder2.setSpan(new StyleSpan(Typeface.BOLD),0,16,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         dailyReminderExpiredHeadingTextView.setText(builder2);
+
+        String locationText = getResources().getString(R.string.location_reminders);
+        SpannableStringBuilder builder3 = new SpannableStringBuilder(locationText);
+        builder3.setSpan(new StyleSpan(Typeface.BOLD),0,locationText.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        locationReminderTextView.setText(builder3);
 
 
     }
