@@ -195,11 +195,35 @@ public class HomePresenter<V extends HomeListMvpView> extends BasePresenter<V> i
 
             return;
         }
-        if (showLoading) {
+
+        if (getDataManager() != null) {
+            ArrayList<MyHomeListData> response1 = getDataManager().getHomeResponseData();
+            if (response1 != null && response1.size() > 0) {
+
+                getMvpView().replceData(response1);
+
+            } else {
+                if (showLoading) {
+                    getMvpView().showLoading();
+                } else {
+                    // getMvpView().showLoading();
+                }
+
+            }
+        } else {
+            if (showLoading) {
+                getMvpView().showLoading();
+            } else {
+                // getMvpView().showLoading();
+            }
+
+        }
+
+       /* if (showLoading) {
             getMvpView().showLoading();
         } else {
             // getMvpView().showLoading();
-        }
+        }*/
 
 
         getDataManager().doHomeApiCall()
@@ -212,12 +236,13 @@ public class HomePresenter<V extends HomeListMvpView> extends BasePresenter<V> i
                         if (!isViewAttached()) {
                             return;
                         }
+
                         if (response.getErrorObject().getStatus() == 1) {
                             if (response.getResults() != null) {
                                 getMvpView().replceData(response.getResults());
 
                                 ArrayList<MyHomeListData> newItems = new ArrayList<>(response.getResults());
-                                if(newItems.size()>0){
+                                if (newItems.size() > 0) {
                                     getDataManager().saveHomeResponseData(new Gson().toJson(newItems));
                                 }
 
@@ -240,7 +265,8 @@ public class HomePresenter<V extends HomeListMvpView> extends BasePresenter<V> i
 
                         if (!isViewAttached()) return;
                         getMvpView().hideLoading();
-
+                        ArrayList<MyHomeListData> response = getDataManager().getHomeResponseData();
+                        getMvpView().replceData(response);
                         if (hasShownServerError) return;
 
                         // handle the login error here

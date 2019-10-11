@@ -55,6 +55,7 @@ public class ListSettingsPresenter<V extends ListSettingsMvpView> extends BasePr
                         if (response != null) {
                             GetListSettingsResponse.ListSettings listSettings = response.getResult()[0];
                             getMvpView().onListSettingFetched(listSettings);
+                            getDataManager().setInProgressValue(listSettings.isInProgress());
                         }
 
                     }
