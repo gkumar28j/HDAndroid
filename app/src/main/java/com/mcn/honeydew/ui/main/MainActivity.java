@@ -117,6 +117,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     View badge;
 
+    private boolean isComingFromNotifications = false;
+
     int count;
 
     public static Intent getStartIntent(Context context) {
@@ -351,7 +353,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 navigation.inflateMenu(R.menu.navigation);
                 navigation.setItemIconTintList(null);
                 clippPadding(navigation);
-                navigation.setSelectedItemId(R.id.navigation_home);
+                if(isComingFromNotifications){
+                    navigation.setSelectedItemId(R.id.navigation_notifications);
+                }else {
+                    navigation.setSelectedItemId(R.id.navigation_home);
+                }
+
                 //    BottomNavigationViewHelper.disableShiftMode(navigation);
                 navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
                 navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -361,20 +368,20 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 listSettingImageView.setVisibility(View.VISIBLE);
                 settingImageView.setVisibility(View.GONE);
                 title.setText("'" + mAddItemData.getListName() + "'");
-                if (isEdit) {
+               /* if (isEdit) {
                     editItemsFromList(mEditItemData);
-                } else {
-                    title.setVisibility(View.VISIBLE);
-                    title.setBackgroundColor(Color.parseColor(headerColor));
-                    if (fragment instanceof MyListFragment) {
+                } else {*/
+                title.setVisibility(View.VISIBLE);
+                title.setBackgroundColor(Color.parseColor(headerColor));
+                if (fragment instanceof MyListFragment) {
 
-                        ((MyListFragment) fragment).scrollToTop();
+                    ((MyListFragment) fragment).scrollToTop();
 
-                        return;
+                    return;
 
-                    }
-                    fragment = MyListFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListName());
                 }
+                fragment = MyListFragment.newInstance(mAddItemData.getListId(), mAddItemData.getListName());
+                //    }
                 break;
 
             case R.id.navigation_add_item:
@@ -426,6 +433,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         } else
             headerColor = data.getListHeaderColor();
         navigation = findViewById(R.id.navigation);
+        isComingFromNotifications = false;
         showMyListFragment(data);
 
 
@@ -435,7 +443,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     // navigate to the addItemsFragment from myList when items are empty
     @Override
     public void onAddItemsClicked(MyListResponseData data) {
-      //  mAddItemData = data;
+        //  mAddItemData = data;
         navigation.setSelectedItemId(R.id.navigation_add_item);
 
     }
@@ -476,6 +484,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             headerColor = "#".concat(color);
         } else
             headerColor = color;
+
+        isComingFromNotifications = true;
         navigateToListFragment(color, listName, listId, isOwner, inProgress);
 
     }

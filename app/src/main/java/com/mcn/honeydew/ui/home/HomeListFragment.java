@@ -219,6 +219,8 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
             emptyView.setVisibility(View.GONE);
         }
         isEditOnProgress = false;
+
+        saveChangedData();
         ((MainActivity) getActivity()).syncItems();
 
         mPresenter.fetchBluetoothList();
@@ -228,6 +230,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     public void onEditCompleted() {
 
         isEditOnProgress = false;
+        saveChangedData();
 
     }
 
@@ -241,6 +244,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     @Override
     public void onReorderComplete() {
         isEditOnProgress = false;
+        saveChangedData();
     }
 
     @Override
@@ -439,6 +443,12 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
         intentFilter = new IntentFilter();
         intentFilter.addAction(AppConstants.ACTION_REFRESH_HOME);
 
+    }
+
+
+    private void saveChangedData(){
+        ArrayList<MyHomeListData> data = mAdapter.getUpdatedList();
+        mPresenter.resaveData(data);
     }
 
 }

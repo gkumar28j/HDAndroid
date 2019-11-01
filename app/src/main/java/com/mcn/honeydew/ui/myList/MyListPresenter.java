@@ -76,13 +76,14 @@ public class MyListPresenter<V extends MyListMvpView> extends BasePresenter<V> i
                             // Setting isOwner field in saved list data. this value is not coming from push notification and its is used to show
                             // particular layout (list owner/doer)
                             // Modified By: Ashish
+                            MyHomeListData myHomeListData = getDataManager().getSavedList();
                             if (response.getMyListResponseData().size() > 0) {
-                                MyHomeListData myHomeListData = getDataManager().getSavedList();
+                                //  MyHomeListData myHomeListData = getDataManager().getSavedList();
                                 myHomeListData.setIsOwner(response.getMyListResponseData().get(0).isOwner());
                                 getDataManager().saveList(myHomeListData);
-                                getDataManager().insertListData(myHomeListData.getListId(), new Gson().toJson(response.getMyListResponseData()));
-                            }
 
+                            }
+                            getDataManager().insertListData(myHomeListData.getListId(), new Gson().toJson(response.getMyListResponseData()));
 
                             hasShownNetworkError = false;
                             hasShownServerError = false;

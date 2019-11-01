@@ -20,4 +20,6 @@ public interface HomeMvpPresenter<V extends HomeListMvpView> extends MvpPresente
     void onEditListName(String name, int listId, String color, int fontSize);
 
     void fetchBluetoothList();
+
+    void resaveData(ArrayList<MyHomeListData> list);
 }

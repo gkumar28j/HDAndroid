@@ -430,5 +430,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     }
 
+    public ArrayList<MyHomeListData> getUpdatedList(){
+        return list;
+    }
+
 
 }

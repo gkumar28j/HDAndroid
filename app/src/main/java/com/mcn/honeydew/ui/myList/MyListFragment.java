@@ -1,23 +1,21 @@
 package com.mcn.honeydew.ui.myList;
 
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.request.ChangeItemStatusRequest;
@@ -28,6 +26,7 @@ import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.myListDetail.MyListDetailImageActivity;
 import com.mcn.honeydew.utils.AppConstants;
+import com.mcn.honeydew.utils.NetworkUtils;
 import com.mcn.honeydew.utils.draghelper.OnStartDragListener;
 import com.mcn.honeydew.utils.draghelper.SimpleItemTouchHelperCallback;
 
@@ -275,8 +274,8 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
     @Override
     public void onCameraIconClicked(MyListResponseData data, int layoutPosition) {
 
-        Intent intent = new Intent(getBaseActivity(),MyListDetailImageActivity.class);
-        intent.putExtra("url",data.getPhoto());
+        Intent intent = new Intent(getBaseActivity(), MyListDetailImageActivity.class);
+        intent.putExtra("url", data.getPhoto());
         startActivity(intent);
 
     }
@@ -289,11 +288,18 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
         }
         mSwipeRefreshLayout.setRefreshing(false);
         if (myListResponseData.isEmpty()) {
-            emptyView.setVisibility(View.VISIBLE);
+
+            if (NetworkUtils.isNetworkConnected(getBaseActivity())) {
+                emptyView.setVisibility(View.VISIBLE);
+            }
+
+
         } else {
             emptyView.setVisibility(View.GONE);
         }
-        mAdapter.replaceList(myListResponseData,inProgressValue);
+        mAdapter.replaceList(myListResponseData, inProgressValue);
+
+       // scrollToTop();
     }
 
     @Override
@@ -330,7 +336,8 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
 
 
     public void scrollToTop() {
-        mRecyclerview.smoothScrollToPosition(mAdapter.getItemCount()-1);
+
+        mRecyclerview.smoothScrollToPosition(0);
 
     }
 
@@ -355,7 +362,6 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
         intentFilter.addAction(AppConstants.ACTION_REFRESH_HOME);
 
     }*/
-
 
 
 }
