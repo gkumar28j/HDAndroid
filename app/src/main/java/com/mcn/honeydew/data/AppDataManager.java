@@ -550,7 +550,7 @@ public class AppDataManager implements DataManager {
         mPreferencesHelper.saveDeviceId(null);
         mPreferencesHelper.saveNotificationResponseData("[]");
         mPreferencesHelper.saveHomeResponseData("[]");
-        mPreferencesHelper.saveNotificationResponseData("[]");
+        mPreferencesHelper.saveAppSettings(null);
 
         Log.e("logged out","yes");
 

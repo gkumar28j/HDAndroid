@@ -42,7 +42,8 @@
                 android:paddingTop="5dp"
                 android:text="@string/share_title"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textview_size_m1" />
+                android:textSize="@dimen/textview_size_m1"
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_users"

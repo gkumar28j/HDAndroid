@@ -179,7 +179,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
                 24,
                 fullText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(new StyleSpan(Typeface.BOLD),0,24,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new StyleSpan(Typeface.BOLD), 0, 24, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         mBluetoothNotificationHeadingTextView.setText(builder);
 
@@ -192,7 +192,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
                 16,
                 expiringText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder1.setSpan(new StyleSpan(Typeface.BOLD),0,16,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder1.setSpan(new StyleSpan(Typeface.BOLD), 0, 16, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         dailyReminderExpiringHeadingTextView.setText(builder1);
 
 
@@ -205,12 +205,12 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
                 16,
                 expiredText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder2.setSpan(new StyleSpan(Typeface.BOLD),0,16,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder2.setSpan(new StyleSpan(Typeface.BOLD), 0, 16, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         dailyReminderExpiredHeadingTextView.setText(builder2);
 
         String locationText = getResources().getString(R.string.location_reminders);
         SpannableStringBuilder builder3 = new SpannableStringBuilder(locationText);
-        builder3.setSpan(new StyleSpan(Typeface.BOLD),0,locationText.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder3.setSpan(new StyleSpan(Typeface.BOLD), 0, locationText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         locationReminderTextView.setText(builder3);
 
 
@@ -387,6 +387,11 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
 
     @Override
     public void openProximitySettingView() {
+
+      /*  if (!isNetworkConnected()) {
+            return;
+        }*/
+
         if (getActivity() == null) {
             return;
         }

@@ -28,6 +28,7 @@ import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.utils.AppConstants;
 import com.mcn.honeydew.utils.ItemOffsetDecoration;
+import com.mcn.honeydew.utils.NetworkUtils;
 import com.mcn.honeydew.utils.draghelper.OnStartDragListener;
 import com.mcn.honeydew.utils.draghelper.SimpleItemTouchHelperCallback;
 
@@ -274,56 +275,70 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
 
     @Override
     public void onItemDelete(final MyHomeListData data, final int layoutPosition) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setCancelable(false);
-        dialog.setTitle(getActivity().getResources().getString(R.string.app_title));
-        dialog.setMessage("Are you sure you want to delete the selected List?");
-        dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                mPresenter.onDeleteCard(data, layoutPosition);
-                dialog.dismiss();
-            }
-        })
-                .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Action for "Cancel".
-                        dialog.dismiss();
-                        mAdapter.changeDeleteIcon(layoutPosition);
-                    }
-                });
 
-        final AlertDialog alert = dialog.create();
-        alert.show();
+        if(!NetworkUtils.isNetworkConnected(getBaseActivity())){
+
+            showNotConnectedDialog();
+
+        }else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setCancelable(false);
+            dialog.setTitle(getActivity().getResources().getString(R.string.app_title));
+            dialog.setMessage("Are you sure you want to delete the selected List?");
+            dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    mPresenter.onDeleteCard(data, layoutPosition);
+                    dialog.dismiss();
+                }
+            })
+                    .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Action for "Cancel".
+                            dialog.dismiss();
+                            mAdapter.changeDeleteIcon(layoutPosition);
+                        }
+                    });
+
+            final AlertDialog alert = dialog.create();
+            alert.show();
+
+        }
 
 
     }
 
     @Override
     public void onItemUnshare(final MyHomeListData data, final int layoutPosition) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setCancelable(false);
-        dialog.setTitle(getActivity().getResources().getString(R.string.app_title));
-        dialog.setMessage("Are you sure you want to unshare the selected List?");
-        dialog.setPositiveButton("Unshare List", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                mPresenter.onUnshareCard(data, layoutPosition);
-                dialog.dismiss();
-            }
-        })
-                .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Action for "Cancel".
-                        dialog.dismiss();
-                        mAdapter.changeDeleteIcon(layoutPosition);
-                    }
-                });
+        if(!NetworkUtils.isNetworkConnected(getBaseActivity())) {
 
-        final AlertDialog alert = dialog.create();
-        alert.show();
+            showNotConnectedDialog();
+        }else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setCancelable(false);
+            dialog.setTitle(getActivity().getResources().getString(R.string.app_title));
+            dialog.setMessage("Are you sure you want to unshare the selected List?");
+            dialog.setPositiveButton("Unshare List", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    mPresenter.onUnshareCard(data, layoutPosition);
+                    dialog.dismiss();
+                }
+            })
+                    .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Action for "Cancel".
+                            dialog.dismiss();
+                            mAdapter.changeDeleteIcon(layoutPosition);
+                        }
+                    });
+
+            final AlertDialog alert = dialog.create();
+            alert.show();
+        }
+
     }
 
     @Override
@@ -446,9 +461,27 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     }
 
 
-    private void saveChangedData(){
+    private void saveChangedData() {
         ArrayList<MyHomeListData> data = mAdapter.getUpdatedList();
         mPresenter.resaveData(data);
+    }
+
+    private void showNotConnectedDialog() {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setCancelable(false);
+        dialog.setTitle(getActivity().getResources().getString(R.string.app_title));
+        dialog.setMessage("No internet available please check your network connection.");
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+
+        final AlertDialog alert = dialog.create();
+        alert.show();
     }
 
 }

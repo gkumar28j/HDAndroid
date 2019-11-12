@@ -21,6 +21,7 @@ import com.mcn.honeydew.data.network.model.response.GetUserSettingResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.contactList.ContactListActivity;
+import com.mcn.honeydew.utils.NetworkUtils;
 
 import java.util.List;
 
@@ -140,7 +141,7 @@ public class ShareListFragment extends BaseFragment implements ShareListMvpView,
             listNameTextView.setText(getString(R.string.share_list).replace("@", mSelectedListData.getListName()));
 
         } else {
-            otherUserLayout.setVisibility(View.VISIBLE);
+        //    otherUserLayout.setVisibility(View.VISIBLE);
             ownerLayout.setVisibility(View.GONE);
 
             /* if (data.isIsSharedByOwner()) {
@@ -158,7 +159,6 @@ public class ShareListFragment extends BaseFragment implements ShareListMvpView,
 
     @Override
     public void onUserSettingsLoaded(List<GetUserSettingResponse.Result> settings) {
-
         /*ownerLayout.setVisibility(View.VISIBLE);
         otherUserLayout.setVisibility(View.GONE);*/
 
@@ -177,6 +177,7 @@ public class ShareListFragment extends BaseFragment implements ShareListMvpView,
         }
 
         if (!isOwner) {
+            otherUserLayout.setVisibility(View.VISIBLE);
             emailTextView.setText(settings.get(0).getSharedUserEmail());
             notificationSwitch.setChecked(settings.get(0).isToUserIsSendPushNotification());
         }
@@ -199,11 +200,19 @@ public class ShareListFragment extends BaseFragment implements ShareListMvpView,
 
     @OnClick(R.id.text_list_name)
     void onShareListClicked() {
+        if(!NetworkUtils.isNetworkConnected(getBaseActivity())){
+           showMessage(R.string.connection_error);
+           return;
+        }
         startActivityForResult(ContactListActivity.getStartIntent(getActivity(), mSelectedListData.getListId()), REQUEST_CONTACT_LIST);
     }
 
     @Override
     public void onDeleteClicked(GetUserSettingResponse.Result result, int position) {
+        if(!NetworkUtils.isNetworkConnected(getBaseActivity())){
+            showMessage(R.string.connection_error);
+            return;
+        }
         this.position = position;
         showConfirmDialog(result.getLabelText(), result.getSharedUserEmail());
     }

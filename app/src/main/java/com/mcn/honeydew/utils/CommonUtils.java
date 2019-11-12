@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.provider.Settings;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
@@ -154,7 +155,14 @@ public final class CommonUtils {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"),
                 Locale.getDefault());
         Date currentLocalTime = calendar.getTime();
-        DateFormat date = new SimpleDateFormat("XXX", Locale.getDefault());
+        DateFormat date;
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            date = new SimpleDateFormat("XXX", Locale.getDefault());
+        } else {
+            date = new SimpleDateFormat("ZZZ", Locale.getDefault());
+        }
+
         String localTime = date.format(currentLocalTime);
         System.out.println("UTC".concat(localTime));
         return "UTC".concat(localTime);

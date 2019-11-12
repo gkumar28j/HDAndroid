@@ -195,6 +195,9 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
 
     @Override
     public void setProximitySettings(NotificationSettingsResponse proximitySettings) {
+        if(proximitySettings==null){
+            return;
+        }
         if (proximitySettings.getResults().get(0).isProximityNotification()) {
             proximityNotificationSwitch.setChecked(true);
             listView.setEnabled(true);
