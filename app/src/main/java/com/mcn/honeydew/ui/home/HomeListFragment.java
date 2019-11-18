@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,7 +153,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
         });
 
         TIME_DELAY = 0;
-        registerReceiver();
+        createHomeReceiver();
 
     }
 
@@ -166,11 +167,11 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     @Override
     public void onResume() {
         super.onResume();
-
+        registerHomeReceiver();
         ((MainActivity) getActivity()).showHideTitle(false);
         view.getViewTreeObserver()
                 .addOnGlobalLayoutListener(mLayoutKeyboardVisibilityListener);
-        getBaseActivity().registerReceiver(receiver, intentFilter);
+
         /*mRunnable = new Runnable() {
             @Override
             public void run() {
@@ -251,7 +252,9 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     @Override
     public void onPause() {
         super.onPause();
-        getBaseActivity().unregisterReceiver(receiver);
+
+        unregisterHomeReceiver();
+
         getBaseActivity().hideKeyboard();
         if ((getActivity()) != null) {
             ((MainActivity) getActivity()).showTabs();
@@ -453,11 +456,10 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
     }
 
 
-    private void registerReceiver() {
+    private void createHomeReceiver() {
         receiver = new HomeBroadcastReceiver();
         intentFilter = new IntentFilter();
         intentFilter.addAction(AppConstants.ACTION_REFRESH_HOME);
-
     }
 
 
@@ -482,6 +484,21 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
 
         final AlertDialog alert = dialog.create();
         alert.show();
+    }
+
+    private void registerHomeReceiver(){
+        if(receiver==null){
+            createHomeReceiver();
+        }
+        getBaseActivity().registerReceiver(receiver, intentFilter);
+    }
+
+    private void unregisterHomeReceiver(){
+        if(receiver!=null){
+            getBaseActivity().unregisterReceiver(receiver);
+        }
+
+
     }
 
 }

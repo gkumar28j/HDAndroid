@@ -59,7 +59,7 @@ import butterknife.OnClick;
 public class SettingsFragment extends BaseFragment implements SettingsMvpView, EditNameDialog.RefreshListener,
         EditEmailDialog.RefreshListener, TimeLoopPickerDialog.RefreshListener {
 
-    private static final String TAG = "SettingsFragment";
+    public static final String TAG = "SettingsFragment";
 
     public static final int REQUEST_CODE_PHONE_VERIFICATION = 112;
     private static final int NOTIFICATION_SETTINGS_REQUEST_CODE = 102;

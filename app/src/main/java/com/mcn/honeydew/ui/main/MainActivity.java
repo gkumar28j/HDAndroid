@@ -2,9 +2,11 @@ package com.mcn.honeydew.ui.main;
 
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -34,7 +36,6 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.google.gson.Gson;
 import com.mcn.honeydew.BuildConfig;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
@@ -52,6 +53,7 @@ import com.mcn.honeydew.ui.myList.MyListFragment;
 import com.mcn.honeydew.ui.notifications.NotificationsFragment;
 import com.mcn.honeydew.ui.settings.SettingsFragment;
 import com.mcn.honeydew.ui.sharelist.ShareListFragment;
+import com.mcn.honeydew.utils.AppConstants;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -120,6 +122,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     private boolean isComingFromNotifications = false;
 
     int count;
+    NotificationCountBroadcastReceiver receiver;
+    IntentFilter intentFilter;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -176,7 +180,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             }
         }
 
-        if (savedInstanceState != null) {
+       /* if (savedInstanceState != null) {
             mMenuItemSelected = savedInstanceState.getInt(SELECTED_ITEM, 0);
             if (mMenuItemSelected == R.id.navigation_color_settings ||
                     mMenuItemSelected == R.id.navigation_share_list ||
@@ -203,23 +207,23 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             navigation.setSelectedItemId(menuItemSelected.getItemId());
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        } else {
+        } else {*/
 
-            navigation.inflateMenu(R.menu.navigation);
-            clippPadding(navigation);
-            menuItemSelected = navigation.getMenu().getItem(2);
-            //    BottomNavigationViewHelper.disableShiftMode(navigation);
+        navigation.inflateMenu(R.menu.navigation);
+        clippPadding(navigation);
+        menuItemSelected = navigation.getMenu().getItem(2);
+        //    BottomNavigationViewHelper.disableShiftMode(navigation);
 
-            navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-            navigation.setItemIconTintList(null);
-            navigation.setSelectedItemId(menuItemSelected.getItemId());
-            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+        navigation.setItemIconTintList(null);
+        navigation.setSelectedItemId(menuItemSelected.getItemId());
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        }
+        /*  }
+         */
 
-
-        //    selectFragment(menuItemSelected);
-        initHomeFragment();
+        selectFragment(menuItemSelected);
+        //    initHomeFragment();
         setUp();
 
         mPresenter.checkLoginSession();
@@ -237,6 +241,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             startService(GeoFenceFilterService.getStartIntent(this));
             syncItems();
         }
+        createReceiver();
     }
 
     @OnClick(R.id.logo)
@@ -249,20 +254,21 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     protected void onPause() {
         super.onPause();
-        stopUpdateNotificationTimer();
+        //  stopUpdateNotificationTimer();
+        unregisterNotifReceiver();
     }
 
-    @Override
+    /*@Override
     protected void onSaveInstanceState(Bundle outState) {
-        Gson gson = new Gson();
+     *//*   Gson gson = new Gson();
         String mAdddata = gson.toJson(mAddItemData);
         String mEditdata = gson.toJson(mEditItemData);
         outState.putInt(SELECTED_ITEM, mMenuItemSelected);
         outState.putString(LIST_ITEM_ADD, mAdddata);
         outState.putString(LIST_ITEM_EDIT, mEditdata);
-        outState.putBoolean(LIST_ITEM_IS_EDIT, isEdit);
+        outState.putBoolean(LIST_ITEM_IS_EDIT, isEdit);*//*
         super.onSaveInstanceState(outState);
-    }
+    }*/
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -291,7 +297,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     protected void onResume() {
         super.onResume();
-        startUpdateNotificationTimer();
+        //  startUpdateNotificationTimer();
+        registerNotifCountReceiver();
     }
 
     private void selectFragment(MenuItem item) {
@@ -353,9 +360,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 navigation.inflateMenu(R.menu.navigation);
                 navigation.setItemIconTintList(null);
                 clippPadding(navigation);
-                if(isComingFromNotifications){
+                if (isComingFromNotifications) {
                     navigation.setSelectedItemId(R.id.navigation_notifications);
-                }else {
+                } else {
                     navigation.setSelectedItemId(R.id.navigation_home);
                 }
 
@@ -1090,6 +1097,41 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
+    }
+
+    private class NotificationCountBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(AppConstants.ACTION_REFRESH_NOTIF_COUNT)) {
+                mPresenter.fetchNotificationCount();
+            }
+
+        }
+    }
+
+
+
+    private void createReceiver(){
+        receiver = new NotificationCountBroadcastReceiver();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(AppConstants.ACTION_REFRESH_NOTIF_COUNT);
+    }
+
+    private void registerNotifCountReceiver() {
+
+        if(receiver==null){
+            createReceiver();
+        }
+
+        this.registerReceiver(receiver,intentFilter);
+
+    }
+
+    private void unregisterNotifReceiver() {
+        if (receiver != null) {
+            this.unregisterReceiver(receiver);
+        }
+
     }
 
 

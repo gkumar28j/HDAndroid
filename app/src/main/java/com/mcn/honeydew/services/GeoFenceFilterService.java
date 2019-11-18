@@ -16,12 +16,14 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.Looper;
 import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
@@ -262,7 +264,12 @@ public class GeoFenceFilterService extends Service {
             return;
         }
 
+        if (mGeofencingClient == null) {
+            return;
+        }
+
         int size = dataGeofences.size() >= 90 ? 90 : dataGeofences.size();
+
 
         for (int i = 0; i < size; i++) {
 
@@ -317,6 +324,10 @@ public class GeoFenceFilterService extends Service {
     @SuppressWarnings("MissingPermission")
     private synchronized void removeGeofences() {
         if (!checkPermissions()) {
+            return;
+        }
+
+        if(mGeofencingClient==null){
             return;
         }
 

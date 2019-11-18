@@ -551,6 +551,7 @@ public class AppDataManager implements DataManager {
         mPreferencesHelper.saveNotificationResponseData("[]");
         mPreferencesHelper.saveHomeResponseData("[]");
         mPreferencesHelper.saveAppSettings(null);
+        mPreferencesHelper.setProximitySettings(null);
 
         Log.e("logged out","yes");
 

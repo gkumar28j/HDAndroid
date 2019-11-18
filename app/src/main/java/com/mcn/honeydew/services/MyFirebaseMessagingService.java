@@ -165,6 +165,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
             refreshHomeFragment();
+            refreshNotificationCount();
 
             if (notificationType.equalsIgnoreCase(NotificationType.DELETE_LIST) ||
                     notificationType.equalsIgnoreCase(NotificationType.UNSHARE_LIST) ||
@@ -383,6 +384,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void refreshHomeFragment(){
         Intent intent = new Intent(AppConstants.ACTION_REFRESH_HOME);
         sendBroadcast(intent);
+    }
+
+    private void refreshNotificationCount(){
+
+        Intent intent = new Intent(AppConstants.ACTION_REFRESH_NOTIF_COUNT);
+        sendBroadcast(intent);
+
     }
 
 }

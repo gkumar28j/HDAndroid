@@ -67,15 +67,23 @@ public class SideBar extends View {
         } else if (idx < 0) {
             idx = 0;
         }
+
+
         if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
             if (sectionIndexter == null) {
-                sectionIndexter = (SectionIndexer) list.getAdapter();
+                if (list != null) {
+                    sectionIndexter = (SectionIndexer) list.getAdapter();
+                }
+
             }
             int position = sectionIndexter.getPositionForSection(l[idx]);
             if (position == -1) {
                 return true;
             }
-            list.setSelection(position);
+            if (list != null) {
+                list.setSelection(position);
+            }
+
         }
         return true;
     }
