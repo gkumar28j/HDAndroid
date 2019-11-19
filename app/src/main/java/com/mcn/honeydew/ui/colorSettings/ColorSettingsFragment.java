@@ -12,14 +12,20 @@ import com.mcn.honeydew.R;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.ui.main.MainActivity;
-import com.skydoves.colorpickerpreference.ColorEnvelope;
-import com.skydoves.colorpickerpreference.ColorListener;
-import com.skydoves.colorpickerpreference.ColorPickerView;
+import com.skydoves.colorpickerview.ColorEnvelope;
+import com.skydoves.colorpickerview.ColorPickerView;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+/*import com.skydoves.colorpickerpreference.ColorEnvelope;
+import com.skydoves.colorpickerpreference.ColorListener;
+import com.skydoves.colorpickerpreference.ColorPickerView;*/
 
 public class ColorSettingsFragment extends BaseFragment implements ColorSettingsMvpView {
 
@@ -84,14 +90,18 @@ public class ColorSettingsFragment extends BaseFragment implements ColorSettings
                 }
             });*/
 
-            colorPickerView.setColorListener(new ColorListener() {
+            colorPickerView.setColorListener(new ColorEnvelopeListener() {
                 @Override
-                public void onColorSelected(ColorEnvelope colorEnvelope) {
+                public void onColorSelected(ColorEnvelope colorEnvelope, boolean fromuser) {
 
                     if (!isAdded())
                         return;
 
-                    String colorString = colorEnvelope.getColorHtml();
+                    int colorInt = colorEnvelope.getColor();
+
+
+                    String colorString = convertColorToString(colorInt);
+
 
                    /* if (!isTouched)
                         return;*/
@@ -99,11 +109,11 @@ public class ColorSettingsFragment extends BaseFragment implements ColorSettings
                     if (colorString.equalsIgnoreCase("FFFFFF") || colorString.equalsIgnoreCase("FFFFFE")) {
                         return;
                     }
-                 //   colorPreview.setBackgroundColor(colorEnvelope.getColor());
-                    mColorCode = "#".concat(colorPickerView.getColorHtml());
+                    //   colorPreview.setBackgroundColor(colorEnvelope.getColor());
+                    mColorCode = "#".concat(colorString);
                     ((MainActivity) getActivity()).updateColorCode(mColorCode);
 
-                    mPresenter.updateListColor("#" + colorPickerView.getColorHtml(), mListId);
+                    mPresenter.updateListColor("#" + colorString, mListId);
                 }
             });
 
@@ -115,8 +125,10 @@ public class ColorSettingsFragment extends BaseFragment implements ColorSettings
     @Override
     public void onPause() {
         super.onPause();
-        if (colorPickerView != null)
-            colorPickerView.saveData();
+        if (colorPickerView != null) {
+            //   colorPickerView.saveData();
+        }
+
     }
 
     @Override
@@ -141,9 +153,21 @@ public class ColorSettingsFragment extends BaseFragment implements ColorSettings
 
         // Saving color code
         if (!TextUtils.isEmpty(mColorCode)) {
-            colorPickerView.setSavedColor(Color.parseColor(mColorCode));
-           // colorPreview.setBackgroundColor(Color.parseColor(mColorCode));
+            //   colorPickerView.setSavedColor(Color.parseColor(mColorCode));
+            colorPickerView.setPureColor(Color.parseColor(mColorCode));
+            // colorPreview.setBackgroundColor(Color.parseColor(mColorCode));
         }
+    }
+
+    private String convertColorToString(int color) {
+        String colorString = null;
+        int r = Color.red(color);
+        int g = Color.green(color);
+        int b = Color.blue(color);
+        colorString = String.format(Locale.getDefault(), "%02X%02X%02X", r, g, b);
+        return colorString;
+
+
     }
 
 }

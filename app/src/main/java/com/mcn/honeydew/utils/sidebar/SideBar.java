@@ -68,6 +68,9 @@ public class SideBar extends View {
             idx = 0;
         }
 
+        if (idx == -1) {
+            return true;
+        }
 
         if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
             if (sectionIndexter == null) {
