@@ -229,6 +229,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         mPresenter.checkLoginSession();
 
         mPresenter.checkBluetoothConnectivity();
+
+        mPresenter.fetchNotificationCount();
     }
 
     @Override

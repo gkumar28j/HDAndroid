@@ -205,11 +205,11 @@ public class ActivityModule {
         return presenter;
     }
 
-    @Provides
+ /*   @Provides
     SmsReceiver providesSmsReceiver() {
         return new SmsReceiver();
     }
-
+*/
     @Provides
     LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
 

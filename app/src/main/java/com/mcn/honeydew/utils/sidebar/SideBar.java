@@ -79,6 +79,11 @@ public class SideBar extends View {
                 }
 
             }
+
+            if(sectionIndexter ==null){
+                return true;
+            }
+
             int position = sectionIndexter.getPositionForSection(l[idx]);
             if (position == -1) {
                 return true;

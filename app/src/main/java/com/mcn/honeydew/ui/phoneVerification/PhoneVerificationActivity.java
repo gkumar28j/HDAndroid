@@ -53,8 +53,8 @@ public class PhoneVerificationActivity extends BaseActivity implements PhoneVeri
     @Inject
     PhoneVerificationMvpPresenter<PhoneVerificationMvpView> mPresenter;
 
-    @Inject
-    SmsReceiver mSmsReceiver;
+  /*  @Inject
+    SmsReceiver mSmsReceiver;*/
 
     @BindView(R.id.text_country_code)
     TextView countryCodeTextView;
