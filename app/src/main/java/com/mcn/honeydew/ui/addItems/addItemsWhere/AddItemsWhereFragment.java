@@ -1,6 +1,5 @@
 package com.mcn.honeydew.ui.addItems.addItemsWhere;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,13 +14,11 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.RelativeSizeSpan;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Filter;
@@ -174,14 +171,13 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
         emptySpaceView.getLayoutParams().height = (int) ((availiableHeight * 2.0) / 5.0);
         emptySpaceView.requestLayout();*/
 
-       if(screenInches>=5.5){
-           emptySpaceView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_where_fragment_empty_space_height_large_screen);
-           emptySpaceView.requestLayout();
-       }else {
-           emptySpaceView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_where_fragment_empty_space_height_small_screen);
-           emptySpaceView.requestLayout();
-       }
-
+        if (screenInches >= 5.5) {
+            emptySpaceView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_where_fragment_empty_space_height_large_screen);
+            emptySpaceView.requestLayout();
+        } else {
+            emptySpaceView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_where_fragment_empty_space_height_small_screen);
+            emptySpaceView.requestLayout();
+        }
 
 
         if (((AddItemsFragment) getParentFragment()).getMyListData().getLocation() != null) {
@@ -501,7 +497,11 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
             } else {
                 mLoopView.setCurrentPosition(0);
                 mLoopView.setInitPosition(0);
-                mEditText.setText(mRecentLocationList.get(0).getMainData());
+
+                if (mRecentLocationList != null && mRecentLocationList.size() > 0) {
+                    mEditText.setText(mRecentLocationList.get(0).getMainData());
+                }
+
             }
 
             mEditText.addTextChangedListener(mTextWatcher);

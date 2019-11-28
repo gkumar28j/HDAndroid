@@ -376,7 +376,10 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
 
         @Override
         protected void onPostExecute(List<AllContact> allContacts) {
-            super.onPostExecute(allContacts);
+          //  super.onPostExecute(allContacts);
+            if (ContactListActivity.this.isDestroyed()) { // or call isFinishing() if min sdk version < 17
+                return;
+            }
             hideLoading();
 
             Collections.sort(characterList);
@@ -450,4 +453,11 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
         Timber.d("Character ", character.toString());
 
     }
+
+    @Override
+    protected void onDestroy() {
+        hideLoading();
+        super.onDestroy();
+    }
+
 }
