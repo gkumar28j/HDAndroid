@@ -203,11 +203,11 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
             }
 
-            if (data.getItemTime() != null) {
+            if (data.getItemTime() != null && !data.getItemTime().equals("")) {
 
-                    String finalString = convertTimeInLocal(data.getItemTime());
-                    timeTextView.setVisibility(View.VISIBLE);
-                    timeTextView.setText(finalString.toUpperCase());
+                String finalString = convertTimeInLocal(data.getItemTime());
+                timeTextView.setVisibility(View.VISIBLE);
+                timeTextView.setText(finalString.toUpperCase());
 
 
             } else {
@@ -419,7 +419,10 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         mCallback = callback;
         mDragStartListener = listener;
     }
+
     private String convertTimeInLocal(String time) {
+
+        String convertedDate = null;
 
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
 
@@ -437,9 +440,15 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         toShow.setTimeZone(TimeZone.getDefault());
 
 
-        String formattedDate = toShow.format(date);
+        if (date == null) {
 
-        return formattedDate;
+            convertedDate = time;
 
+        } else {
+            convertedDate = toShow.format(date);
+
+        }
+
+        return convertedDate;
     }
 }

@@ -1,11 +1,12 @@
 package com.mcn.honeydew;
 
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import com.google.gson.Gson;
 import com.mcn.honeydew.data.DataManager;
@@ -23,6 +24,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.util.TextUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -101,10 +104,24 @@ public class HoneyDewAppLifecycleObserver implements LifecycleObserver {
 
                 if (status == 200) {
                     HttpEntity entity = response.getEntity();
+
                     String data = EntityUtils.toString(entity);
-                    GetBluetoothItemsListResponse items = new Gson().fromJson(data, GetBluetoothItemsListResponse.class);
-                    ArrayList<GetBluetoothItemsListResponse.BluetoothItem> newItems = new ArrayList<>(Arrays.asList(items.getResult()));
+
+                    try {
+                        if (data != null) {
+                            JSONObject jsonObject = new JSONObject(data);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+
+
                     if (!TextUtils.isEmpty(data)) {
+
+                        GetBluetoothItemsListResponse items = new Gson().fromJson(data, GetBluetoothItemsListResponse.class);
+                        ArrayList<GetBluetoothItemsListResponse.BluetoothItem> newItems = new ArrayList<>(Arrays.asList(items.getResult()));
 
                         // getting saved items
                         ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = dataManager.getSavedBluetoothItems();

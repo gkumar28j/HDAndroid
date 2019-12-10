@@ -141,10 +141,17 @@ public class AddItemsFragment extends BaseFragment implements AddItemsMvpView, B
                         e.printStackTrace();
                     }
 
-                    String finalString = newFormat.format(date);
+                    if(date!=null){
+
+                        String finalString = newFormat.format(date);
+                        setDateTimeText(finalString);
+                    }else {
+                        setDateTimeText(myListData.getItemTime());
+                    }
+
 
                 //    String finalString = convertTimeInLocal(myListData.getItemTime());
-                    setDateTimeText(finalString);
+
                 }
 
                 if(myListData.getPhoto()!=null){

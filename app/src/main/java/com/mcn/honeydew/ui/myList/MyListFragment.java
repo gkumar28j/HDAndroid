@@ -299,7 +299,7 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
         }
         mAdapter.replaceList(myListResponseData, inProgressValue);
 
-       // scrollToTop();
+        // scrollToTop();
     }
 
     @Override
@@ -337,6 +337,9 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
 
     public void scrollToTop() {
 
+        if (mRecyclerview == null) {
+            return;
+        }
         mRecyclerview.smoothScrollToPosition(0);
 
     }
