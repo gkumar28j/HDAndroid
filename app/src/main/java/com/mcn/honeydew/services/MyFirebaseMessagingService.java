@@ -30,7 +30,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -59,6 +58,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -187,7 +188,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 bundle.putString(KEY_NOTIFICATION_TYPE, notificationType);
 
 
-
                 if (contentAvailable.equals("1")) {
 
                     fetchBluetoothItem(bundle, notificationType); // silent notification
@@ -301,6 +301,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (status == 200) {
                 HttpEntity entity = response.getEntity();
                 String data = EntityUtils.toString(entity);
+
+                if (data == null) {
+                    return;
+                }
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(data);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return;
+                }
+
+
                 GetBluetoothItemsListResponse res = new Gson().fromJson(data, GetBluetoothItemsListResponse.class);
 
                 final ArrayList<GetBluetoothItemsListResponse.BluetoothItem> savedItems = mDataManager.getSavedBluetoothItems();
@@ -381,12 +397,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-    private void refreshHomeFragment(){
+    private void refreshHomeFragment() {
         Intent intent = new Intent(AppConstants.ACTION_REFRESH_HOME);
         sendBroadcast(intent);
     }
 
-    private void refreshNotificationCount(){
+    private void refreshNotificationCount() {
 
         Intent intent = new Intent(AppConstants.ACTION_REFRESH_NOTIF_COUNT);
         sendBroadcast(intent);

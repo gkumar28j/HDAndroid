@@ -2,7 +2,6 @@ package com.mcn.honeydew.ui.notifications;
 
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
@@ -11,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
@@ -99,13 +100,13 @@ public class NotificationAdapter extends LoadMoreBaseAdapter<NotificationListRes
             context = mcontext;
 
 
-            if(mItem.getItemName()!=null){
+            if (mItem.getItemName() != null) {
 
                 String mainString = mItem.getMessage();
-                if(mainString.contains(mItem.getItemName())){
+                if (mainString.contains(mItem.getItemName())) {
 
                     int startIndex = mainString.indexOf(mItem.getItemName());
-                    int endIndex = startIndex+ mItem.getItemName().length();
+                    int endIndex = startIndex + mItem.getItemName().length();
 
                     final SpannableStringBuilder sb = new SpannableStringBuilder(mItem.getMessage());
 
@@ -116,33 +117,32 @@ public class NotificationAdapter extends LoadMoreBaseAdapter<NotificationListRes
 
                     titleTextView.setText(sb);
 
-                }else {
+                } else {
                     titleTextView.setText(mainString);
                 }
 
-            }else {
+            } else {
                 titleTextView.setText(mItem.getMessage());
             }
 
 
-
-            if(mItem.getItemExpireTime()!=null){
+            if (mItem.getItemExpireTime() != null) {
                 String time = convertTimeInLocal(mItem.getCreatedDate());
                 subTitleTextView.setText(time);
                 subTitleTextView.setVisibility(View.VISIBLE);
 
-            }else {
+            } else {
                 subTitleTextView.setVisibility(View.INVISIBLE);
             }
 
 
-            if(mItem.isRead()){
+            if (mItem.isRead()) {
                 mainLayout.setBackgroundColor(context.getResources().getColor(R.color.white));
-            }else {
+            } else {
                 mainLayout.setBackgroundColor(context.getResources().getColor(R.color.notification_read_color));
             }
 
-            if(mItem.getNotificationId()==0){
+            if (mItem.getNotificationId() == 0) {
                 mainLayout.setBackgroundColor(context.getResources().getColor(R.color.white));
             }
 
@@ -153,7 +153,6 @@ public class NotificationAdapter extends LoadMoreBaseAdapter<NotificationListRes
         public void onClick(View v) {
             mItemListener.onContentClick(mItem);
         }
-
 
 
         public String convertTimeInLocal(String time) {
@@ -174,8 +173,17 @@ public class NotificationAdapter extends LoadMoreBaseAdapter<NotificationListRes
 
             toShow.setTimeZone(TimeZone.getDefault());
 
+            String formattedDate = "";
 
-            String formattedDate = toShow.format(date);
+
+            if (date != null) {
+
+                 formattedDate = toShow.format(date);
+                 return formattedDate;
+
+            }
+
+
 
             return formattedDate;
 
@@ -188,7 +196,6 @@ public class NotificationAdapter extends LoadMoreBaseAdapter<NotificationListRes
         void onContentClick(NotificationListResponse.NotificationListData clickedData);
 
     }
-
 
 
 }

@@ -499,7 +499,10 @@ public class AddItemsWhereFragment extends BaseFragment implements AddItemsWhere
                 mLoopView.setInitPosition(0);
 
                 if (mRecentLocationList != null && mRecentLocationList.size() > 0) {
+                    mDeleteData.setVisibility(View.VISIBLE);
                     mEditText.setText(mRecentLocationList.get(0).getMainData());
+                } else {
+                    mDeleteData.setVisibility(View.GONE);
                 }
 
             }
