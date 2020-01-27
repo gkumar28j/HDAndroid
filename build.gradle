@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'com.google.gms:google-services:4.3.2'
         classpath 'com.novoda:bintray-release:0.8.0'
 
@@ -42,7 +42,7 @@ ext {
     gsonVersion = '2.8.2'
     glideVersion = '3.7.0'
     calligraphyVersion = '2.3.0'
-    facebookVersion = '[4,5)'
+    facebookVersion = '[5,6)'
 
     retrofitVersion = '2.3.0'
     retrofit2Rxjava2AdapterVersion = '2.3.0'

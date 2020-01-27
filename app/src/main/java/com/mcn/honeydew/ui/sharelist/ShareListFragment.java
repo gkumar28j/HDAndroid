@@ -4,9 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
@@ -130,6 +131,10 @@ public class ShareListFragment extends BaseFragment implements ShareListMvpView,
 
     @Override
     public void onSelectedListLoaded(MyHomeListData data) {
+
+        if (data == null) {
+            return;
+        }
         mSelectedListData = data;
         isOwner = data.isIsOwner();
 
@@ -141,7 +146,7 @@ public class ShareListFragment extends BaseFragment implements ShareListMvpView,
             listNameTextView.setText(getString(R.string.share_list).replace("@", mSelectedListData.getListName()));
 
         } else {
-        //    otherUserLayout.setVisibility(View.VISIBLE);
+            //    otherUserLayout.setVisibility(View.VISIBLE);
             ownerLayout.setVisibility(View.GONE);
 
             /* if (data.isIsSharedByOwner()) {
@@ -200,16 +205,16 @@ public class ShareListFragment extends BaseFragment implements ShareListMvpView,
 
     @OnClick(R.id.text_list_name)
     void onShareListClicked() {
-        if(!NetworkUtils.isNetworkConnected(getBaseActivity())){
-           showMessage(R.string.connection_error);
-           return;
+        if (!NetworkUtils.isNetworkConnected(getBaseActivity())) {
+            showMessage(R.string.connection_error);
+            return;
         }
         startActivityForResult(ContactListActivity.getStartIntent(getActivity(), mSelectedListData.getListId()), REQUEST_CONTACT_LIST);
     }
 
     @Override
     public void onDeleteClicked(GetUserSettingResponse.Result result, int position) {
-        if(!NetworkUtils.isNetworkConnected(getBaseActivity())){
+        if (!NetworkUtils.isNetworkConnected(getBaseActivity())) {
             showMessage(R.string.connection_error);
             return;
         }

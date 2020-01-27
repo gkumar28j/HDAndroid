@@ -202,14 +202,14 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         captureImageView.requestLayout();
         captureImageView.setVisibility(View.VISIBLE);*/
 
-        if(screenInches>=5.5){
+        if (screenInches >= 5.5) {
             captureImageView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_recent_fragment_empty_space_height_large_screen);
             captureImageView.requestLayout();
 
 
             imageLoopView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_recent_fragment_empty_space_height_large_screen);
             imageLoopView.requestLayout();
-        }else {
+        } else {
             captureImageView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_recent_fragment_empty_space_height_small_screen);
             captureImageView.requestLayout();
 
@@ -282,6 +282,11 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
             @Override
             public void onItemSelected(int index) {
                 if (mList.size() == 0 || mEditText == null) {
+                    return;
+                }
+
+
+                if (index == -1) {
                     return;
                 }
 

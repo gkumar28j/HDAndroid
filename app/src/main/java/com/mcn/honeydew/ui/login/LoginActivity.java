@@ -2,6 +2,9 @@ package com.mcn.honeydew.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
@@ -13,6 +16,8 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -36,6 +41,8 @@ import com.mcn.honeydew.ui.welcome.WelcomeTourActivity;
 import com.mcn.honeydew.utils.CommonUtils;
 import com.mcn.honeydew.utils.KeyboardUtils;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import javax.inject.Inject;
@@ -125,7 +132,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, Faceboo
                 return false;
             }
         });
-
+     //   printHashKey(LoginActivity.this);
 
     }
 
@@ -282,7 +289,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, Faceboo
         Timber.d(error);
     }
 
-    /*public  void printHashKey(Context pContext) {
+    public  void printHashKey(Context pContext) {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
@@ -296,5 +303,5 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, Faceboo
         } catch (Exception e) {
             Log.e("fb hash", "printHashKey()", e);
         }
-    }*/
+    }
 }
