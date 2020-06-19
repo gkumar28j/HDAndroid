@@ -51,6 +51,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
 
     public static final String TAG = "HomeListFragment";
     private boolean mKeyboardVisible = false;
+
     @Inject
     HomeMvpPresenter<HomeListMvpView> mPresenter;
 

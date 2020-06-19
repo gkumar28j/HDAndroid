@@ -117,6 +117,10 @@
 
     <dimen name="add_items_where_fragment_empty_space_height_small_screen">100dp</dimen>
     <dimen name="add_items_where_fragment_empty_space_height_large_screen">160dp</dimen>
+    <dimen name="common_app_settings_lay_padding">8dp</dimen>
+    <dimen name="common_app_settings_imageview_height_width">24dp</dimen>
+    <dimen name="common_app_setting_textview_marginleft">12dp</dimen>
+    <dimen name="common_app_settings_layout_arrow_img_ht_wdth">30dp</dimen>
 
 
 </resources>

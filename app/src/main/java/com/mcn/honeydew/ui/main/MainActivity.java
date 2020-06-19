@@ -46,6 +46,7 @@ import com.mcn.honeydew.ui.addItems.AddItemsFragment;
 import com.mcn.honeydew.ui.addlist.AddListFragment;
 import com.mcn.honeydew.ui.base.BaseActivity;
 import com.mcn.honeydew.ui.colorSettings.ColorSettingsFragment;
+import com.mcn.honeydew.ui.common_app_settings.CommonAppSettingsFragment;
 import com.mcn.honeydew.ui.home.HomeListFragment;
 import com.mcn.honeydew.ui.list_settings.ListSettingsFragment;
 import com.mcn.honeydew.ui.login.LoginActivity;
@@ -876,8 +877,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
         settingImageView.setVisibility(View.GONE);
         backImageView.setVisibility(View.VISIBLE);
-        fragment = SettingsFragment.newInstance();
-        title.setText("Profile");
+        //fragment = SettingsFragment.newInstance();
+        fragment = CommonAppSettingsFragment.newInstance();
+        title.setText("App Settings");
         title.setVisibility(View.VISIBLE);
         title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         if (fragment != null) {

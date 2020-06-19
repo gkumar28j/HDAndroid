@@ -30,6 +30,9 @@ import com.mcn.honeydew.ui.changePassword.ChangePasswordPresenter;
 import com.mcn.honeydew.ui.colorSettings.ColorSettingsMvpPresenter;
 import com.mcn.honeydew.ui.colorSettings.ColorSettingsMvpView;
 import com.mcn.honeydew.ui.colorSettings.ColorSettingsPresenter;
+import com.mcn.honeydew.ui.common_app_settings.CommonAppSettingPresenter;
+import com.mcn.honeydew.ui.common_app_settings.CommonAppSettingsMvpPresenter;
+import com.mcn.honeydew.ui.common_app_settings.CommonAppSettingsMvpView;
 import com.mcn.honeydew.ui.contactList.ContactListAdapter;
 import com.mcn.honeydew.ui.contactList.ContactListMvpPresenter;
 import com.mcn.honeydew.ui.contactList.ContactListMvpView;
@@ -72,6 +75,10 @@ import com.mcn.honeydew.ui.myList.MyListAdapter;
 import com.mcn.honeydew.ui.myList.MyListMvpPresenter;
 import com.mcn.honeydew.ui.myList.MyListMvpView;
 import com.mcn.honeydew.ui.myList.MyListPresenter;
+import com.mcn.honeydew.ui.my_account.MyAccountFragment;
+import com.mcn.honeydew.ui.my_account.MyAccountMvpPresenter;
+import com.mcn.honeydew.ui.my_account.MyAccountMvpView;
+import com.mcn.honeydew.ui.my_account.MyAccountPresenter;
 import com.mcn.honeydew.ui.notifications.NotificationsMvpPresenter;
 import com.mcn.honeydew.ui.notifications.NotificationsMvpView;
 import com.mcn.honeydew.ui.notifications.NotificationsPresenter;
@@ -382,6 +389,16 @@ public class ActivityModule {
 
     @Provides
     WelcomeMvpPresenter<WelcomeMvpView> provideWelcomePresenter(WelcomePresenter<WelcomeMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    CommonAppSettingsMvpPresenter<CommonAppSettingsMvpView> provideCommonAppSettingsPresenter(CommonAppSettingPresenter<CommonAppSettingsMvpView> mpresenter){
+        return mpresenter;
+    }
+
+    @Provides
+    MyAccountMvpPresenter<MyAccountMvpView> provideMyAccountPresenter(MyAccountPresenter<MyAccountMvpView> presenter){
         return presenter;
     }
 }

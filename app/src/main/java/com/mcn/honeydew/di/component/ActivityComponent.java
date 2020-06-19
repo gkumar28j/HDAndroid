@@ -9,6 +9,7 @@ import com.mcn.honeydew.ui.addItems.addItemsWhere.AddItemsWhereFragment;
 import com.mcn.honeydew.ui.addlist.AddListFragment;
 import com.mcn.honeydew.ui.changePassword.ChangePasswordActivity;
 import com.mcn.honeydew.ui.colorSettings.ColorSettingsFragment;
+import com.mcn.honeydew.ui.common_app_settings.CommonAppSettingsFragment;
 import com.mcn.honeydew.ui.contactDetails.ContactDetailsActivity;
 import com.mcn.honeydew.ui.contactList.ContactListActivity;
 import com.mcn.honeydew.ui.dummy.DummyFragment;
@@ -23,6 +24,7 @@ import com.mcn.honeydew.ui.list_settings.ListSettingsFragment;
 import com.mcn.honeydew.ui.login.LoginActivity;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.myList.MyListFragment;
+import com.mcn.honeydew.ui.my_account.MyAccountFragment;
 import com.mcn.honeydew.ui.notifications.NotificationsFragment;
 import com.mcn.honeydew.ui.notifications.settings.NotificationSettingsActivity;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationActivity;
@@ -116,5 +118,9 @@ public interface ActivityComponent {
     void inject(TimeLoopPickerDialog dialog);
 
     void inject(WelcomeTourActivity activity);
+
+    void inject(CommonAppSettingsFragment fragment);
+
+    void inject(MyAccountFragment fragment);
 
 }
