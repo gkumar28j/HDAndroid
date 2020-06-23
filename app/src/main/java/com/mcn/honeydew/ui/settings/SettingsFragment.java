@@ -172,14 +172,14 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
 
         String fullText = getString(R.string.bluetooth_notifications_heading_text);
         SpannableStringBuilder builder = new SpannableStringBuilder(fullText);
-        builder.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getBaseActivity(), R.color.colorMediumLightGray)), 24, fullText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getBaseActivity(), R.color.colorMediumLightGray)), 20, fullText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         RelativeSizeSpan smallSizeText = new RelativeSizeSpan(.9f);
 
         builder.setSpan(smallSizeText,
-                24,
+                20,
                 fullText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(new StyleSpan(Typeface.BOLD), 0, 24, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new StyleSpan(Typeface.BOLD), 0, 20, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         mBluetoothNotificationHeadingTextView.setText(builder);
 

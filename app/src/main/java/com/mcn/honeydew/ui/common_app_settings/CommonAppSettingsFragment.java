@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.base.BaseFragment;
+import com.mcn.honeydew.ui.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -86,11 +87,14 @@ public class CommonAppSettingsFragment extends BaseFragment implements CommonApp
     @OnClick(R.id.account_layout)
     public void onAccountLayoutclicked(){
 
+        ((MainActivity)getBaseActivity()).onAccountSettingclicked();
 
     }
 
     @OnClick(R.id.reminder_layout)
     public void onReminderLayoutClicked(){
+
+        ((MainActivity)getBaseActivity()).onRemindersClicked();
 
     }
 
@@ -104,11 +108,9 @@ public class CommonAppSettingsFragment extends BaseFragment implements CommonApp
 
     }
 
-
-    @OnClick(R.id.review_layout)
-    public void onReviewLayoutClicked(){
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getBaseActivity()).changeTitle("App Settings");
     }
-
-
 }

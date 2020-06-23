@@ -51,6 +51,7 @@ import com.mcn.honeydew.ui.home.HomeListFragment;
 import com.mcn.honeydew.ui.list_settings.ListSettingsFragment;
 import com.mcn.honeydew.ui.login.LoginActivity;
 import com.mcn.honeydew.ui.myList.MyListFragment;
+import com.mcn.honeydew.ui.my_account.MyAccountFragment;
 import com.mcn.honeydew.ui.notifications.NotificationsFragment;
 import com.mcn.honeydew.ui.settings.SettingsFragment;
 import com.mcn.honeydew.ui.sharelist.ShareListFragment;
@@ -912,7 +913,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     @OnClick(R.id.back_image)
     public void onBackClicked() {
-        backImageView.setVisibility(View.GONE);
+       /* backImageView.setVisibility(View.GONE);
 
         if (menuItemSelected.getItemId() == R.id.navigation_my_list) {
             settingImageView.setVisibility(View.GONE);
@@ -922,12 +923,23 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             title.setVisibility(View.GONE);
             settingImageView.setVisibility(View.VISIBLE);
             listSettingImageView.setVisibility(View.GONE);
-        }
+        }*/
 
 
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
 
+            if(getSupportFragmentManager().getBackStackEntryCount()==1 && menuItemSelected.getItemId() == R.id.navigation_home ){
+                title.setText("");
+                title.setVisibility(View.GONE);
+                backImageView.setVisibility(View.GONE);
+                settingImageView.setVisibility(View.VISIBLE);
+
+            }else if(getSupportFragmentManager().getBackStackEntryCount()==1 && menuItemSelected.getItemId()==R.id.navigation_my_list){
+                settingImageView.setVisibility(View.GONE);
+                backImageView.setVisibility(View.GONE);
+                listSettingImageView.setVisibility(View.VISIBLE);
+            }
+            getSupportFragmentManager().popBackStack();
         } else {
             onBackPressed();
         }
@@ -1134,6 +1146,43 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     private void unregisterNotifReceiver() {
         if (receiver != null) {
             this.unregisterReceiver(receiver);
+        }
+
+    }
+
+    public void onAccountSettingclicked(){
+
+        fragment = MyAccountFragment.newInstance();
+        title.setText("Account");
+        title.setVisibility(View.VISIBLE);
+        title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        if (fragment != null) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, "account_fragment").addToBackStack(null).commit();
+        }
+
+
+    }
+
+    public void onRemindersClicked(){
+
+        fragment = SettingsFragment.newInstance();
+        title.setText("Reminders");
+        title.setVisibility(View.VISIBLE);
+        title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        if (fragment != null) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, "account_fragment").addToBackStack(null).commit();
+        }
+
+    }
+
+    public void changeTitle(String heading){
+        if(title!=null){
+            title.setText("");
+            title.setText(heading);
         }
 
     }

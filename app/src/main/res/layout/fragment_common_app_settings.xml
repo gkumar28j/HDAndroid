@@ -117,7 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/common_app_settings_lay_padding"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="2dp"
         android:background="@color/white">
 
         <ImageView
@@ -147,41 +147,6 @@
 
     </RelativeLayout>
 
-
-    <RelativeLayout
-        android:id="@+id/review_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/common_app_settings_lay_padding"
-        android:layout_marginTop="2dp"
-        android:background="@color/white">
-
-        <ImageView
-            android:id="@+id/review_imageview"
-            android:layout_width="@dimen/common_app_settings_imageview_height_width"
-            android:layout_height="@dimen/common_app_settings_imageview_height_width"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_centerVertical="true"/>
-
-        <TextView
-            android:id="@+id/heading_text_review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Write a Review"
-            style="@style/CommonAppSettingsHeadingStyle"
-            android:layout_toEndOf="@id/review_imageview"
-            android:layout_marginStart="@dimen/common_app_setting_textview_marginleft"
-            android:layout_centerVertical="true"/>
-
-        <ImageView
-            android:id="@+id/review_forward_imageview"
-            android:layout_width="@dimen/common_app_settings_layout_arrow_img_ht_wdth"
-            android:layout_height="@dimen/common_app_settings_layout_arrow_img_ht_wdth"
-            android:src="@drawable/ic_right_arrow"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"/>
-
-    </RelativeLayout>
 
 
 </LinearLayout>
