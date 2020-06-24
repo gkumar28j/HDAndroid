@@ -1,6 +1,8 @@
 package com.mcn.honeydew.ui.common_app_settings;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,10 +103,17 @@ public class CommonAppSettingsFragment extends BaseFragment implements CommonApp
     @OnClick(R.id.app_support_layout)
     public void onAppSupportLayoutClicked(){
 
+        String url = "http://www.myhoneydew.us/support";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+
     }
 
     @OnClick(R.id.suggestions_layout)
     public void onSuggestionLayoutClicked(){
+
+        startActivity(new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:support@myhoneydew.us")));
 
     }
 
