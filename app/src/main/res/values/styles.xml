@@ -47,6 +47,15 @@
         <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
     </style>
 
+    <style name="TransparentThemeActivity" parent="AppTheme.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/add_list_activity_color_transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
     <style name="AppThemeRegister" parent="AppTheme.NoActionBar">
         <item name="android:windowNoTitle">true</item>
     </style>
@@ -511,6 +520,30 @@
         <item name="android:textSize">@dimen/textview_size_s3</item>
         <item name="android:textColor">@color/gray</item>
         <item name="fontPath">Lato/Lato-Regular.ttf</item>
+    </style>
+
+
+    <!--AddListActivity-->
+    <style name="AddListEditTextStyle">
+        <item name="android:textSize">@dimen/textview_size_m1</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+
+    </style>
+
+    <!-- Transparent Window Activity -->
+    <style name="AppTheme.TransparentWindow" parent="AppTheme.NoActionBar">
+        <!--
+        We want the translucent background painted by the root layout instead
+        of painted by the window.
+        -->
+        <item name="android:windowIsTranslucent">true</item>
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
     </style>
 
 </resources>

@@ -23,7 +23,8 @@
             android:padding="10dp"
             android:singleLine="true"
             android:textColorHint="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            />
 
 
         <RelativeLayout
@@ -33,7 +34,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/add_list_color_background"
             android:padding="10dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/cancel_text_view"

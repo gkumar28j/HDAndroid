@@ -102,4 +102,9 @@
 
     <color name="tutorial_background_color">#F1F2F5</color>
 
+
+    <color name="add_list_activity_color_transparent">#99000000</color>
+
+
+
 </resources>

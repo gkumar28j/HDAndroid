@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:id="@+id/edit_text_lay"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <EditText
+                android:id="@+id/add_list_edit_text"
+                style="@style/AddListEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/add_list_edittext_background"
+                android:gravity="center"
+                android:hint="@string/list_name_here_hint_add_list"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:maxLength="18"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                />
+
+            <ImageView
+                android:id="@+id/voice_recognition_image"
+                android:layout_width="@dimen/record_audio_img_width_height"
+                android:layout_height="@dimen/record_audio_img_width_height"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:layout_centerVertical="true"
+                android:padding="2dp"
+                android:src="@drawable/ic_voice_recognition_disable" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_lay"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/done_button"
+                style="@style/AddItemsDoneButtonTextStyle"
+                android:layout_width="@dimen/when_where_done_button_width"
+                android:layout_height="@dimen/when_where_done_button_height"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:text="Done"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/left_arrow_image"
+                android:layout_width="@dimen/left_arrow_image_height_width"
+                android:layout_height="@dimen/left_arrow_image_height_width"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:src="@drawable/ic_left_arrow"
+                />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

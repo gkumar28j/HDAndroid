@@ -43,6 +43,7 @@ import com.mcn.honeydew.data.network.model.response.MyListResponseData;
 import com.mcn.honeydew.services.GeoFenceFilterService;
 import com.mcn.honeydew.services.ProximityJobIntentService;
 import com.mcn.honeydew.ui.addItems.AddItemsFragment;
+import com.mcn.honeydew.ui.addlist.AddListActivity;
 import com.mcn.honeydew.ui.addlist.AddListFragment;
 import com.mcn.honeydew.ui.base.BaseActivity;
 import com.mcn.honeydew.ui.colorSettings.ColorSettingsFragment;
@@ -141,6 +142,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+
+            if(item.getItemId()==R.id.navigation_add_list){
+                Intent intent = AddListActivity.getStartIntent(MainActivity.this);
+                startActivity(intent);
+                return false;
+            }
             selectFragment(item);
             if (item.getItemId() == R.id.navigation_list_detail_home) {
                 return false;

@@ -6,6 +6,7 @@ import com.mcn.honeydew.ui.addItems.AddItemsFragment;
 import com.mcn.honeydew.ui.addItems.addItemsRecentChild.AddRecentItemsChildFragment;
 import com.mcn.honeydew.ui.addItems.addItemsWhen.AddItemsWhenFragment;
 import com.mcn.honeydew.ui.addItems.addItemsWhere.AddItemsWhereFragment;
+import com.mcn.honeydew.ui.addlist.AddListActivity;
 import com.mcn.honeydew.ui.addlist.AddListFragment;
 import com.mcn.honeydew.ui.changePassword.ChangePasswordActivity;
 import com.mcn.honeydew.ui.colorSettings.ColorSettingsFragment;
@@ -122,5 +123,7 @@ public interface ActivityComponent {
     void inject(CommonAppSettingsFragment fragment);
 
     void inject(MyAccountFragment fragment);
+
+    void inject(AddListActivity activity);
 
 }

@@ -122,10 +122,22 @@
             android:name=".ui.myListDetail.MyListDetailImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WelcomeThemeFullScreen" />
+
         <activity
             android:name=".ui.welcome.WelcomeTourActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WelcomeThemeFullScreen" />
+
+    <!--    <activity android:name=".ui.addlist.AddListActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/> -->
+
+        <activity android:name=".ui.addlist.AddListActivity"
+            android:theme="@style/AppTheme.TransparentWindow"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
