@@ -36,6 +36,7 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.gson.Gson;
 import com.mcn.honeydew.BuildConfig;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
@@ -120,6 +121,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     private static long UPDATE_START_TIME = 2 * 1000;
     private static long UPDATE_REFRESH_TIME = 10 * 1000;
 
+    public static int ADD_LIST_ACTIVITY_REQUEST_CODE = 608;
+    public static String ADD_LIST_ACTIVITY_DATA = "addlistdata";
+
     View badge;
 
     private boolean isComingFromNotifications = false;
@@ -143,9 +147,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
 
-            if(item.getItemId()==R.id.navigation_add_list){
+            if (item.getItemId() == R.id.navigation_add_list) {
                 Intent intent = AddListActivity.getStartIntent(MainActivity.this);
-                startActivity(intent);
+                startActivityForResult(intent, ADD_LIST_ACTIVITY_REQUEST_CODE);
                 return false;
             }
             selectFragment(item);
@@ -533,9 +537,29 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (fragment != null) {
-            fragment.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_LIST_ACTIVITY_REQUEST_CODE) {
+
+            if (resultCode == RESULT_OK) {
+
+                if (data != null && data.hasExtra(ADD_LIST_ACTIVITY_DATA)) {
+
+                    MyHomeListData newlyCreatedListData = new Gson().fromJson(data.getStringExtra(ADD_LIST_ACTIVITY_DATA), MyHomeListData.class);
+
+                    onListItemClick(newlyCreatedListData);
+
+                }
+
+
+            }
+
+
+        } else {
+            if (fragment != null) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
         }
+
     }
 
     @Override
@@ -935,13 +959,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
 
-            if(getSupportFragmentManager().getBackStackEntryCount()==1 && menuItemSelected.getItemId() == R.id.navigation_home ){
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1 && menuItemSelected.getItemId() == R.id.navigation_home) {
                 title.setText("");
                 title.setVisibility(View.GONE);
                 backImageView.setVisibility(View.GONE);
                 settingImageView.setVisibility(View.VISIBLE);
 
-            }else if(getSupportFragmentManager().getBackStackEntryCount()==1 && menuItemSelected.getItemId()==R.id.navigation_my_list){
+            } else if (getSupportFragmentManager().getBackStackEntryCount() == 1 && menuItemSelected.getItemId() == R.id.navigation_my_list) {
                 settingImageView.setVisibility(View.GONE);
                 backImageView.setVisibility(View.GONE);
                 listSettingImageView.setVisibility(View.VISIBLE);
@@ -1133,8 +1157,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     }
 
 
-
-    private void createReceiver(){
+    private void createReceiver() {
         receiver = new NotificationCountBroadcastReceiver();
         intentFilter = new IntentFilter();
         intentFilter.addAction(AppConstants.ACTION_REFRESH_NOTIF_COUNT);
@@ -1142,11 +1165,11 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     private void registerNotifCountReceiver() {
 
-        if(receiver==null){
+        if (receiver == null) {
             createReceiver();
         }
 
-        this.registerReceiver(receiver,intentFilter);
+        this.registerReceiver(receiver, intentFilter);
 
     }
 
@@ -1157,7 +1180,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     }
 
-    public void onAccountSettingclicked(){
+    public void onAccountSettingclicked() {
 
         fragment = MyAccountFragment.newInstance();
         title.setText("Account");
@@ -1172,7 +1195,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     }
 
-    public void onRemindersClicked(){
+    public void onRemindersClicked() {
 
         fragment = SettingsFragment.newInstance();
         title.setText("Reminders");
@@ -1186,8 +1209,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
     }
 
-    public void changeTitle(String heading){
-        if(title!=null){
+    public void changeTitle(String heading) {
+        if (title != null) {
             title.setText("");
             title.setText(heading);
         }
