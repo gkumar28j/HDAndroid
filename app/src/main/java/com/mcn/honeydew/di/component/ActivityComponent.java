@@ -37,6 +37,7 @@ import com.mcn.honeydew.ui.settings.timePicker.TimeLoopPickerDialog;
 import com.mcn.honeydew.ui.shareToContacts.ShareToContactsActivity;
 import com.mcn.honeydew.ui.sharelist.ShareListFragment;
 import com.mcn.honeydew.ui.splash.SplashActivity;
+import com.mcn.honeydew.ui.verify_email.VerifyEmailActivity;
 import com.mcn.honeydew.ui.welcome.WelcomeTourActivity;
 
 import dagger.Component;
@@ -125,5 +126,7 @@ public interface ActivityComponent {
     void inject(MyAccountFragment fragment);
 
     void inject(AddListActivity activity);
+
+    void inject(VerifyEmailActivity activity);
 
 }

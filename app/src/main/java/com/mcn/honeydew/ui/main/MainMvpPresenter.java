@@ -30,4 +30,8 @@ public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V>
     void fetchNotificationCount();
 
     void saveInProgressValue(boolean isProgress);
+
+    void disableLocationReminders();
+
+    void updateProximitySettings(int notificationStatus, int notificationType);
 }

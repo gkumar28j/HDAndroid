@@ -18,11 +18,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -754,24 +756,72 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @Override
     public void checkProximityPermission() {
 
-        boolean shouldProvideRationale =
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
+
+            fetchCurrentLocation(false);
+         //   Toast.makeText(this, "permission granted", Toast.LENGTH_SHORT).show();
+
+        }else {
+
+           /*  boolean shouldProvideRationale =
                 ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.ACCESS_FINE_LOCATION);
 
+             if(shouldProvideRationale){
+
+                 // if true than never asks for permission before
+
+
+
+                 ActivityCompat.requestPermissions(MainActivity.this,
+                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                         REQUEST_PERMISSIONS_REQUEST_CODE);
+
+             }else {
+
+                 Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show();
+
+
+             }*/
+
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+
+
+        }
+
+       /* boolean shouldProvideRationale =
+                ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION);*/
+
         // Provide an additional rationale to the user. This would happen if the user denied the
         // request previously, but didn't check the "Don't ask again" checkbox.
-        if (shouldProvideRationale) {
+       /* if (shouldProvideRationale) {
 
-            showProximityAlert(R.string.location_disabled_message, android.R.string.ok, false);
+            // user is confused and denied the permission
+            *//*showProximityAlert(R.string.location_disabled_message, android.R.string.ok, false);*//*
+
         } else {
 
             // Request permission. It's possible this can be auto answered if device policy
             // sets the permission in a given state or the user denied the permission
             // previously and checked "Never ask again".
-            ActivityCompat.requestPermissions(MainActivity.this,
+        *//*    ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
+                    REQUEST_PERMISSIONS_REQUEST_CODE);*//*
+
+        /// previously denied
+     //   mPresenter.disableLocationReminders();
+            mPresenter.updateProximitySettings(0, 2);
+
+
+
+        }*/
+
+
+
+
     }
 
     @Override
@@ -849,6 +899,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 // If user interaction was interrupted, the permission request is cancelled and you
                 // receive empty arrays.
 
+                showLocationAlertDialog();
+
+
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 fetchCurrentLocation(false);
@@ -866,7 +919,20 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 // again" prompts). Therefore, a user interface affordance is typically implemented
                 // when permissions are denied. Otherwise, your app could appear unresponsive to
                 // touches or interactions which have required permissions.
-                showProximityAlert(R.string.permission_denied_explanation, R.string.settings, true);
+               /* showProximityAlert(R.string.permission_denied_explanation, R.string.settings, true);*/
+
+                 boolean shouldProvideRationale =
+                ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION);
+
+                 if(shouldProvideRationale){
+
+                     showLocationAlertDialog();
+
+                 }else {
+                     turnProximityOFFDialog();
+                 }
+
 
             }
         }
@@ -1214,6 +1280,51 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             title.setText("");
             title.setText(heading);
         }
+
+    }
+
+
+    void showLocationAlertDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Warning")
+                .setMessage("Turning off location access will disable ‘Location Reminders’")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                       /* if (isSetting) {
+
+                        } else {
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    REQUEST_PERMISSIONS_REQUEST_CODE);
+                        }*/
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package",
+                                BuildConfig.APPLICATION_ID, null);
+                        intent.setData(uri);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    void turnProximityOFFDialog(){
+
+        showMessage("Turning Location Reminders Off");
+        mPresenter.updateProximitySettings(0,2);
 
     }
 

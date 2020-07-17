@@ -13,9 +13,13 @@ import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.ApiCall;
 import com.mcn.honeydew.data.network.ApiHeader;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
+import com.mcn.honeydew.data.network.model.UserDetailResponse;
+import com.mcn.honeydew.data.network.model.request.PushNotificationSettingsRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateDeviceInfoRequest;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationCountResponse;
+import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
+import com.mcn.honeydew.data.network.model.response.PushNotificationSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.AppConstants;
@@ -151,6 +155,13 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
     }
 
     @Override
+    public void disableLocationReminders() {
+
+
+
+    }
+
+    @Override
     public void checkBluetoothConnectivity() {
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
@@ -255,6 +266,8 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
 
     }
 
+
+
     private class SendNotification extends AsyncTask<String, Void, Boolean> {
         String url = AppConstants.BASE_URL + "v1_2/api/Account/BluetoothConnectDisconnet";
 
@@ -310,6 +323,54 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
         protected void onPostExecute(Boolean result) {
 
         }
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void updateProximitySettings(final int notificationStatus, final int notificationType) {
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().showMessage(R.string.connection_error);
+            return;
+        }
+        getMvpView().showLoading();
+        getDataManager().doPushNotificationSettingsCall(new PushNotificationSettingsRequest(notificationStatus, notificationType))
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<PushNotificationSettingsResponse>() {
+                    @Override
+                    public void accept(PushNotificationSettingsResponse response) throws Exception {
+
+                        getMvpView().hideLoading();
+                        NotificationSettingsResponse settingsResponse = getDataManager().getProximitySettings();
+                        if (notificationStatus == 1) {
+
+                            settingsResponse.getResults().get(0).setProximityNotification(true);
+                            UserDetailResponse userDetailResponse = getDataManager().getUserData();
+                            userDetailResponse.setIsProximityNotification(true);
+                            getDataManager().setUserData(userDetailResponse);
+                         //   getMvpView().updateProximityRange(settingsResponse.getResults().get(0).getProximityRange());
+
+
+                        } else {
+                            settingsResponse.getResults().get(0).setProximityNotification(false);
+                            UserDetailResponse userDetailResponse = getDataManager().getUserData();
+                            userDetailResponse.setIsProximityNotification(false);
+                            getDataManager().setUserData(userDetailResponse);
+                        }
+                        getDataManager().setProximitySettings(settingsResponse);
+                    }
+
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        getMvpView().hideLoading();
+                        // handle the login error here
+                        handleApiError(throwable);
+
+                    }
+                });
+
     }
 }
 

@@ -319,7 +319,7 @@ public class HomeListFragment extends BaseFragment implements HomeListMvpView, H
 
             showNotConnectedDialog();
         }else {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getBaseActivity());
             dialog.setCancelable(false);
             dialog.setTitle(getActivity().getResources().getString(R.string.app_title));
             dialog.setMessage("Are you sure you want to unshare the selected List?");

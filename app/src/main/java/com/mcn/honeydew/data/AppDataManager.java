@@ -486,6 +486,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void settingsClickedPermission(boolean value) {
+        mPreferencesHelper.settingsClickedPermission(value);
+    }
+
+    @Override
+    public boolean isSettingsClickedPermission() {
+        return mPreferencesHelper.isSettingsClickedPermission();
+    }
+
+    @Override
     public int getCurrentUserLoggedInMode() {
         return mPreferencesHelper.getCurrentUserLoggedInMode();
     }

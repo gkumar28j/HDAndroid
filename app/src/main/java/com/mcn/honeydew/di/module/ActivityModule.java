@@ -115,6 +115,9 @@ import com.mcn.honeydew.ui.sharelist.SharedUserListAdapter;
 import com.mcn.honeydew.ui.splash.SplashMvpPresenter;
 import com.mcn.honeydew.ui.splash.SplashMvpView;
 import com.mcn.honeydew.ui.splash.SplashPresenter;
+import com.mcn.honeydew.ui.verify_email.VerifyEmailMvpPresenter;
+import com.mcn.honeydew.ui.verify_email.VerifyEmailMvpView;
+import com.mcn.honeydew.ui.verify_email.VerifyEmailPresenter;
 import com.mcn.honeydew.ui.welcome.WelcomeMvpPresenter;
 import com.mcn.honeydew.ui.welcome.WelcomeMvpView;
 import com.mcn.honeydew.ui.welcome.WelcomePresenter;
@@ -399,6 +402,11 @@ public class ActivityModule {
 
     @Provides
     MyAccountMvpPresenter<MyAccountMvpView> provideMyAccountPresenter(MyAccountPresenter<MyAccountMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    VerifyEmailMvpPresenter<VerifyEmailMvpView> provideVerifyEmailPresenter(VerifyEmailPresenter<VerifyEmailMvpView> presenter){
         return presenter;
     }
 }

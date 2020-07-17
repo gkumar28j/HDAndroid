@@ -204,6 +204,8 @@ public interface ApiCall {
 
     String ENDPOINT_ADD_UPDATE_ITEMS_NEW_LIST_CALL_URL = API_VERSION + "/api/item/AddUpdateItemnew";
 
+    String ENDPOINT_VERIFY_EMAIL = "";
+
     @POST(ENDPOINT_SERVER_LOGIN)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PUBLIC_API)
     @FormUrlEncoded

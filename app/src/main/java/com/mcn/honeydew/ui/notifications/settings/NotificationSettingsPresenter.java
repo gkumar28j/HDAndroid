@@ -130,4 +130,16 @@ public class NotificationSettingsPresenter<V extends NotificationSettingsMvpView
                 });
     }
 
+    @Override
+    public void onSettingsClicked(boolean value) {
+
+        getDataManager().settingsClickedPermission(value);
+
+    }
+
+    @Override
+    public boolean isSettingsClicked() {
+        return getDataManager().isSettingsClickedPermission();
+    }
+
 }

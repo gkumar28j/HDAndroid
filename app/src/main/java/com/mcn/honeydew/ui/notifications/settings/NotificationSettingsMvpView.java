@@ -15,4 +15,5 @@ public interface NotificationSettingsMvpView extends MvpView {
     void onProximityRangeUpdated();
 
     //void onProximityItemLoaded(List<GetProximityResponse.Result> items);
+
 }

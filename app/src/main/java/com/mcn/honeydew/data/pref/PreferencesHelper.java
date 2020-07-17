@@ -111,5 +111,9 @@ public interface PreferencesHelper {
 
     boolean isFirstTimeLoggedIn();
 
+    void settingsClickedPermission(boolean value);
+
+    boolean isSettingsClickedPermission();
+
 
 }

@@ -19,7 +19,8 @@
             android:layout_width="@dimen/common_app_settings_imageview_height_width"
             android:layout_height="@dimen/common_app_settings_imageview_height_width"
             android:src="@drawable/ic_account"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:tint="@color/black"/>
 
 
 
@@ -61,7 +62,7 @@
             android:layout_width="@dimen/common_app_settings_imageview_height_width"
             android:layout_height="@dimen/common_app_settings_imageview_height_width"
             android:src="@drawable/ic_facebook"
-            android:tint="@color/gray"
+            android:tint="@color/dark_gray"
             android:layout_centerVertical="true"/>
 
 
@@ -104,7 +105,8 @@
             android:layout_width="@dimen/common_app_settings_imageview_height_width"
             android:layout_height="@dimen/common_app_settings_imageview_height_width"
             android:src="@drawable/ic_email_account"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:tint="@color/black"/>
 
 
 
@@ -145,8 +147,9 @@
             android:id="@+id/contact_imageview"
             android:layout_width="@dimen/common_app_settings_imageview_height_width"
             android:layout_height="@dimen/common_app_settings_imageview_height_width"
-            android:src="@drawable/ic_account"
-            android:layout_centerVertical="true"/>
+            android:src="@drawable/ic_profile_phone"
+            android:layout_centerVertical="true"
+            android:tint="@color/dark_gray"/>
 
 
 

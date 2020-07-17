@@ -1,11 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.viewpager2:viewpager2:1.0.0-beta03@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5328d3a46030090a7f44b81ce09d13c3/jetified-viewpager2-1.0.0-beta03/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9292b754506c5ba549336f9d1bc86e92/jetified-viewpager2-1.0.0-beta03/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5328d3a46030090a7f44b81ce09d13c3/jetified-viewpager2-1.0.0-beta03/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5328d3a46030090a7f44b81ce09d13c3/jetified-viewpager2-1.0.0-beta03/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9292b754506c5ba549336f9d1bc86e92/jetified-viewpager2-1.0.0-beta03/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9292b754506c5ba549336f9d1bc86e92/jetified-viewpager2-1.0.0-beta03/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9292b754506c5ba549336f9d1bc86e92/jetified-viewpager2-1.0.0-beta03/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

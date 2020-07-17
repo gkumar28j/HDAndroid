@@ -2,12 +2,20 @@ package com.mcn.honeydew.ui.notifications.settings;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,10 +24,12 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 
+import com.mcn.honeydew.BuildConfig;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
 import com.mcn.honeydew.services.GeoFenceFilterService;
 import com.mcn.honeydew.ui.base.BaseActivity;
+import com.mcn.honeydew.ui.main.MainActivity;
 
 import java.util.Arrays;
 
@@ -34,9 +44,11 @@ import butterknife.ButterKnife;
  */
 
 public class NotificationSettingsActivity extends BaseActivity implements NotificationSettingsMvpView, CompoundButton.OnCheckedChangeListener, BaseActivity.LocationSettingsCallback {
-
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 35;
     @Inject
     NotificationSettingsPresenter<NotificationSettingsMvpView> mPresenter;
+
+    private boolean isSettingsClicked =  false;
 
     String[] proximity_range = new String[]{
             "1/8 mile",
@@ -124,14 +136,60 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
     protected void onResume() {
         super.onResume();
 
+        if(mPresenter==null){
+            return;
+        }
+
+        if(mPresenter.isSettingsClicked()){
+
+            mPresenter.onSettingsClicked(false);
+
+            if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                proximityNotificationSwitch.setChecked(true);
+                fetchCurrentLocation(true);
+                listView.setAlpha(1f);
+                listView.setEnabled(true);
+                mPresenter.updateProximitySettings(1, 2);
+
+                // Starting Service
+                if (!GeoFenceFilterService.isRunning)
+                    startService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));
+            } else {
+                //fetchCurrentLocation(true);
+                proximityNotificationSwitch.setChecked(false);
+            }
+        }
+
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 786) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                fetchCurrentLocation(true);
+                listView.setAlpha(1f);
+                listView.setEnabled(true);
+                mPresenter.updateProximitySettings(1, 2);
+
+                // Starting Service
+                if (!GeoFenceFilterService.isRunning)
+                    startService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));
+            } else {
+                //fetchCurrentLocation(true);
+                proximityNotificationSwitch.setChecked(false);
+            }
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             fetchCurrentLocation(true);
             listView.setAlpha(1f);
@@ -145,13 +203,7 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
             //fetchCurrentLocation(true);
             proximityNotificationSwitch.setChecked(false);
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
     }
 
     @Override
@@ -159,12 +211,9 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
 
         if (b) {
 
-            int permissionLocation = ContextCompat
-                    .checkSelfPermission(NotificationSettingsActivity.this,
-                            Manifest.permission.ACCESS_FINE_LOCATION);
-
-            if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
-
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                showLocationAlertDialog();
+            }else {
                 fetchCurrentLocation(true);
                 listView.setAlpha(1f);
                 listView.setEnabled(true);
@@ -173,10 +222,8 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
                 // Starting Service
                 if (!GeoFenceFilterService.isRunning)
                     startService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));
-
-            } else {
-                fetchCurrentLocation(true);
             }
+
 
 
         } else {
@@ -195,7 +242,7 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
 
     @Override
     public void setProximitySettings(NotificationSettingsResponse proximitySettings) {
-        if(proximitySettings==null){
+        if (proximitySettings == null) {
             return;
         }
         if (proximitySettings.getResults().get(0).isProximityNotification()) {
@@ -273,5 +320,66 @@ public class NotificationSettingsActivity extends BaseActivity implements Notifi
     @Override
     public void onLocationEnabledAlready() {
 
+    }
+
+    void showLocationAlertDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("HoneyDew")
+                .setCancelable(false)
+                .setMessage("To use ‘Location Reminders’, HoneyDew List must have location services turned on. Do you want to turn on location services?")
+                .setPositiveButton("Not Now", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        proximityNotificationSwitch.setChecked(false);
+                       /* int permissionLocation = ContextCompat
+                                .checkSelfPermission(NotificationSettingsActivity.this,
+                                        Manifest.permission.ACCESS_FINE_LOCATION);
+
+                        if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+
+                            fetchCurrentLocation(true);
+                            listView.setAlpha(1f);
+                            listView.setEnabled(true);
+                            mPresenter.updateProximitySettings(1, 2);
+
+                            // Starting Service
+                            if (!GeoFenceFilterService.isRunning)
+                                startService(new Intent(NotificationSettingsActivity.this, GeoFenceFilterService.class));
+
+                        } else {
+                            fetchCurrentLocation(true);
+                        }*/
+
+
+                    }
+                })
+                .setNegativeButton("Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mPresenter.onSettingsClicked(true);
+                        dialog.dismiss();
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package",
+                                BuildConfig.APPLICATION_ID, null);
+                        intent.setData(uri);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

@@ -62,7 +62,7 @@
                 android:layout_marginRight="@dimen/when_where_done_button_common_margin"
                 android:layout_toLeftOf="@id/done_button"
                 android:gravity="center"
-                android:text="Where?"
+                android:text="Where"
                 android:textStyle="bold"/>
 
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_marginRight="@dimen/when_where_done_button_common_margin"
                 android:layout_toLeftOf="@id/where_button"
                 android:gravity="center"
-                android:text="When?"
+                android:text="When"
                 android:textStyle="bold"/>
 
 

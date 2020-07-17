@@ -16,6 +16,10 @@ public interface NotificationSettingsMvpPresenter<V extends NotificationSettings
 
     void updateProximityRange(String range, int position);
 
+    void onSettingsClicked(boolean value);
+
+    boolean isSettingsClicked();
+
     //void getProximityItems();
 
     //void clearAllProximityItems();

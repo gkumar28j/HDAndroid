@@ -21,6 +21,7 @@ import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationActivity;
 import com.mcn.honeydew.ui.settings.editEmail.EditEmailDialog;
 import com.mcn.honeydew.ui.settings.editname.EditNameDialog;
+import com.mcn.honeydew.ui.verify_email.VerifyEmailActivity;
 
 import javax.inject.Inject;
 
@@ -31,6 +32,7 @@ import butterknife.OnClick;
 public class MyAccountFragment extends BaseFragment implements MyAccountMvpView, EditNameDialog.RefreshListener,
         EditEmailDialog.RefreshListener {
     public static final int REQUEST_CODE_PHONE_VERIFICATION = 112;
+    public static final int REQUEST_CODE_EMAIL_VERIFICATION = 113;
     @Inject
     MyAccountMvpPresenter<MyAccountMvpView> mPresenter;
 
@@ -128,10 +130,10 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
 
         if (facebookLogin) {
             facebookEmailLayout.setVisibility(View.VISIBLE);
-            normalEmailLayout.setVisibility(View.GONE);
+            //     normalEmailLayout.setVisibility(View.GONE);
             fbEmailTextView.setText(userData.getPrimaryEmail());
         } else {
-            facebookEmailLayout.setVisibility(View.GONE);
+            //   facebookEmailLayout.setVisibility(View.GONE);
             normalEmailLayout.setVisibility(View.VISIBLE);
             normalEmailTextView.setText(userData.getPrimaryEmail());
         }
@@ -165,9 +167,16 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
     @Override
     public void showEditEmailDialog() {
 
-        EditEmailDialog dialog = EditEmailDialog.newInstance();
+    /*    EditEmailDialog dialog = EditEmailDialog.newInstance();
         dialog.setListener(this);
-        dialog.show(getChildFragmentManager());
+        dialog.show(getChildFragmentManager());*/
+
+        if (getBaseActivity() == null) {
+            return;
+        }
+
+        Intent intent = VerifyEmailActivity.getStartIntent(getBaseActivity());
+        startActivityForResult(intent, REQUEST_CODE_EMAIL_VERIFICATION);
 
     }
 
@@ -180,6 +189,15 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
 
                 mPresenter.onViewPrepared();
             }
+        }else if(requestCode==REQUEST_CODE_EMAIL_VERIFICATION){
+
+            if(resultCode == Activity.RESULT_OK){
+
+                mPresenter.onViewPrepared();
+            }
+
+
+
         }
     }
 
@@ -204,7 +222,7 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
 
 
     @OnClick(R.id.button_sign_out)
-    public void onSignOutClicked(){
+    public void onSignOutClicked() {
         mPresenter.onLogoutClick();
     }
 }

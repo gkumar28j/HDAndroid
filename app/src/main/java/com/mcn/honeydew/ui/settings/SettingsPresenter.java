@@ -221,6 +221,9 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
     // for notification settings
     @SuppressLint("CheckResult")
     private void getNotificationSettings() {
+        if (!isViewAttached()) {
+            return;
+        }
         if (!getMvpView().isNetworkConnected()) {
             //getMvpView().showMessage(R.string.connection_error);
 

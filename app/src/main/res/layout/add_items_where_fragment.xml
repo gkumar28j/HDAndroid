@@ -72,7 +72,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/search_background"
+                android:background="@drawable/add_list_edittext_background"
                 android:padding="@dimen/when_where_done_button_common_margin">
 
                 <EditText

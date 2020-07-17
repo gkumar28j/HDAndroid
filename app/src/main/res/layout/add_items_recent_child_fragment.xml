@@ -126,7 +126,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.85"
-                    android:background="@drawable/search_background"
+                    android:background="@drawable/add_list_edittext_background"
                     android:padding="@dimen/when_where_done_button_common_margin">
 
                     <EditText
