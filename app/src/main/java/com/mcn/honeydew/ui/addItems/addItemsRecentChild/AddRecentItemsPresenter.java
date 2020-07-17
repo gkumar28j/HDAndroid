@@ -11,6 +11,10 @@ import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.rx.SchedulerProvider;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -31,6 +35,7 @@ public class AddRecentItemsPresenter<V extends AddRecentItemsMvpView> extends Ba
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onViewPrepared() {
         if (!getMvpView().isNetworkConnected()) {
@@ -50,7 +55,16 @@ public class AddRecentItemsPresenter<V extends AddRecentItemsMvpView> extends Ba
                         }
 
                         if (response.getErrorObject().getStatus() == 1) {
-                            getMvpView().updateView(response.getResult());
+                            List<RecentItemsResponse.RecentItemsData> unsortedList = new ArrayList<>();
+                            unsortedList = response.getResult();
+
+                            Collections.sort(unsortedList, new Comparator<RecentItemsResponse.RecentItemsData>() {
+                                @Override
+                                public int compare(RecentItemsResponse.RecentItemsData lhs, RecentItemsResponse.RecentItemsData rhs) {
+                                    return lhs.getItemName().compareToIgnoreCase(rhs.getItemName());
+                                }
+                            });
+                            getMvpView().updateView(unsortedList);
                         } else {
 
                         }

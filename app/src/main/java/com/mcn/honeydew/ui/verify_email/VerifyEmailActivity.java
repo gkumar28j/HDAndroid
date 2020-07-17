@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,11 +71,20 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
         mPresenter.onAttach(this);
 
+        setUp();
+
     }
 
 
     @Override
     protected void setUp() {
+
+        if(getSupportActionBar()==null){
+            return;
+        }
+
+        getSupportActionBar().setTitle("Verify Email");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -141,18 +151,24 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
         }
 
-
-
     }
 
     @Override
     public void otpVerifiedSuccess() {
-
         Intent intent = new Intent();
         intent.putExtra("VerifiedEmail",email);
         setResult(RESULT_OK);
         finish();
+    }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 }
