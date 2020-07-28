@@ -12,9 +12,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.BinderThread;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.mcn.honeydew.R;
+import com.mcn.honeydew.data.network.model.response.LocateAccountResponse;
 import com.mcn.honeydew.ui.base.BaseActivity;
+import com.mcn.honeydew.ui.forgotPassword.locateAccountFragment.LocateAccountFragment;
+import com.mcn.honeydew.ui.forgotPassword.resetMethodFragment.ResetMethodFragment;
+import com.mcn.honeydew.ui.verify_email.search_email.SearchEmailFragment;
+import com.mcn.honeydew.ui.verify_email.verifyEmailOtpFragment.VerifyEmailOtpFragment;
 import com.mcn.honeydew.utils.CommonUtils;
 
 
@@ -24,35 +32,35 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpView {
+public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpView, SearchEmailFragment.OnLocateAccountListener,VerifyEmailOtpFragment.VerifyOtpListener {
 
     @Inject
     VerifyEmailMvpPresenter<VerifyEmailMvpView> mPresenter;
 
-    @BindView(R.id.text_sub_heading)
+  /*  @BindView(R.id.text_sub_heading)
     TextView subHeadingTextView;
 
     @BindView(R.id.edit_email)
-    EditText emailEditText;
+    EditText emailEditText;*/
 
-    @BindView(R.id.edit_code_email)
-    EditText  codeEditText;
-
-    @BindView(R.id.submit_button)
-    Button submitButton;
+//    @BindView(R.id.edit_code_email)
+//    EditText  codeEditText;
+//
+//    @BindView(R.id.submit_button)
+//    Button submitButton;
 
     private boolean isEmailVerified = false;
 
     String email = null;
 
-    @BindView(R.id.edit_email_lay)
+   /* @BindView(R.id.edit_email_lay)
     LinearLayout linearLayoutEmail;
 
     @BindView(R.id.enter_code_lay)
     LinearLayout otpLayout;
 
     @BindView(R.id.additional_sub_heading)
-    TextView additionalOTPTextView;
+    TextView additionalOTPTextView;*/
 
 
     public static Intent getStartIntent(Context context) {
@@ -69,6 +77,11 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
         setUnBinder(ButterKnife.bind(this));
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         mPresenter.onAttach(this);
 
         setUp();
@@ -77,15 +90,25 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
 
     @Override
-    protected void setUp() {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
 
-        if(getSupportActionBar()==null){
-            return;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
 
-        getSupportActionBar().setTitle("Verify Email");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    protected void setUp() {
+        mPresenter.openSearchEmailFragment();
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
@@ -96,8 +119,19 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
     }
 
+    private void showFragment(Fragment fragment, String tag) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_account, fragment, tag);
 
-    @OnClick(R.id.submit_button)
+        if (fragment instanceof SearchEmailFragment)
+            fragmentTransaction.commit();
+        else
+            fragmentTransaction.addToBackStack(null).commit();
+    }
+
+
+ /*   @OnClick(R.id.submit_button)
     public void submitButtonClicked(){
 
         if(!isEmailVerified){
@@ -138,9 +172,9 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
         }
 
 
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void emailVerifiedSuccessfully(boolean value) {
 
         if(value){
@@ -152,23 +186,47 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
         }
 
     }
-
-    @Override
+*/
+   /* @Override
     public void otpVerifiedSuccess() {
         Intent intent = new Intent();
         intent.putExtra("VerifiedEmail",email);
         setResult(RESULT_OK);
         finish();
+    }*/
+
+    @Override
+    public void emailVerifiedSuccessfully(boolean value) {
+
+    }
+
+    @Override
+    public void otpVerifiedSuccess() {
+
+    }
+
+    @Override
+    public void openSearchEmailFragments() {
+        showFragment(SearchEmailFragment.newInstance(), SearchEmailFragment.TAG);
     }
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void onAccountLocated(String detail) {
 
-        if(item.getItemId() == android.R.id.home){
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
+        showFragment(VerifyEmailOtpFragment.newInstance(detail), VerifyEmailOtpFragment.TAG);
+    }
+
+    @Override
+    public void onVerifySuccess(String mAuthentication) {
+        Intent intent = new Intent();
+        intent.putExtra("VerifiedEmail",mAuthentication);
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void onResendCodeClicked() {
 
     }
 }

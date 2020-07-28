@@ -38,6 +38,8 @@ import com.mcn.honeydew.ui.shareToContacts.ShareToContactsActivity;
 import com.mcn.honeydew.ui.sharelist.ShareListFragment;
 import com.mcn.honeydew.ui.splash.SplashActivity;
 import com.mcn.honeydew.ui.verify_email.VerifyEmailActivity;
+import com.mcn.honeydew.ui.verify_email.search_email.SearchEmailFragment;
+import com.mcn.honeydew.ui.verify_email.verifyEmailOtpFragment.VerifyEmailOtpFragment;
 import com.mcn.honeydew.ui.welcome.WelcomeTourActivity;
 
 import dagger.Component;
@@ -127,6 +129,10 @@ public interface ActivityComponent {
 
     void inject(AddListActivity activity);
 
-    void inject(VerifyEmailActivity activity);
+    void inject(VerifyEmailActivity activity);// verify email
+
+    void inject(SearchEmailFragment fragment); // verify email
+
+    void inject(VerifyEmailOtpFragment fragment);
 
 }

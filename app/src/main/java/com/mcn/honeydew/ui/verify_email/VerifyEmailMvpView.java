@@ -8,4 +8,6 @@ public interface VerifyEmailMvpView extends MvpView {
 
     void otpVerifiedSuccess();
 
+    void openSearchEmailFragments();
+
 }

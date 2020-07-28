@@ -69,5 +69,12 @@ public class VerifyEmailPresenter<V extends VerifyEmailMvpView> extends BasePres
 
     }
 
+    @Override
+    public void openSearchEmailFragment() {
+
+        getMvpView().openSearchEmailFragments();
+
+    }
+
 
 }

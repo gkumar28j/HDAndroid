@@ -29,6 +29,7 @@ import com.mcn.honeydew.data.network.model.request.ChangeItemStatusRequest;
 import com.mcn.honeydew.data.network.model.request.ChangePasswordRequest;
 import com.mcn.honeydew.data.network.model.request.DailyReminderExpiringRequest;
 import com.mcn.honeydew.data.network.model.request.DeleteItemListRequest;
+import com.mcn.honeydew.data.network.model.request.EmailUpdateNewRequest;
 import com.mcn.honeydew.data.network.model.request.FacebookLoginRequest;
 import com.mcn.honeydew.data.network.model.request.PushNotificationSettingsRequest;
 import com.mcn.honeydew.data.network.model.request.ReminderTimeRequest;
@@ -43,6 +44,7 @@ import com.mcn.honeydew.data.network.model.request.UpdateHeaderColorRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateListSettingsRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateProximityRangeRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateUserNameRequest;
+import com.mcn.honeydew.data.network.model.request.VerifyNewEmailOTPRequest;
 import com.mcn.honeydew.data.network.model.request.VerifyOtpRequest;
 import com.mcn.honeydew.data.network.model.response.AddItemsLocationResponse;
 import com.mcn.honeydew.data.network.model.response.AddUpdateItemResponse;
@@ -55,6 +57,7 @@ import com.mcn.honeydew.data.network.model.response.DailyReminderExpiringRespons
 import com.mcn.honeydew.data.network.model.response.DeleteItemListResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteRecentItemsResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteUserResponse;
+import com.mcn.honeydew.data.network.model.response.EmailUpdateNewResponse;
 import com.mcn.honeydew.data.network.model.response.FacebookLoginResponse;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
 import com.mcn.honeydew.data.network.model.response.GetListSettingsResponse;
@@ -722,6 +725,16 @@ public class AppDataManager implements DataManager {
                                                                      RequestBody Latitude, RequestBody ListId,
                                                                      RequestBody ListName, RequestBody Location, RequestBody Longitude, RequestBody StatusId, MultipartBody.Part image) {
         return mApiHelper.doUpdateRecentItemsCall(ItemId, ItemName, ItemTime, Latitude, ListId, ListName, Location, Longitude, StatusId, image);
+    }
+
+    @Override
+    public Observable<EmailUpdateNewResponse> doUpdateEmailNew(EmailUpdateNewRequest request) {
+        return mApiHelper.doUpdateEmailNew(request);
+    }
+
+    @Override
+    public Observable<EmailUpdateNewResponse> doVerifyEmailNewOtp(VerifyNewEmailOTPRequest request) {
+        return mApiHelper.doVerifyEmailNewOtp(request);
     }
 
     @Override

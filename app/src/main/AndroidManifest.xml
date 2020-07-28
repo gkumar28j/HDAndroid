@@ -129,7 +129,8 @@
             android:theme="@style/WelcomeThemeFullScreen" />
 
         <activity android:name=".ui.verify_email.VerifyEmailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent"/>
 
 
     <!--    <activity android:name=".ui.addlist.AddListActivity"

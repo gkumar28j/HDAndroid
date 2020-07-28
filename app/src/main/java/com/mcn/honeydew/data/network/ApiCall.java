@@ -24,6 +24,7 @@ import com.mcn.honeydew.data.network.model.request.ChangeItemStatusRequest;
 import com.mcn.honeydew.data.network.model.request.ChangePasswordRequest;
 import com.mcn.honeydew.data.network.model.request.DailyReminderExpiringRequest;
 import com.mcn.honeydew.data.network.model.request.DeleteItemListRequest;
+import com.mcn.honeydew.data.network.model.request.EmailUpdateNewRequest;
 import com.mcn.honeydew.data.network.model.request.FacebookLoginRequest;
 import com.mcn.honeydew.data.network.model.request.PushNotificationSettingsRequest;
 import com.mcn.honeydew.data.network.model.request.ReminderTimeRequest;
@@ -38,6 +39,7 @@ import com.mcn.honeydew.data.network.model.request.UpdateHeaderColorRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateListSettingsRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateProximityRangeRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateUserNameRequest;
+import com.mcn.honeydew.data.network.model.request.VerifyNewEmailOTPRequest;
 import com.mcn.honeydew.data.network.model.request.VerifyOtpRequest;
 import com.mcn.honeydew.data.network.model.response.AddItemsLocationResponse;
 import com.mcn.honeydew.data.network.model.response.AddUpdateItemResponse;
@@ -50,6 +52,7 @@ import com.mcn.honeydew.data.network.model.response.DailyReminderExpiringRespons
 import com.mcn.honeydew.data.network.model.response.DeleteItemListResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteRecentItemsResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteUserResponse;
+import com.mcn.honeydew.data.network.model.response.EmailUpdateNewResponse;
 import com.mcn.honeydew.data.network.model.response.FacebookLoginResponse;
 import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListResponse;
 import com.mcn.honeydew.data.network.model.response.GetListSettingsResponse;
@@ -204,7 +207,9 @@ public interface ApiCall {
 
     String ENDPOINT_ADD_UPDATE_ITEMS_NEW_LIST_CALL_URL = API_VERSION + "/api/item/AddUpdateItemnew";
 
-    String ENDPOINT_VERIFY_EMAIL = "";
+    String ENDPOINT_VERIFY_EMAIL_NEW =API_VERSION + "/api/Account/EmailUpdateNew";
+
+    String ENDPOINT_VERIFY_EMAIL_NEW_OTP =API_VERSION + "/api/Account/VerifyEmail";
 
     @POST(ENDPOINT_SERVER_LOGIN)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PUBLIC_API)
@@ -483,6 +488,15 @@ public interface ApiCall {
     @GET(ENDPOINT_GET_NOTIFICATION_COUNT)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
     Observable<NotificationCountResponse> doGetNotificationCount();
+
+    @POST(ENDPOINT_VERIFY_EMAIL_NEW)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<EmailUpdateNewResponse> doUpdateEmailNew(@Body EmailUpdateNewRequest request);
+
+    @POST(ENDPOINT_VERIFY_EMAIL_NEW_OTP)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<EmailUpdateNewResponse> doVerifyEmailNewOtp(@Body VerifyNewEmailOTPRequest request);
+
 
 
     class Factory {

@@ -118,6 +118,12 @@ import com.mcn.honeydew.ui.splash.SplashPresenter;
 import com.mcn.honeydew.ui.verify_email.VerifyEmailMvpPresenter;
 import com.mcn.honeydew.ui.verify_email.VerifyEmailMvpView;
 import com.mcn.honeydew.ui.verify_email.VerifyEmailPresenter;
+import com.mcn.honeydew.ui.verify_email.search_email.SearchEmailMvpPresenter;
+import com.mcn.honeydew.ui.verify_email.search_email.SearchEmailMvpView;
+import com.mcn.honeydew.ui.verify_email.search_email.SearchEmailPresenter;
+import com.mcn.honeydew.ui.verify_email.verifyEmailOtpFragment.VerifyEmailOtpMvpPresenter;
+import com.mcn.honeydew.ui.verify_email.verifyEmailOtpFragment.VerifyEmailOtpMvpView;
+import com.mcn.honeydew.ui.verify_email.verifyEmailOtpFragment.VerifyEmailOtpPresenter;
 import com.mcn.honeydew.ui.welcome.WelcomeMvpPresenter;
 import com.mcn.honeydew.ui.welcome.WelcomeMvpView;
 import com.mcn.honeydew.ui.welcome.WelcomePresenter;
@@ -407,6 +413,16 @@ public class ActivityModule {
 
     @Provides
     VerifyEmailMvpPresenter<VerifyEmailMvpView> provideVerifyEmailPresenter(VerifyEmailPresenter<VerifyEmailMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    SearchEmailMvpPresenter<SearchEmailMvpView> provideSearchEmailPresenter(SearchEmailPresenter<SearchEmailMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    VerifyEmailOtpMvpPresenter<VerifyEmailOtpMvpView> provideVerifyEmailOtpPresenter(VerifyEmailOtpPresenter<VerifyEmailOtpMvpView> presenter){
         return presenter;
     }
 }

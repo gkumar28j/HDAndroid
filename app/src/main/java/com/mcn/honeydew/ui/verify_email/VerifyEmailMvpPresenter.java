@@ -8,5 +8,7 @@ public interface VerifyEmailMvpPresenter<V extends VerifyEmailMvpView> extends M
 
     void verifyOTP(String otp);
 
+    void openSearchEmailFragment();
+
 
 }
