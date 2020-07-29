@@ -14,5 +14,7 @@ public interface MyAccountMvpPresenter<V extends MyAccountMvpView> extends MvpPr
 
     void onUpdateEmail();
 
+    void onEmailChanged(String email);
+
 
 }

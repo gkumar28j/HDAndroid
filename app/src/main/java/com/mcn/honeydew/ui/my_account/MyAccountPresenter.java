@@ -7,6 +7,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.LogoutResponse;
+import com.mcn.honeydew.data.network.model.UserDetailResponse;
 import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.rx.SchedulerProvider;
 
@@ -95,6 +96,17 @@ public class MyAccountPresenter<V extends MyAccountMvpView> extends BasePresente
     public void onUpdateEmail() {
 
         getMvpView().showEditEmailDialog();
+
+    }
+
+    @Override
+    public void onEmailChanged(String email) {
+
+        UserDetailResponse data = getDataManager().getUserData();
+        data.setPrimaryEmail(email);
+        getDataManager().setUserData(data);
+
+        getMvpView().onLoadDataSuccess(getDataManager().getUserData(), getDataManager().isFacebookLogin());
 
     }
 

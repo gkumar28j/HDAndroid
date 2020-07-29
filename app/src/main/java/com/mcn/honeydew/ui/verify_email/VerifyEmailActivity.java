@@ -93,7 +93,7 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
 
             default:
@@ -221,12 +221,14 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
     public void onVerifySuccess(String mAuthentication) {
         Intent intent = new Intent();
         intent.putExtra("VerifiedEmail",mAuthentication);
-        setResult(RESULT_OK);
+        setResult(RESULT_OK,intent);
         finish();
     }
 
     @Override
     public void onResendCodeClicked() {
+
+        onBackPressed();
 
     }
 }

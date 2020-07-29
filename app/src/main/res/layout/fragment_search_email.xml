@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:text="@string/label_email_or_phone"
+        android:text="Enter your email to verify"
         android:textColor="@color/white"
         android:textSize="@dimen/textview_size_s3" />
 

@@ -193,7 +193,14 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
 
             if(resultCode == Activity.RESULT_OK){
 
-                mPresenter.onViewPrepared();
+              //  mPresenter.onViewPrepared();
+                if(data!=null && data.hasExtra("VerifiedEmail")){
+
+                    String email = data.getStringExtra("VerifiedEmail");
+                    mPresenter.onEmailChanged(email);
+                }
+
+
             }
 
 

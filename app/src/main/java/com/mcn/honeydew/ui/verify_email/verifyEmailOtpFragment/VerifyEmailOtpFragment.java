@@ -70,6 +70,8 @@ public class VerifyEmailOtpFragment extends BaseFragment implements VerifyEmailO
             mPresenter.onAttach(this);
         }
 
+        setUp(view);
+
         return view;
     }
 
@@ -93,7 +95,7 @@ public class VerifyEmailOtpFragment extends BaseFragment implements VerifyEmailO
 
     @Override
     protected void setUp(View view) {
-
+        titleTextView.setText("An OTP has been sent to "+mAuthentication +" Please enter OTP to verify email");
     }
 
     @OnClick(R.id.text_continue)

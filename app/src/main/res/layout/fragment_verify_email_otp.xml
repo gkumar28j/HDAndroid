@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/register_default_padding"
     android:paddingRight="@dimen/register_default_padding"
     android:paddingTop="@dimen/register_default_padding"
+
     >
 
     <TextView
@@ -51,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="left"
-        android:text="@string/label_did_not_receive"
+        android:text="Resend OTP"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
