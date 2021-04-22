@@ -117,7 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/common_app_settings_lay_padding"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="20dp"
         android:background="@color/white">
 
         <ImageView
@@ -146,6 +146,76 @@
             android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
+
+   <!-- <RelativeLayout
+        android:id="@+id/write_review_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_app_settings_lay_padding"
+        android:layout_marginTop="2dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/write_review_imageview"
+            android:layout_width="@dimen/common_app_settings_imageview_height_width"
+            android:layout_height="@dimen/common_app_settings_imageview_height_width"
+            android:src="@drawable/ic_idea"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/write_review_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Write a Review"
+            style="@style/CommonAppSettingsHeadingStyle"
+            android:layout_toEndOf="@id/write_review_imageview"
+            android:layout_marginStart="@dimen/common_app_setting_textview_marginleft"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/review_forward_imageview"
+            android:layout_width="@dimen/common_app_settings_layout_arrow_img_ht_wdth"
+            android:layout_height="@dimen/common_app_settings_layout_arrow_img_ht_wdth"
+            android:src="@drawable/ic_right_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/share_app_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_app_settings_lay_padding"
+        android:layout_marginTop="2dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/share_app_imageview"
+            android:layout_width="@dimen/common_app_settings_imageview_height_width"
+            android:layout_height="@dimen/common_app_settings_imageview_height_width"
+            android:src="@drawable/ic_idea"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/share_app_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share the App"
+            style="@style/CommonAppSettingsHeadingStyle"
+            android:layout_toEndOf="@id/share_app_imageview"
+            android:layout_marginStart="@dimen/common_app_setting_textview_marginleft"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/share_app_imageview_forward"
+            android:layout_width="@dimen/common_app_settings_layout_arrow_img_ht_wdth"
+            android:layout_height="@dimen/common_app_settings_layout_arrow_img_ht_wdth"
+            android:src="@drawable/ic_right_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>-->
 
 
 

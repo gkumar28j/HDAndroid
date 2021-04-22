@@ -207,9 +207,11 @@ public interface ApiCall {
 
     String ENDPOINT_ADD_UPDATE_ITEMS_NEW_LIST_CALL_URL = API_VERSION + "/api/item/AddUpdateItemnew";
 
-    String ENDPOINT_VERIFY_EMAIL_NEW =API_VERSION + "/api/Account/EmailUpdateNew";
+    String ENDPOINT_VERIFY_EMAIL_NEW = API_VERSION + "/api/Account/EmailUpdateNew";
 
-    String ENDPOINT_VERIFY_EMAIL_NEW_OTP =API_VERSION + "/api/Account/VerifyEmail";
+    String ENDPOINT_VERIFY_EMAIL_NEW_OTP = API_VERSION + "/api/Account/VerifyEmail";
+
+    String ENDPOINT_VERIFY_EMAIL_RESEND_OTP = API_VERSION + "/api/Account/resendemailotp";
 
     @POST(ENDPOINT_SERVER_LOGIN)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PUBLIC_API)
@@ -493,10 +495,13 @@ public interface ApiCall {
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
     Observable<EmailUpdateNewResponse> doUpdateEmailNew(@Body EmailUpdateNewRequest request);
 
+    @POST(ENDPOINT_VERIFY_EMAIL_RESEND_OTP)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<EmailUpdateNewResponse> resendOTP(@Body EmailUpdateNewRequest request);
+
     @POST(ENDPOINT_VERIFY_EMAIL_NEW_OTP)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
     Observable<EmailUpdateNewResponse> doVerifyEmailNewOtp(@Body VerifyNewEmailOTPRequest request);
-
 
 
     class Factory {

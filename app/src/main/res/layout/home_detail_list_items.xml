@@ -74,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="1"
-                    android:maxLength="30"
+                    android:maxLength="35"
                     app:minTextSize="9sp"
                     tools:text="C# Corner" />
 
@@ -144,6 +144,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:padding="4dp"
+                android:visibility="gone"
                 android:src="@drawable/ic_navigate" />
 
 

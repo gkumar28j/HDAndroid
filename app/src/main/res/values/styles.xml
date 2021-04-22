@@ -517,7 +517,7 @@
 
     <style name="CommonAppSettingsHeadingStyle">
         <item name="android:textSize">@dimen/textview_size_m1</item>
-        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColor">@color/black</item>
         <item name="fontPath">Lato/Lato-Regular.ttf</item>
     </style>
 

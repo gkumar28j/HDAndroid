@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
+import com.mcn.honeydew.data.network.model.request.EmailUpdateNewRequest;
 import com.mcn.honeydew.data.network.model.request.VerifyNewEmailOTPRequest;
 import com.mcn.honeydew.data.network.model.request.VerifyOtpRequest;
 import com.mcn.honeydew.data.network.model.response.EmailUpdateNewResponse;
@@ -69,6 +70,60 @@ public class VerifyEmailOtpPresenter<V extends VerifyEmailOtpMvpView> extends Ba
                             getMvpView().onVerified();
                         else
                             getMvpView().showMessage(response.getResult().getMessage());
+
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().hideLoading();
+                        handleApiError(throwable);
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void resendOTP(String email) {
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().showMessage(R.string.connection_error);
+            return;
+        }
+
+        EmailUpdateNewRequest request = new EmailUpdateNewRequest();
+        request.setEmail(email);
+        request.setFacebookEmail("");
+        if(getDataManager().isFacebookLogin()){
+            request.setIsFacebookLogin(1);
+        }else {
+            request.setIsFacebookLogin(0);
+        }
+        getMvpView().showLoading();
+
+        getDataManager().resendOTP(request)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<EmailUpdateNewResponse>() {
+                    @Override
+                    public void accept(EmailUpdateNewResponse response) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().hideLoading();
+
+                        if (response.getErrorObject().getStatus() != 1) {
+                            getMvpView().onError(response.getErrorObject().getErrorMessage());
+                            return;
+                        }
+
+                        if(response.getResult().getStatus()==1){
+                            getMvpView().onOTPReceived();
+                        }else {
+                            getMvpView().showMessage(response.getResult().getMessage());
+                        }
 
 
                     }

@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -423,6 +425,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
 
                 break;
             case R.id.navigation_share_list:
+
                 settingImageView.setVisibility(View.GONE);
                 listSettingImageView.setVisibility(View.GONE);
                 title.setText("");

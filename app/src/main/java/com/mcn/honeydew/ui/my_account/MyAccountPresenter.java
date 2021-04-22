@@ -104,6 +104,7 @@ public class MyAccountPresenter<V extends MyAccountMvpView> extends BasePresente
 
         UserDetailResponse data = getDataManager().getUserData();
         data.setPrimaryEmail(email);
+        data.setEmailVerified(true);
         getDataManager().setUserData(data);
 
         getMvpView().onLoadDataSuccess(getDataManager().getUserData(), getDataManager().isFacebookLogin());

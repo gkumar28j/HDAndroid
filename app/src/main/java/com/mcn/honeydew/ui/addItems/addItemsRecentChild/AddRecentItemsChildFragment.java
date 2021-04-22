@@ -110,6 +110,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     ImageView voiceRecognitionImage;
 
     private TextFilter mFilter;
+
     @BindView(R.id.search_edit_text)
     EditText mEditText;
 

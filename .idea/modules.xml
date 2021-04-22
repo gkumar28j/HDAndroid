@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HDAndroid.iml" filepath="$PROJECT_DIR$/HDAndroid.iml" group="HDAndroid" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="HDAndroid/app" />
-      <module fileurl="file://$PROJECT_DIR$/loopview/loopview.iml" filepath="$PROJECT_DIR$/loopview/loopview.iml" group="HDAndroid/loopview" />
-      <module fileurl="file://$PROJECT_DIR$/swipe-layout/swipe-layout.iml" filepath="$PROJECT_DIR$/swipe-layout/swipe-layout.iml" group="HDAndroid/swipe-layout" />
-      <module fileurl="file://$PROJECT_DIR$/swipe-reveal-layout/swipe-reveal-layout.iml" filepath="$PROJECT_DIR$/swipe-reveal-layout/swipe-reveal-layout.iml" group="HDAndroid/swipe-reveal-layout" />
+      <module fileurl="file://$PROJECT_DIR$/HDAndroid.iml" filepath="$PROJECT_DIR$/HDAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HDAndroid.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HDAndroid.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/loopview/HDAndroid.loopview.iml" filepath="$PROJECT_DIR$/.idea/modules/loopview/HDAndroid.loopview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/swipe-layout/HDAndroid.swipe-layout.iml" filepath="$PROJECT_DIR$/.idea/modules/swipe-layout/HDAndroid.swipe-layout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/swipe-reveal-layout/HDAndroid.swipe-reveal-layout.iml" filepath="$PROJECT_DIR$/.idea/modules/swipe-reveal-layout/HDAndroid.swipe-reveal-layout.iml" />
     </modules>
   </component>
 </project>

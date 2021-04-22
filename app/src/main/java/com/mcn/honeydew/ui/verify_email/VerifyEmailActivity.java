@@ -103,7 +103,14 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
     @Override
     protected void setUp() {
-        mPresenter.openSearchEmailFragment();
+
+        if(getIntent()!=null && getIntent().hasExtra("from_account")){
+            String email = getIntent().getStringExtra("email_final");
+            onAccountLocated(email);
+        }else {
+            mPresenter.openSearchEmailFragment();
+        }
+
     }
 
     @Override

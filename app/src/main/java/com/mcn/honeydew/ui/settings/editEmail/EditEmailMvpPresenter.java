@@ -7,6 +7,8 @@ public interface EditEmailMvpPresenter<V extends EditEmailMvpView> extends MvpPr
 
     void onEmailSubmit(String s);
 
+    void onResendOTP(String email);
+
     void onCancelClicked();
 
     void onViewPrepared();

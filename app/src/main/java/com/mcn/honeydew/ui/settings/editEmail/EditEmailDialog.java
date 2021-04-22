@@ -1,7 +1,9 @@
 package com.mcn.honeydew.ui.settings.editEmail;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.FragmentManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,6 @@ import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.base.BaseDialog;
-import com.mcn.honeydew.ui.settings.editname.EditNameDialog;
 
 import javax.inject.Inject;
 
@@ -37,14 +38,20 @@ public class EditEmailDialog extends BaseDialog implements EditEmailMvpView {
     @BindView(R.id.btn_cancel)
     Button mCancelButton;
 
-    private EditNameDialog.RefreshListener mListener;
+    String finalEmail;
 
-    public void setListener(EditNameDialog.RefreshListener listener) {
+    String originalEmail;
+
+    boolean isEmailVerified;
+
+    private RefreshListener mListener;
+
+    public void setListener(RefreshListener listener) {
         mListener = listener;
     }
 
 
-    public static EditEmailDialog newInstance() {
+    public static EditEmailDialog newInstance(boolean emailVerified) {
         EditEmailDialog fragment = new EditEmailDialog();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
@@ -82,7 +89,18 @@ public class EditEmailDialog extends BaseDialog implements EditEmailMvpView {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.onEmailSubmit(mMessage.getText().toString());
+
+                finalEmail = mMessage.getText().toString().trim();
+
+                if (originalEmail.equals(finalEmail) && isEmailVerified) {
+                    mMessage.setError("Email already verified.");
+                    mMessage.requestFocus();
+                }else if(originalEmail.equals(finalEmail) && !isEmailVerified){
+                    mPresenter.onResendOTP(finalEmail);
+                }else {
+                    mPresenter.onEmailSubmit(finalEmail);
+                }
+
             }
         });
 
@@ -102,14 +120,23 @@ public class EditEmailDialog extends BaseDialog implements EditEmailMvpView {
 
     @Override
     public void showUserEmail(UserDetailResponse userData) {
+
+        originalEmail = userData.getPrimaryEmail();
+        isEmailVerified = userData.isEmailVerified();
+
         mMessage.setText(userData.getPrimaryEmail());
     }
 
 
-
     @Override
     public void refreshData() {
-        mListener.refreshData();
+        mListener.onEmailEditedSuccessfully(finalEmail);
+    }
+
+    @Override
+    public void onOTPReceived() {
+        mListener.onEmailEditedSuccessfully(finalEmail);
+        dismissDialog();
     }
 
     @Override
@@ -119,7 +146,7 @@ public class EditEmailDialog extends BaseDialog implements EditEmailMvpView {
     }
 
     public static interface RefreshListener {
-        void refreshData();
+        void onEmailEditedSuccessfully(String email);
     }
 
 

@@ -738,6 +738,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Observable<EmailUpdateNewResponse> resendOTP(EmailUpdateNewRequest request) {
+        return mApiHelper.resendOTP(request);
+    }
+
+    @Override
     public void insertListData(int listId, String response) {
         mDbHelper.insertListData(listId, response);
     }

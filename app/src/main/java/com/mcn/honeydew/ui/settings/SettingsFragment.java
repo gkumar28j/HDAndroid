@@ -330,7 +330,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
     @Override
     public void showEditEmailDialog() {
 
-        EditEmailDialog dialog = EditEmailDialog.newInstance();
+        EditEmailDialog dialog = EditEmailDialog.newInstance(true);
         dialog.setListener(this);
         dialog.show(getChildFragmentManager());
     }
@@ -536,4 +536,8 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, E
     }
 
 
+    @Override
+    public void onEmailEditedSuccessfully(String email) {
+
+    }
 }

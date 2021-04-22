@@ -44,6 +44,42 @@ public class UserDetailResponse {
     @SerializedName("ProximityId")
     private int proximityId;
 
+    @SerializedName("LoginByFacebook")
+    private boolean LoginByFacebook;
+
+    @SerializedName("SecondaryEmail")
+    private String SecondaryEmail;
+
+    public boolean isLoginByFacebook() {
+        return LoginByFacebook;
+    }
+
+    public void setLoginByFacebook(boolean loginByFacebook) {
+        LoginByFacebook = loginByFacebook;
+    }
+
+    public String getSecondaryEmail() {
+        return SecondaryEmail;
+    }
+
+    public void setSecondaryEmail(String secondaryEmail) {
+        SecondaryEmail = secondaryEmail;
+    }
+
+
+    public boolean isEmailVerified() {
+        return IsEmailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        IsEmailVerified = emailVerified;
+    }
+
+    @SerializedName("IsEmailVerified")
+    private boolean IsEmailVerified;
+
+
+
     public int getUserProfileId() {
         return userProfileId;
     }

@@ -223,4 +223,7 @@ public interface ApiHelper {
     Observable<EmailUpdateNewResponse> doUpdateEmailNew(EmailUpdateNewRequest request);
     Observable<EmailUpdateNewResponse> doVerifyEmailNewOtp(VerifyNewEmailOTPRequest request);
 
+    Observable<EmailUpdateNewResponse> resendOTP(@Body EmailUpdateNewRequest request);
+
+
 }

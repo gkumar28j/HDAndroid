@@ -422,6 +422,11 @@ public class AppApiHelper implements ApiHelper {
         return mApiCall.doVerifyEmailNewOtp(request);
     }
 
+    @Override
+    public Observable<EmailUpdateNewResponse> resendOTP(EmailUpdateNewRequest request) {
+        return mApiCall.resendOTP(request);
+    }
+
 
 }
 

@@ -10,5 +10,7 @@ import com.mcn.honeydew.ui.base.MvpPresenter;
 @PerActivity
 public interface VerifyEmailOtpMvpPresenter<V extends VerifyEmailOtpMvpView> extends MvpPresenter<V> {
     void verifyOtp(String authenticationDetail, String otp);
+
+    void resendOTP(String email);
 }
 

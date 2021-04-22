@@ -10,4 +10,7 @@ public interface EditEmailMvpView extends MvpView {
     void showUserEmail(UserDetailResponse userData);
 
     void refreshData();
+
+    void onOTPReceived();
+
 }

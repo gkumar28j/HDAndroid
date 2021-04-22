@@ -15,7 +15,7 @@
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            app:palette="@drawable/palette"
+            app:palette="@drawable/pallete_new"
             app:selector="@drawable/wheel"
             android:layout_centerInParent="true"/>
 

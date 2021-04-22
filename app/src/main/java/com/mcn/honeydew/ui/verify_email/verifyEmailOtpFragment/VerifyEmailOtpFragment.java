@@ -106,9 +106,11 @@ public class VerifyEmailOtpFragment extends BaseFragment implements VerifyEmailO
 
     @OnClick(R.id.text_not_received)
     void onNotReceivedClicked() {
-        if (mListener != null) {
+       /* if (mListener != null) {
             mListener.onResendCodeClicked();
-        }
+        }*/
+
+        mPresenter.resendOTP(mAuthentication);
     }
 
     @Override
@@ -116,6 +118,11 @@ public class VerifyEmailOtpFragment extends BaseFragment implements VerifyEmailO
         if (mListener != null) {
             mListener.onVerifySuccess(mAuthentication);
         }
+    }
+
+    @Override
+    public void onOTPReceived() {
+
     }
 
     public interface VerifyOtpListener {

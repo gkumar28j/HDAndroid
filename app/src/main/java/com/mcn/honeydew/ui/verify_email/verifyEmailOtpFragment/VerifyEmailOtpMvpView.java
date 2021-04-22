@@ -9,4 +9,6 @@ import com.mcn.honeydew.ui.base.MvpView;
 
 public interface VerifyEmailOtpMvpView extends MvpView {
     void onVerified();
+
+    void onOTPReceived();
 }
