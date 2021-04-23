@@ -1,9 +1,12 @@
 package com.mcn.honeydew.ui.my_account;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.CallbackManager;
@@ -21,6 +25,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.mcn.honeydew.BuildConfig;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
@@ -74,6 +79,8 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
     private CallbackManager mCallbackManager;
 
     UserDetailResponse finalUserData;
+
+    String facebookEmail;
 
     public static MyAccountFragment newInstance() {
         Bundle args = new Bundle();
@@ -159,13 +166,13 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
             normalEmailLayout.setVisibility(View.GONE);
             fbEmailTextView.setText(userData.getPrimaryEmail());
         } else {
-            facebookEmailLayout.setVisibility(View.VISIBLE);
+            facebookEmailLayout.setVisibility(View.GONE);
             normalEmailLayout.setVisibility(View.VISIBLE);
             normalEmailTextView.setText(userData.getPrimaryEmail());
-            if(userData.isEmailVerified()){
+            if (userData.isEmailVerified()) {
                 verifiedEmailTextView.setText("Verified");
                 verifiedEmailTextView.setTextColor(Color.parseColor("#00FF00"));
-            }else {
+            } else {
                 verifiedEmailTextView.setText("Not verified");
                 verifiedEmailTextView.setTextColor(Color.parseColor("#FF0000"));
             }
@@ -202,17 +209,13 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
     @Override
     public void showEditEmailDialog() {
 
-        EditEmailDialog dialog = EditEmailDialog.newInstance(finalUserData.isEmailVerified());
-        dialog.setListener(this);
-        dialog.show(getChildFragmentManager());
+        warningAlert();
 
-       /* if (getBaseActivity() == null) {
-            return;
-        }
+    }
 
-        Intent intent = VerifyEmailActivity.getStartIntent(getBaseActivity());
-        startActivityForResult(intent, REQUEST_CODE_EMAIL_VERIFICATION);*/
-
+    @Override
+    public void onEmailUpdatedSuccess() {
+        mPresenter.onEmailChanged(facebookEmail, true); // from facebook always true
     }
 
     @Override
@@ -232,7 +235,7 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
                 if (data != null && data.hasExtra("VerifiedEmail")) {
 
                     String email = data.getStringExtra("VerifiedEmail");
-                    mPresenter.onEmailChanged(email);
+                    mPresenter.onEmailChanged(email, true);
                 }
 
 
@@ -276,8 +279,10 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
 
                 if (response != null) {
                     String jsonresult = String.valueOf(object);
-                    Log.e("JSON Result",  jsonresult);
+                    Log.e("JSON Result", jsonresult);
                     String fbUserEmail = object.optString("email");
+                    facebookEmail = fbUserEmail;
+                    mPresenter.onEmailSubmit(fbUserEmail);
 
                 }
 
@@ -304,14 +309,52 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
 
     @Override
     public void onEmailEditedSuccessfully(String email) {
-          if (getBaseActivity() == null) {
+        if (getBaseActivity() == null) {
             return;
         }
+        mPresenter.onEmailChanged(email, false);
 
         Intent intent = VerifyEmailActivity.getStartIntent(getBaseActivity());
-        intent.putExtra("from_account","1");
-        intent.putExtra("email_final",email);
+        intent.putExtra("from_account", "1");
+        intent.putExtra("email_final", email);
         startActivityForResult(intent, REQUEST_CODE_EMAIL_VERIFICATION);
 
+    }
+
+
+    void warningAlert() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getBaseActivity());
+
+        builder.setTitle("HoneyDew")
+                .setCancelable(false)
+                .setMessage("Warning: you are about to change your sign-in email address; would you like to continue?")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        openEmailDialog();
+                        dialog.dismiss();
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+    void openEmailDialog() {
+
+        EditEmailDialog dialogEmail = EditEmailDialog.newInstance(finalUserData.isEmailVerified());
+        dialogEmail.setListener(this);
+        dialogEmail.show(getChildFragmentManager());
     }
 }

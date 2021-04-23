@@ -130,13 +130,15 @@ public class EditEmailDialog extends BaseDialog implements EditEmailMvpView {
 
     @Override
     public void refreshData() {
+        dismissDialog();
         mListener.onEmailEditedSuccessfully(finalEmail);
     }
 
     @Override
     public void onOTPReceived() {
-        mListener.onEmailEditedSuccessfully(finalEmail);
         dismissDialog();
+        mListener.onEmailEditedSuccessfully(finalEmail);
+
     }
 
     @Override

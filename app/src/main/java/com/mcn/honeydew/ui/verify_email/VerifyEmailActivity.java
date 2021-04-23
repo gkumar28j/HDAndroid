@@ -106,7 +106,13 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
         if(getIntent()!=null && getIntent().hasExtra("from_account")){
             String email = getIntent().getStringExtra("email_final");
-            onAccountLocated(email);
+
+            Fragment fragment = VerifyEmailOtpFragment.newInstance(email);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_account, fragment, VerifyEmailOtpFragment.TAG);
+            fragmentTransaction.commit();
+
         }else {
             mPresenter.openSearchEmailFragment();
         }

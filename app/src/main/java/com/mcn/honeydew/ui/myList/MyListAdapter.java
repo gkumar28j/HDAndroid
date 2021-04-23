@@ -194,12 +194,12 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             if (data.getLocation() != null) {
                 mAddressTextView.setVisibility(View.VISIBLE);
                 mAddressTextView.setText(data.getLocation());
-                mNavigateImageView.setVisibility(View.VISIBLE);
+             //   mNavigateImageView.setVisibility(View.VISIBLE);
 
             } else {
                 mAddressTextView.setVisibility(View.GONE);
                 mAddressTextView.setText("");
-                mNavigateImageView.setVisibility(View.GONE);
+             //   mNavigateImageView.setVisibility(View.GONE);
 
             }
 

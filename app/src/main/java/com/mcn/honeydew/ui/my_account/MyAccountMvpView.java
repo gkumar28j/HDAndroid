@@ -17,4 +17,6 @@ public interface MyAccountMvpView extends MvpView {
 
     void showEditEmailDialog();
 
+    void onEmailUpdatedSuccess();
+
 }
