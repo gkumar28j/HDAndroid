@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,9 +27,6 @@ public class VerifyEmailOtpFragment extends BaseFragment implements VerifyEmailO
 
     @BindView(R.id.edit_otp)
     EditText otpEditText;
-
-    @BindView(R.id.text_not_received)
-    TextView notReceivedTextView;
 
     @BindView(R.id.text_title)
     TextView titleTextView;

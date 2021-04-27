@@ -37,6 +37,7 @@ import com.mcn.honeydew.ui.forgotPassword.ForgotPasswordActivity;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationActivity;
 import com.mcn.honeydew.ui.register.RegisterActivity;
+import com.mcn.honeydew.ui.verify_email.VerifyEmailActivity;
 import com.mcn.honeydew.ui.welcome.WelcomeTourActivity;
 import com.mcn.honeydew.utils.CommonUtils;
 import com.mcn.honeydew.utils.KeyboardUtils;
@@ -81,7 +82,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, Faceboo
 
     @BindView(R.id.text_sign_up)
     TextView mSignUpTextView;
-
+    public static final int REQUEST_CODE_EMAIL_VERIFICATION = 143;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -230,6 +231,19 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, Faceboo
         Intent intent = WelcomeTourActivity.getStartIntent(LoginActivity.this);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void verifyEmail(String email) {
+        mPresenter.resendOTP(email);
+    }
+
+    @Override
+    public void onOTPSendSuccess(String email) {
+        Intent intent = VerifyEmailActivity.getStartIntent(this);
+        intent.putExtra("from_login", "1");
+        intent.putExtra("email_final", email);
+        startActivityForResult(intent, REQUEST_CODE_EMAIL_VERIFICATION);
     }
 
     @Override

@@ -10,15 +10,19 @@ import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.LoginResponse;
 import com.mcn.honeydew.data.network.model.UserDetailResponse;
+import com.mcn.honeydew.data.network.model.request.EmailUpdateNewRequest;
 import com.mcn.honeydew.data.network.model.request.FacebookLoginRequest;
+import com.mcn.honeydew.data.network.model.response.EmailUpdateNewResponse;
 import com.mcn.honeydew.data.network.model.response.FacebookLoginResponse;
 import com.mcn.honeydew.ui.base.BasePresenter;
+import com.mcn.honeydew.utils.CommonUtils;
 import com.mcn.honeydew.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DefaultObserver;
 
@@ -98,9 +102,14 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                         if (userDetailResponse.getIsPhoneVerified() == 1) {
                             getDataManager().setUserData(userDetailResponse);
 
-                            if(getDataManager().isFirstTimeLoggedIn()){
+                            if (!userDetailResponse.isEmailVerified()) {
+                                getMvpView().verifyEmail(userDetailResponse.getPrimaryEmail());
+                                return;
+                            }
+
+                            if (getDataManager().isFirstTimeLoggedIn()) {
                                 getMvpView().openTourActivity();
-                            }else {
+                            } else {
                                 getMvpView().openMainActivity();
                             }
 
@@ -199,14 +208,74 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
         getMvpView().openForgotPasswordActivity();
     }
 
+    @SuppressLint("CheckResult")
+    @Override
+    public void resendOTP(String email) {
+
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().showMessage(R.string.connection_error);
+            return;
+        }
+
+        getMvpView().showLoading();
+
+
+        EmailUpdateNewRequest request = new EmailUpdateNewRequest();
+        request.setEmail(email);
+        request.setFacebookEmail("");
+        if (getDataManager().isFacebookLogin()) {
+            request.setIsFacebookLogin(1);
+        } else {
+            request.setIsFacebookLogin(0);
+        }
+     //   getMvpView().showLoading();
+
+        getDataManager().resendOTP(request)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<EmailUpdateNewResponse>() {
+                    @Override
+                    public void accept(EmailUpdateNewResponse response) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().hideLoading();
+
+                        if (response.getErrorObject().getStatus() != 1) {
+                            getMvpView().onError(response.getErrorObject().getErrorMessage());
+                            return;
+                        }
+
+                        if (response.getResult().getStatus() == 1) {
+                            getMvpView().onOTPSendSuccess(email);
+                        } else {
+                            getMvpView().showMessage(response.getResult().getMessage());
+                        }
+
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().hideLoading();
+                        handleApiError(throwable);
+                    }
+                });
+
+
+    }
+
 
     private void enableFCM() {
         // Enable FCM via enable Auto-init service which generate new token and receive in FCMService
         //FirebaseMessaging.getInstance().setAutoInitEnabled(true);
 
-    //    String token = FirebaseInstanceId.getInstance().getToken();
+        //    String token = FirebaseInstanceId.getInstance().getToken();
 
-        Log.e("enabledFCM","yes");
+        Log.e("enabledFCM", "yes");
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
 
     }

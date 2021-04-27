@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.BinderThread;
 import androidx.fragment.app.Fragment;
@@ -21,6 +24,7 @@ import com.mcn.honeydew.data.network.model.response.LocateAccountResponse;
 import com.mcn.honeydew.ui.base.BaseActivity;
 import com.mcn.honeydew.ui.forgotPassword.locateAccountFragment.LocateAccountFragment;
 import com.mcn.honeydew.ui.forgotPassword.resetMethodFragment.ResetMethodFragment;
+import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.verify_email.search_email.SearchEmailFragment;
 import com.mcn.honeydew.ui.verify_email.verifyEmailOtpFragment.VerifyEmailOtpFragment;
 import com.mcn.honeydew.utils.CommonUtils;
@@ -32,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpView, SearchEmailFragment.OnLocateAccountListener,VerifyEmailOtpFragment.VerifyOtpListener {
+public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpView, SearchEmailFragment.OnLocateAccountListener, VerifyEmailOtpFragment.VerifyOtpListener {
 
     @Inject
     VerifyEmailMvpPresenter<VerifyEmailMvpView> mPresenter;
@@ -53,6 +57,9 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
     String email = null;
 
+  /*  @BindView(R.id.skip_button)
+    TextView skipButton;*/
+
    /* @BindView(R.id.edit_email_lay)
     LinearLayout linearLayoutEmail;
 
@@ -61,6 +68,8 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
     @BindView(R.id.additional_sub_heading)
     TextView additionalOTPTextView;*/
+
+    boolean isFromLogin = false;
 
 
     public static Intent getStartIntent(Context context) {
@@ -86,6 +95,28 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
         setUp();
 
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.skip_menu, menu);
+        MenuItem item = menu.findItem(R.id.menu_skip);
+        if(isFromLogin){
+            item.setVisible(true);
+        }else {
+            item.setVisible(false);
+        }
+
+        return true;
+    }
+
+    private void showMainActivity() {
+
+        Intent intent = MainActivity.getStartIntent(this);
+        startActivity(intent);
+        finishAffinity();
     }
 
 
@@ -96,6 +127,10 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
                 onBackPressed();
                 return true;
 
+            case R.id.menu_skip:
+                showMainActivity();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -104,16 +139,27 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
     @Override
     protected void setUp() {
 
-        if(getIntent()!=null && getIntent().hasExtra("from_account")){
-            String email = getIntent().getStringExtra("email_final");
+        if (getIntent() != null && getIntent().hasExtra("from_account")) {
 
+            String email = getIntent().getStringExtra("email_final");
             Fragment fragment = VerifyEmailOtpFragment.newInstance(email);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame_account, fragment, VerifyEmailOtpFragment.TAG);
             fragmentTransaction.commit();
 
-        }else {
+        } else if (getIntent() != null && getIntent().hasExtra("from_login")) {
+
+            isFromLogin = true;
+          //  skipButton.setVisibility(View.VISIBLE);
+            String email = getIntent().getStringExtra("email_final");
+            Fragment fragment = VerifyEmailOtpFragment.newInstance(email);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_account, fragment, VerifyEmailOtpFragment.TAG);
+            fragmentTransaction.commit();
+
+        } else {
             mPresenter.openSearchEmailFragment();
         }
 
@@ -232,10 +278,16 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
 
     @Override
     public void onVerifySuccess(String mAuthentication) {
-        Intent intent = new Intent();
-        intent.putExtra("VerifiedEmail",mAuthentication);
-        setResult(RESULT_OK,intent);
-        finish();
+
+        if(isFromLogin){
+            showMainActivity();
+        }else {
+            Intent intent = new Intent();
+            intent.putExtra("VerifiedEmail", mAuthentication);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+
     }
 
     @Override
@@ -244,4 +296,5 @@ public class VerifyEmailActivity extends BaseActivity implements VerifyEmailMvpV
         onBackPressed();
 
     }
+
 }

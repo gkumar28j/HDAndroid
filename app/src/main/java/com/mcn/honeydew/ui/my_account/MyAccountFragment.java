@@ -165,6 +165,7 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
             facebookEmailLayout.setVisibility(View.VISIBLE);
             normalEmailLayout.setVisibility(View.GONE);
             fbEmailTextView.setText(userData.getPrimaryEmail());
+            fbEmailTextView.setEnabled(false);
         } else {
             facebookEmailLayout.setVisibility(View.GONE);
             normalEmailLayout.setVisibility(View.VISIBLE);

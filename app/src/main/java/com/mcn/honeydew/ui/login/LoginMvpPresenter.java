@@ -17,4 +17,6 @@ public interface LoginMvpPresenter<V extends LoginMvpView> extends MvpPresenter<
 
     void onForgotPasswordClicked();
 
+    void resendOTP(String email);
+
 }

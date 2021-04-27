@@ -18,4 +18,8 @@ public interface LoginMvpView extends MvpView {
 
     void openTourActivity();
 
+    void verifyEmail(String email);
+
+    void onOTPSendSuccess(String email);
+
 }
