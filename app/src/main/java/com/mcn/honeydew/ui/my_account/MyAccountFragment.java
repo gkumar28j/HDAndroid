@@ -169,7 +169,12 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
         } else {
             facebookEmailLayout.setVisibility(View.GONE);
             normalEmailLayout.setVisibility(View.VISIBLE);
-            normalEmailTextView.setText(userData.getPrimaryEmail());
+            if(userData.isLoginByFacebook()){
+                normalEmailTextView.setText(userData.getSecondaryEmail());
+            }else {
+                normalEmailTextView.setText(userData.getPrimaryEmail());
+            }
+
             if (userData.isEmailVerified()) {
                 verifiedEmailTextView.setText("Verified");
                 verifiedEmailTextView.setTextColor(Color.parseColor("#00FF00"));

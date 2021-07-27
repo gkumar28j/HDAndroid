@@ -121,6 +121,7 @@
     <dimen name="common_app_settings_imageview_height_width">24dp</dimen>
     <dimen name="common_app_setting_textview_marginleft">12dp</dimen>
     <dimen name="common_app_settings_layout_arrow_img_ht_wdth">30dp</dimen>
+    <dimen name="home_child_recycler_textview_height">24dp</dimen>
 
 
 </resources>

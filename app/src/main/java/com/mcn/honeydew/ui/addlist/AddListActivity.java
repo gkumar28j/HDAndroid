@@ -49,6 +49,9 @@ public class AddListActivity extends BaseActivity implements AddListMvpView {
     EditText mEditText;
     ImageView leftArrowImgView;
 
+    @BindView(R.id.voice_recognition_image)
+    ImageView voiceRecognitionImage;
+
     private int listId = 0;
 
     public static final int SPEECH_REQUEST_CODE = 321;
@@ -148,7 +151,7 @@ public class AddListActivity extends BaseActivity implements AddListMvpView {
             Toast.makeText(this, "Recognizer Not Found", Toast.LENGTH_SHORT).show();
 
         } else {
-          //  voiceRecognitionImage.setImageResource(R.drawable.ic_voice_recognition);
+            voiceRecognitionImage.setImageResource(R.drawable.ic_voice_recognition);
             displaySpeechRecognizer();
         }
     }
@@ -185,7 +188,7 @@ public class AddListActivity extends BaseActivity implements AddListMvpView {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-      //  voiceRecognitionImage.setImageResource(R.drawable.ic_voice_recognition_disable);
+        voiceRecognitionImage.setImageResource(R.drawable.ic_voice_recognition_disable);
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);

@@ -3,9 +3,12 @@ package com.mcn.honeydew.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 import com.mcn.honeydew.R;
 import com.mcn.honeydew.data.network.model.MyHomeListData;
 import com.mcn.honeydew.utils.ScreenUtils;
+import com.mcn.honeydew.utils.ViewUtils;
 import com.mcn.honeydew.utils.draghelper.ItemTouchHelperAdapter;
 import com.mcn.honeydew.utils.draghelper.ItemTouchHelperViewHolder;
 import com.mcn.honeydew.utils.draghelper.MyDisabledRecyclerView;
@@ -30,6 +34,7 @@ import com.mcn.honeydew.utils.draghelper.OnStartDragListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +52,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     private Context mContext;
     private Callback mCallback;
     private OnStartDragListener mDragStartListener;
-
+    int maxItemCount;
 
     public HomeListAdapter() {
         // setHasStableIds(true);
@@ -102,9 +107,50 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             holder.mHeaderLayout.setBackgroundColor(Color.parseColor("#" + data.getListHeaderColor()));
         }
 
-        holder.mAdapter = new HomeListChildAdapter(mContext, data.getItemsByList());
-        holder.mRecyclerView.setAdapter(holder.mAdapter);
+        ArrayList<MyHomeListData.MyHomeChildData> templist = new ArrayList<>();
+        templist.addAll(data.getItemsByList());
 
+
+        MyHomeListData.MyHomeChildData tempData1 = new MyHomeListData.MyHomeChildData();
+        tempData1.setItemId(786);
+        tempData1.setItemName("Android test one");
+        templist.add(tempData1);
+
+        MyHomeListData.MyHomeChildData tempData2 = new MyHomeListData.MyHomeChildData();
+        tempData2.setItemId(786);
+        tempData2.setItemName("Android test two");
+        templist.add(tempData2);
+
+        MyHomeListData.MyHomeChildData tempData3 = new MyHomeListData.MyHomeChildData();
+        tempData3.setItemId(786);
+        tempData3.setItemName("Android test three young cubs rolled over");
+        templist.add(tempData3);
+
+        MyHomeListData.MyHomeChildData tempData4 = new MyHomeListData.MyHomeChildData();
+        tempData4.setItemId(786);
+        tempData4.setItemName("Android test four");
+        templist.add(tempData4);
+
+        MyHomeListData.MyHomeChildData tempData5 = new MyHomeListData.MyHomeChildData();
+        tempData5.setItemId(786);
+        tempData5.setItemName("Android test five");
+        templist.add(tempData5);
+
+        MyHomeListData.MyHomeChildData tempData6 = new MyHomeListData.MyHomeChildData();
+        tempData6.setItemId(786);
+        tempData6.setItemName("Android test six");
+        templist.add(tempData6);
+
+        ArrayList<MyHomeListData.MyHomeChildData> newList = new ArrayList<>();
+
+        if(templist.size()>maxItemCount){
+            newList = new ArrayList<MyHomeListData.MyHomeChildData>(templist.subList(0, maxItemCount));
+            holder.mAdapter = new HomeListChildAdapter(mContext, newList);
+        }else {
+            holder.mAdapter = new HomeListChildAdapter(mContext, templist);
+        }
+
+        holder.mRecyclerView.setAdapter(holder.mAdapter);
 
         if (data.getItemsByList().size() > 0) {
             holder.emptyView.setVisibility(View.GONE);
@@ -289,7 +335,17 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             teamNameEditText.setOnFocusChangeListener(this);
             totalHeight = ScreenUtils.getScreenHeight(mContext);
             availiableHeight = (int) (totalHeight - ((3 * (mContext.getResources().getDimension(R.dimen.padding_home_cards_list))) + ScreenUtils.getStatusBarHeight(mContext) + (2 * (ScreenUtils.getActionBarHeight(mContext)))));
-            mCardMainView.getLayoutParams().height = availiableHeight / 2;
+
+            int childHeight = mContext.getResources().getDimensionPixelSize(R.dimen.home_child_recycler_textview_height);
+
+            int viewHeight = availiableHeight / 2;
+            mCardMainView.getLayoutParams().height = viewHeight;
+
+
+            int cardtitleHeight = mContext.getResources().getDimensionPixelSize(R.dimen.home_card_list_header_height);
+            maxItemCount = (viewHeight - cardtitleHeight) / childHeight;
+            Log.e("child count", String.valueOf(maxItemCount));
+
             mCardMainView.requestLayout();
 
             teamNameTextView.setOnTouchListener(new View.OnTouchListener() {
@@ -430,7 +486,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     }
 
-    public ArrayList<MyHomeListData> getUpdatedList(){
+    public ArrayList<MyHomeListData> getUpdatedList() {
         return list;
     }
 
