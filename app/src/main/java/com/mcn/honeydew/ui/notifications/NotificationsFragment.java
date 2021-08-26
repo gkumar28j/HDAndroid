@@ -13,15 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mcn.honeydew.R;
-import com.mcn.honeydew.data.DataManager;
 import com.mcn.honeydew.data.network.model.response.NotificationListResponse;
 import com.mcn.honeydew.di.component.ActivityComponent;
 import com.mcn.honeydew.ui.BluetoothDescActivity;
 import com.mcn.honeydew.ui.base.BaseFragment;
 import com.mcn.honeydew.utils.EndlessRecyclerOnScrollListener;
 
+import org.joda.time.DateTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -34,7 +41,7 @@ import butterknife.ButterKnife;
 
 public class NotificationsFragment extends BaseFragment implements NotificationsMvpView,
         SwipeRefreshLayout.OnRefreshListener, NotificationAdapter.ContentItemListener {
-
+    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yy, hh:mm aa", Locale.ENGLISH);
     public static final String TAG = "NotificationsFragment";
     private EndlessRecyclerOnScrollListener mEndlessRecyclerOnScrollListener;
 
@@ -93,6 +100,7 @@ public class NotificationsFragment extends BaseFragment implements Notifications
 
             }
         };
+        mListAdapter = null;
         mPresenter.loadData();
         mPresenter.resetNotification();
         mRecyclerView.addOnScrollListener(mEndlessRecyclerOnScrollListener);
@@ -148,9 +156,79 @@ public class NotificationsFragment extends BaseFragment implements Notifications
     }
 
     @Override
-    public void showContentList(List<NotificationListResponse.NotificationListData> contentDataModelList) {
+    public void showContentList(List<NotificationListResponse.NotificationListData> contentDataModelList, String duration) {
 
         refreshLayout.setRefreshing(false);
+
+        if (duration != null) {
+            ArrayList<NotificationListResponse.NotificationListData> templist = new ArrayList<>();
+
+            DateTime newDate =  new DateTime().minusDays(7);
+            // Date newDate = new Date(Calendar.getInstance().getTimeInMillis() - 604800000L); // 7 * 24 * 60 * 60 * 1000
+
+
+            if (duration.equals("1 week")) {
+
+
+              newDate =  new DateTime().minusDays(7);
+
+            } else if (duration.equals("2 weeks")) {
+                newDate =  new DateTime().minusDays(14);
+
+            } else if (duration.equals("1 month")) {
+                newDate =  new DateTime().minusMonths(1);
+
+            } else if (duration.equals("3 months")) {
+                newDate =  new DateTime().minusMonths(3);
+
+            } else if (duration.equals("6 months")) {
+                newDate =  new DateTime().minusMonths(6);
+
+
+            }
+
+
+
+            Date tempLocaldate = newDate.toDate();
+
+            String newDateFormatted = sdf.format(tempLocaldate);
+
+            for (int i = 0; i <contentDataModelList.size() ; i++) {
+
+                String time = convertTimeInLocal(contentDataModelList.get(i).getCreatedDate());
+
+                try {
+                    Date comingDate = sdf.parse(time);
+                    Date newDatefinal = sdf.parse(newDateFormatted);
+
+                    boolean result = comingDate.after(newDatefinal);
+
+                    if(result){ // server record date  is less than 2/1months  weeks
+
+                        templist.add(contentDataModelList.get(i));
+
+                    }
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+
+
+            if (mListAdapter == null) {
+                mListAdapter = new NotificationAdapter(new ArrayList<>(templist), this);
+                mRecyclerView.setAdapter(mListAdapter);
+            }
+            mListAdapter.setLoading(false);
+            mListAdapter.replaceData(new ArrayList<>(templist));
+
+            return;
+
+        }
+
+
         if (mListAdapter == null) {
             mListAdapter = new NotificationAdapter(new ArrayList<>(contentDataModelList), this);
             mRecyclerView.setAdapter(mListAdapter);
@@ -170,6 +248,45 @@ public class NotificationsFragment extends BaseFragment implements Notifications
 
 
         getBaseActivity().onResetNotification();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    public String convertTimeInLocal(String time) {
+
+        //2019-08-27 11:10:15 +0000
+
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss aa", Locale.ENGLISH);
+
+        SimpleDateFormat toShow = new SimpleDateFormat("dd MMM yy, hh:mm aa", Locale.ENGLISH);
+
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = null;
+        try {
+            date = df.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        toShow.setTimeZone(TimeZone.getDefault());
+
+        String formattedDate = "";
+
+
+        if (date != null) {
+
+            formattedDate = toShow.format(date);
+            return formattedDate;
+
+        }
+
+
+
+        return formattedDate;
 
     }
 }

@@ -63,6 +63,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_SAVE_SETTING_APP_DATA = "saveappsettingdata";
     private static final String PREF_KEY_LOGIN_FIRST_TIME = "loginfirsttime";
     private static final String PREF_KEY_SETTINGS_CLICKED = "settingsclicked";
+    private static final String PREF_KEY_NOTIFICATION_FILTER_PREF = "notificationfilterpref";
 
 
 
@@ -370,6 +371,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public boolean isSettingsClickedPermission() {
         return mPrefs.getBoolean(PREF_KEY_SETTINGS_CLICKED,false);
+    }
+
+    @Override
+    public void setNotificationFilterPref(String duration) {
+        mEditor.putString(PREF_KEY_NOTIFICATION_FILTER_PREF,duration);
+    }
+
+    @Override
+    public String getNotificationFilterPref() {
+        return mPrefs.getString(PREF_KEY_NOTIFICATION_FILTER_PREF,null);
     }
 }
 

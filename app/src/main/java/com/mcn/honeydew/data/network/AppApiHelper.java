@@ -28,6 +28,7 @@ import com.mcn.honeydew.data.network.model.request.ReminderTimeRequest;
 import com.mcn.honeydew.data.network.model.request.ReorderItemsMyList;
 import com.mcn.honeydew.data.network.model.request.ResetPasswordRequest;
 import com.mcn.honeydew.data.network.model.request.SendOtpRequest;
+import com.mcn.honeydew.data.network.model.request.SetNotificationPrefRequest;
 import com.mcn.honeydew.data.network.model.request.ShareListRequest;
 import com.mcn.honeydew.data.network.model.request.UnshareListRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateDeviceInfoRequest;
@@ -68,6 +69,7 @@ import com.mcn.honeydew.data.network.model.response.ResetNotificationCountRespon
 import com.mcn.honeydew.data.network.model.response.ResetPasswordResponse;
 import com.mcn.honeydew.data.network.model.response.SendOtpResponse;
 import com.mcn.honeydew.data.network.model.response.ShareListResponse;
+import com.mcn.honeydew.data.network.model.response.SystemNotifcationPrefData;
 import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateHeaderColorResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateNotificationSettingRequest;
@@ -425,6 +427,16 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Observable<EmailUpdateNewResponse> resendOTP(EmailUpdateNewRequest request) {
         return mApiCall.resendOTP(request);
+    }
+
+    @Override
+    public Observable<SystemNotifcationPrefData> doGetSystemNotificationPrefData() {
+        return mApiCall.doGetSystemNotificationPrefData();
+    }
+
+    @Override
+    public Observable<SystemNotifcationPrefData> doSetSystemNotificationPref(SetNotificationPrefRequest request) {
+        return mApiCall.doSetSystemNotificationPref(request);
     }
 
 

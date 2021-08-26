@@ -22,7 +22,6 @@ import me.grantland.widget.AutofitTextView;
 
 public class HomeListChildAdapter extends RecyclerView.Adapter<HomeListChildAdapter.ViewHolder> {
 
-
     private ArrayList<MyHomeListData.MyHomeChildData> list = new ArrayList<>();
     private Context mContext;
     private Listener mCallback;

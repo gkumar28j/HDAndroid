@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/location_reminder_textview"
+        style="@style/SettingHeadingTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="6dp"
+        android:layout_marginTop="25dp"
+        android:text="Keep notifications for how long?" />
+
+    <LinearLayout
+        android:id="@+id/keep_notif_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/setting_bluetooth_layout_padding"
+        android:paddingTop="@dimen/setting_bluetooth_layout_padding"
+        android:paddingRight="5dp"
+        android:paddingBottom="@dimen/setting_bluetooth_layout_padding"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_notification_setting" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/BluetoothSettingsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:text="Keep Notifications"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/system_notification_text"
+            style="@style/NotificationMilesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="1 week" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_right_arrow" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/light_gray" />
+
+</LinearLayout>

@@ -111,7 +111,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         templist.addAll(data.getItemsByList());
 
 
-        MyHomeListData.MyHomeChildData tempData1 = new MyHomeListData.MyHomeChildData();
+        /*MyHomeListData.MyHomeChildData tempData1 = new MyHomeListData.MyHomeChildData();
         tempData1.setItemId(786);
         tempData1.setItemName("Android test one");
         templist.add(tempData1);
@@ -139,7 +139,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         MyHomeListData.MyHomeChildData tempData6 = new MyHomeListData.MyHomeChildData();
         tempData6.setItemId(786);
         tempData6.setItemName("Android test six");
-        templist.add(tempData6);
+        templist.add(tempData6);*/
 
         ArrayList<MyHomeListData.MyHomeChildData> newList = new ArrayList<>();
 

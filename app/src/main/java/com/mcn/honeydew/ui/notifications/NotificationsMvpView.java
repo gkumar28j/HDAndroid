@@ -13,7 +13,7 @@ import java.util.List;
 public interface NotificationsMvpView extends MvpView {
 
     void showContentLoading(boolean loading);
-    void showContentList(List<NotificationListResponse.NotificationListData> contentDataModelList);
+    void showContentList(List<NotificationListResponse.NotificationListData> contentDataModelList, String duration);
 
     void showEmptyView(boolean b);
 

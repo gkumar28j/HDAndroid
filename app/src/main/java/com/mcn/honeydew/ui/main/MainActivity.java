@@ -60,6 +60,8 @@ import com.mcn.honeydew.ui.list_settings.ListSettingsFragment;
 import com.mcn.honeydew.ui.login.LoginActivity;
 import com.mcn.honeydew.ui.myList.MyListFragment;
 import com.mcn.honeydew.ui.my_account.MyAccountFragment;
+import com.mcn.honeydew.ui.notification_settings.NotificationSettingsFragment;
+import com.mcn.honeydew.ui.notification_settings.SystemNotificationSettingsMvpView;
 import com.mcn.honeydew.ui.notifications.NotificationsFragment;
 import com.mcn.honeydew.ui.settings.SettingsFragment;
 import com.mcn.honeydew.ui.sharelist.ShareListFragment;
@@ -338,7 +340,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 title.setText("Notifications");
                 title.setVisibility(View.VISIBLE);
                 title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                settingImageView.setVisibility(View.GONE);
+                settingImageView.setVisibility(View.VISIBLE);
                 listSettingImageView.setVisibility(View.GONE);
                 fragment = NotificationsFragment.newInstance();
                 break;
@@ -587,7 +589,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     public void onBackPressed() {
         Log.e("back pressed", "true");
 
-        if (mMenuItemSelected == R.id.navigation_home) {
+        if (mMenuItemSelected == R.id.navigation_home|| mMenuItemSelected == R.id.navigation_notifications) {
 
             if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
 
@@ -929,14 +931,14 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                  boolean shouldProvideRationale =
                 ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.ACCESS_FINE_LOCATION);
-
-                 if(shouldProvideRationale){
+                showLocationAlertDialog();
+                /* if(shouldProvideRationale){
 
                      showLocationAlertDialog();
 
                  }else {
                      turnProximityOFFDialog();
-                 }
+                 }*/
 
 
             }
@@ -978,18 +980,38 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
     @OnClick(R.id.setting_image)
     void onSettingImageClicked() {
 
-        settingImageView.setVisibility(View.GONE);
-        backImageView.setVisibility(View.VISIBLE);
-        //fragment = SettingsFragment.newInstance();
-        fragment = CommonAppSettingsFragment.newInstance();
-        title.setText("App Settings");
-        title.setVisibility(View.VISIBLE);
-        title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        if (fragment != null) {
+        if(menuItemSelected.getItemId()==R.id.navigation_notifications){
+            settingImageView.setVisibility(View.GONE);
+            backImageView.setVisibility(View.VISIBLE);
+            fragment = NotificationSettingsFragment.newInstance();
+            title.setText("Notification Settings");
+            title.setVisibility(View.VISIBLE);
+            title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            if (fragment != null) {
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, "setting_fragment").addToBackStack(null).commit();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, "setting_fragment").addToBackStack(null).commit();
+            }
+
+
+        }else {
+
+            settingImageView.setVisibility(View.GONE);
+            backImageView.setVisibility(View.VISIBLE);
+            //fragment = SettingsFragment.newInstance();
+            fragment = CommonAppSettingsFragment.newInstance();
+            title.setText("App Settings");
+            title.setVisibility(View.VISIBLE);
+            title.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            if (fragment != null) {
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, "setting_fragment").addToBackStack(null).commit();
+            }
+
         }
+
+
 
     }
 
@@ -1040,6 +1062,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                 settingImageView.setVisibility(View.GONE);
                 backImageView.setVisibility(View.GONE);
                 listSettingImageView.setVisibility(View.VISIBLE);
+            } else if (getSupportFragmentManager().getBackStackEntryCount() == 1 && menuItemSelected.getItemId() == R.id.navigation_notifications) {
+                settingImageView.setVisibility(View.VISIBLE);
+                backImageView.setVisibility(View.GONE);
+                listSettingImageView.setVisibility(View.GONE);
             }
             getSupportFragmentManager().popBackStack();
         } else {
@@ -1299,6 +1325,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
                     public void onClick(DialogInterface dialog, int which) {
 
                         dialog.dismiss();
+                        turnProximityOFFDialog();
                        /* if (isSetting) {
 
                         } else {

@@ -26,6 +26,7 @@ import com.mcn.honeydew.ui.login.LoginActivity;
 import com.mcn.honeydew.ui.main.MainActivity;
 import com.mcn.honeydew.ui.myList.MyListFragment;
 import com.mcn.honeydew.ui.my_account.MyAccountFragment;
+import com.mcn.honeydew.ui.notification_settings.NotificationSettingsFragment;
 import com.mcn.honeydew.ui.notifications.NotificationsFragment;
 import com.mcn.honeydew.ui.notifications.settings.NotificationSettingsActivity;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationActivity;
@@ -134,5 +135,8 @@ public interface ActivityComponent {
     void inject(SearchEmailFragment fragment); // verify email
 
     void inject(VerifyEmailOtpFragment fragment);
+
+    void inject(NotificationSettingsFragment fragment);
+
 
 }

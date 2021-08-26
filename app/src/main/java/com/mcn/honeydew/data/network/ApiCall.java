@@ -31,6 +31,7 @@ import com.mcn.honeydew.data.network.model.request.ReminderTimeRequest;
 import com.mcn.honeydew.data.network.model.request.ReorderItemsMyList;
 import com.mcn.honeydew.data.network.model.request.ResetPasswordRequest;
 import com.mcn.honeydew.data.network.model.request.SendOtpRequest;
+import com.mcn.honeydew.data.network.model.request.SetNotificationPrefRequest;
 import com.mcn.honeydew.data.network.model.request.ShareListRequest;
 import com.mcn.honeydew.data.network.model.request.UnshareListRequest;
 import com.mcn.honeydew.data.network.model.request.UpdateDeviceInfoRequest;
@@ -71,6 +72,7 @@ import com.mcn.honeydew.data.network.model.response.ResetNotificationCountRespon
 import com.mcn.honeydew.data.network.model.response.ResetPasswordResponse;
 import com.mcn.honeydew.data.network.model.response.SendOtpResponse;
 import com.mcn.honeydew.data.network.model.response.ShareListResponse;
+import com.mcn.honeydew.data.network.model.response.SystemNotifcationPrefData;
 import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateHeaderColorResponse;
 import com.mcn.honeydew.data.network.model.response.UpdateNotificationSettingRequest;
@@ -204,6 +206,9 @@ public interface ApiCall {
     String ENDPOINT_GET_NOTIFICATION_COUNT = API_VERSION + "/api/Notification/GetSystemNotificationCount";
 
     String ENDPOINT_RESET_NOTIFICATION_COUNT = API_VERSION + "/api/Notification/ResetSystemNotificationCount";
+
+    String ENDPOINT_NOTIFICATION_PREF_GET = API_VERSION + "/api/Notification/GetNotificationFrequency";
+    String ENDPOINT_NOTIFICATION_PREF_SET = API_VERSION + "/api/Notification/SetNotificationFrequency";
 
     String ENDPOINT_ADD_UPDATE_ITEMS_NEW_LIST_CALL_URL = API_VERSION + "/api/item/AddUpdateItemnew";
 
@@ -502,6 +507,15 @@ public interface ApiCall {
     @POST(ENDPOINT_VERIFY_EMAIL_NEW_OTP)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
     Observable<EmailUpdateNewResponse> doVerifyEmailNewOtp(@Body VerifyNewEmailOTPRequest request);
+
+
+    @GET(ENDPOINT_NOTIFICATION_PREF_GET)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<SystemNotifcationPrefData> doGetSystemNotificationPrefData();
+
+    @POST(ENDPOINT_NOTIFICATION_PREF_SET)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<SystemNotifcationPrefData> doSetSystemNotificationPref(@Body SetNotificationPrefRequest request);
 
 
     class Factory {

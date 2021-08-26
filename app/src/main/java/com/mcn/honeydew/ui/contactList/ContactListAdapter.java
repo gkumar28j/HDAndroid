@@ -109,13 +109,13 @@ public class ContactListAdapter extends BaseAdapter implements SectionIndexer, F
 
         holder.contactNameTextView.setText(contact.getContactName());
 
-        convertView.setOnClickListener(new View.OnClickListener() {
+       /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CheckBox checkBox = v.findViewById(R.id.checkbox_select);
                 callback.onContactClicked(contact, checkBox.isChecked(), position);
             }
-        });
+        });*/
 
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

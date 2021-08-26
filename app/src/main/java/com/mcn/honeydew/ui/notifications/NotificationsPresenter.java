@@ -143,8 +143,8 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
 
         if (!getMvpView().isNetworkConnected()) {
         //    getMvpView().showMessage(R.string.connection_error);
-
-            getMvpView().showContentList(getDataManager().getNotificationData());
+            String duration = getDataManager().getNotificationFilterPref();
+            getMvpView().showContentList(getDataManager().getNotificationData(), duration);
             return;
         }
         if (showLoadingUI) {
@@ -190,13 +190,14 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
 
     private void parseGetDataResponse(NotificationListResponse response, boolean loadMore, boolean refresh) {
 
+        String duration = getDataManager().getNotificationFilterPref();
         current_page++;
         if (refresh) {
             mList.clear();
         }
         if (!loadMore && !mList.isEmpty()) {
             Collections.sort(mList, NotificationListResponse.NotificationListData.notificationComparator);
-            getMvpView().showContentList(mList);
+            getMvpView().showContentList(mList,duration);
             getDataManager().saveNotificationResponseData(new Gson().toJson(mList));
         } else {
             mList.addAll(response.getResult());
@@ -217,7 +218,7 @@ public class NotificationsPresenter<V extends NotificationsMvpView> extends Base
             mList.remove(pos);
             mList.add(0, data);
 
-            getMvpView().showContentList(mList);
+            getMvpView().showContentList(mList,duration);
             getDataManager().saveNotificationResponseData(new Gson().toJson(mList));
         }
         if (!mList.isEmpty()) {

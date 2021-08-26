@@ -116,7 +116,11 @@ public class AddItemsWhenFragment extends BaseFragment implements AddItemsWhenMv
             // dateTextView.setVisibility(View.VISIBLE);
             // dateTextView.setText(((AddItemsFragment) getParentFragment()).getDateTimeText());
 
-            dateTimePickerView.setDateTime(((AddItemsFragment) getParentFragment()).getDateTimeText());
+            if(!((AddItemsFragment) getParentFragment()).getMyListData().isShowExpired()){
+                dateTimePickerView.setDateTime(((AddItemsFragment) getParentFragment()).getDateTimeText());
+            }
+
+
         }
     }
 

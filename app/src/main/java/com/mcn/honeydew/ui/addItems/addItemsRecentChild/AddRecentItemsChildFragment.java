@@ -125,8 +125,8 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     ImageView imageLoopView; // this image is shown when keyboard open up
 
 
-    @BindView(R.id.cardview)
-    CardView cardSpaceView;
+   /* @BindView(R.id.cardview)
+    CardView cardSpaceView;*/
 
 
    /* @BindView(R.id.cardview_loop)
@@ -165,6 +165,9 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
     @BindView(R.id.loop_cardview)
     CardView loopCardView;
+
+    @BindView(R.id.super_lay_image)
+    RelativeLayout superCardLayout;
 
     @BindView(R.id.card_loop_lay)
     LinearLayout loopLayout;
@@ -234,7 +237,8 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
             if (fragment.getFilePath() != null) {
                 imageLayout.setVisibility(View.VISIBLE);
-                cardSpaceView.setVisibility(View.VISIBLE);
+             //   cardSpaceView.setVisibility(View.VISIBLE);
+                superCardLayout.setVisibility(View.VISIBLE);
                 File newFile = new File(((AddItemsFragment) getParentFragment()).getFilePath());
                 captureImageView.setImageURI(Uri.fromFile(newFile));
                 imageLoopView.setImageURI(Uri.fromFile(newFile));
@@ -258,7 +262,8 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
                             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
 
                                 progressBar.setVisibility(View.GONE);
-                                cardSpaceView.setVisibility(View.VISIBLE);
+                              //  cardSpaceView.setVisibility(View.VISIBLE);
+                                superCardLayout.setVisibility(View.VISIBLE);
                                 captureImageView.setImageDrawable(resource);
                                 return false;
                             }
@@ -756,7 +761,8 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
             return;
         }
         imageLayout.setVisibility(View.VISIBLE);
-        cardSpaceView.setVisibility(View.VISIBLE);
+      //  cardSpaceView.setVisibility(View.VISIBLE);
+        superCardLayout.setVisibility(View.VISIBLE);
         //   cardLoopView.setVisibility(View.VISIBLE);
         File file = new File(currentPhotoPath);
 
@@ -786,7 +792,8 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
     private void onSelectFromGalleryResult(Intent data) {
         imageLayout.setVisibility(View.VISIBLE);
-        cardSpaceView.setVisibility(View.VISIBLE);
+      //  cardSpaceView.setVisibility(View.VISIBLE);
+        superCardLayout.setVisibility(View.VISIBLE);
         //    cardLoopView.setVisibility(View.VISIBLE);
         Uri picUri = data.getData();
 

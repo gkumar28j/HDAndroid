@@ -115,5 +115,8 @@ public interface PreferencesHelper {
 
     boolean isSettingsClickedPermission();
 
+    void setNotificationFilterPref(String duration);
+    String getNotificationFilterPref();
+
 
 }

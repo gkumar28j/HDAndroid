@@ -304,7 +304,7 @@ public class DateTimePickerView extends FrameLayout {
             }
             for (int k = 0; k < dates.size(); k++) {
                 if (dates.get(k).after(dateString)) {
-                    datePos = k - 1;
+                    datePos = k;
                     break;
                 }
             }

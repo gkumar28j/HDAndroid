@@ -75,10 +75,12 @@ import com.mcn.honeydew.ui.myList.MyListAdapter;
 import com.mcn.honeydew.ui.myList.MyListMvpPresenter;
 import com.mcn.honeydew.ui.myList.MyListMvpView;
 import com.mcn.honeydew.ui.myList.MyListPresenter;
-import com.mcn.honeydew.ui.my_account.MyAccountFragment;
 import com.mcn.honeydew.ui.my_account.MyAccountMvpPresenter;
 import com.mcn.honeydew.ui.my_account.MyAccountMvpView;
 import com.mcn.honeydew.ui.my_account.MyAccountPresenter;
+import com.mcn.honeydew.ui.notification_settings.SystemNotificationSettingMvpPresenter;
+import com.mcn.honeydew.ui.notification_settings.SystemNotificationSettingsMvpView;
+import com.mcn.honeydew.ui.notification_settings.SystemNotificationSettingsPresenter;
 import com.mcn.honeydew.ui.notifications.NotificationsMvpPresenter;
 import com.mcn.honeydew.ui.notifications.NotificationsMvpView;
 import com.mcn.honeydew.ui.notifications.NotificationsPresenter;
@@ -88,7 +90,6 @@ import com.mcn.honeydew.ui.notifications.settings.NotificationSettingsPresenter;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationMvpPresenter;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationMvpView;
 import com.mcn.honeydew.ui.phoneVerification.PhoneVerificationPresenter;
-import com.mcn.honeydew.ui.phoneVerification.SmsReceiver;
 import com.mcn.honeydew.ui.register.RegisterMvpPresenter;
 import com.mcn.honeydew.ui.register.RegisterMvpView;
 import com.mcn.honeydew.ui.register.RegisterPresenter;
@@ -424,5 +425,10 @@ public class ActivityModule {
     @Provides
     VerifyEmailOtpMvpPresenter<VerifyEmailOtpMvpView> provideVerifyEmailOtpPresenter(VerifyEmailOtpPresenter<VerifyEmailOtpMvpView> presenter){
         return presenter;
+    }
+
+    @Provides
+    SystemNotificationSettingMvpPresenter<SystemNotificationSettingsMvpView> provideSystemNotificationSettingsPresenter(SystemNotificationSettingsPresenter<SystemNotificationSettingsMvpView> mpresenter){
+        return mpresenter;
     }
 }
