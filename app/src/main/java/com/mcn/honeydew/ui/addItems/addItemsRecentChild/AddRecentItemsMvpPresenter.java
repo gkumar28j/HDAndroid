@@ -15,5 +15,7 @@ public interface AddRecentItemsMvpPresenter<V extends AddRecentItemsMvpView> ext
 
     void deleteRecentItems();
 
+    void deletePhoto(int itemID);
+
 
 }

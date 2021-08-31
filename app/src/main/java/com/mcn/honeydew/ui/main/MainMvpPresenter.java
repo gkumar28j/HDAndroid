@@ -34,4 +34,6 @@ public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V>
     void disableLocationReminders();
 
     void updateProximitySettings(int notificationStatus, int notificationType);
+
+    void getNotificationPrefrences();
 }

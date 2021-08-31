@@ -21,6 +21,7 @@ import com.mcn.honeydew.data.network.model.request.ChangeItemStatusRequest;
 import com.mcn.honeydew.data.network.model.request.ChangePasswordRequest;
 import com.mcn.honeydew.data.network.model.request.DailyReminderExpiringRequest;
 import com.mcn.honeydew.data.network.model.request.DeleteItemListRequest;
+import com.mcn.honeydew.data.network.model.request.DeleteItemPhotoRequest;
 import com.mcn.honeydew.data.network.model.request.EmailUpdateNewRequest;
 import com.mcn.honeydew.data.network.model.request.FacebookLoginRequest;
 import com.mcn.honeydew.data.network.model.request.PushNotificationSettingsRequest;
@@ -48,6 +49,7 @@ import com.mcn.honeydew.data.network.model.response.ChangePasswordResponse;
 import com.mcn.honeydew.data.network.model.response.DailyReminderExpiredResponse;
 import com.mcn.honeydew.data.network.model.response.DailyReminderExpiringResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteItemListResponse;
+import com.mcn.honeydew.data.network.model.response.DeleteItemPhotoResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteRecentItemsResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteUserResponse;
 import com.mcn.honeydew.data.network.model.response.EmailUpdateNewResponse;
@@ -437,6 +439,12 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Observable<SystemNotifcationPrefData> doSetSystemNotificationPref(SetNotificationPrefRequest request) {
         return mApiCall.doSetSystemNotificationPref(request);
+    }
+
+    @Override
+    public Observable<DeleteItemPhotoResponse> deleteItemPhoto(DeleteItemPhotoRequest response) {
+
+        return mApiCall.deleteItemPhoto(response);
     }
 
 

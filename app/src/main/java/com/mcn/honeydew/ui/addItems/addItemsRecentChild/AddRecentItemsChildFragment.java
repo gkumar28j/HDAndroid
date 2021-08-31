@@ -169,6 +169,9 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     @BindView(R.id.super_lay_image)
     RelativeLayout superCardLayout;
 
+    @BindView(R.id.delete_img_close)
+    ImageView deleteImageviewClose;
+
     @BindView(R.id.card_loop_lay)
     LinearLayout loopLayout;
 
@@ -176,6 +179,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
     ProgressBar progressBar;
 
     double screenInches;
+    boolean isFromEdit = false;
 
     @Nullable
     @Override
@@ -206,7 +210,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         captureImageView.requestLayout();
         captureImageView.setVisibility(View.VISIBLE);*/
 
-        if (screenInches >= 5.5) {
+      /*  if (screenInches >= 5.5) {
             captureImageView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_recent_fragment_empty_space_height_large_screen);
             captureImageView.requestLayout();
 
@@ -219,7 +223,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
 
             imageLoopView.getLayoutParams().height = (int) getResources().getDimension(R.dimen.add_items_recent_fragment_empty_space_height_small_screen);
             imageLoopView.requestLayout();
-        }
+        }*/
 
 
         AddItemsFragment fragment = ((AddItemsFragment) getParentFragment());
@@ -231,6 +235,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
                 mEditText.setText(((AddItemsFragment) getParentFragment()).getMyListData().getItemName());
                 ((AddItemsFragment) getParentFragment()).setItemName(mEditText.getText().toString().trim());
                 mHeadingTextView.setText("Edit Items");
+                isFromEdit = true;
             } else {
                 mHeadingTextView.setText(getString(R.string.recent_items_actionbar_heading));
             }
@@ -239,6 +244,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
                 imageLayout.setVisibility(View.VISIBLE);
              //   cardSpaceView.setVisibility(View.VISIBLE);
                 superCardLayout.setVisibility(View.VISIBLE);
+                deleteImageviewClose.setVisibility(View.VISIBLE);
                 File newFile = new File(((AddItemsFragment) getParentFragment()).getFilePath());
                 captureImageView.setImageURI(Uri.fromFile(newFile));
                 imageLoopView.setImageURI(Uri.fromFile(newFile));
@@ -264,6 +270,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
                                 progressBar.setVisibility(View.GONE);
                               //  cardSpaceView.setVisibility(View.VISIBLE);
                                 superCardLayout.setVisibility(View.VISIBLE);
+                                deleteImageviewClose.setVisibility(View.VISIBLE);
                                 captureImageView.setImageDrawable(resource);
                                 return false;
                             }
@@ -509,6 +516,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
             mParentFragment.enableDisableDoneButton(true);
         }
     }
+
 
 
     @Override
@@ -763,6 +771,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         imageLayout.setVisibility(View.VISIBLE);
       //  cardSpaceView.setVisibility(View.VISIBLE);
         superCardLayout.setVisibility(View.VISIBLE);
+        deleteImageviewClose.setVisibility(View.VISIBLE);
         //   cardLoopView.setVisibility(View.VISIBLE);
         File file = new File(currentPhotoPath);
 
@@ -794,6 +803,7 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
         imageLayout.setVisibility(View.VISIBLE);
       //  cardSpaceView.setVisibility(View.VISIBLE);
         superCardLayout.setVisibility(View.VISIBLE);
+        deleteImageviewClose.setVisibility(View.VISIBLE);
         //    cardLoopView.setVisibility(View.VISIBLE);
         Uri picUri = data.getData();
 
@@ -860,4 +870,36 @@ public class AddRecentItemsChildFragment extends BaseFragment implements AddRece
             }
         }
     }
+
+    @OnClick(R.id.delete_img_close)
+    public void onDeleteImageClicked(){
+
+        AddItemsFragment fragment = ((AddItemsFragment) getParentFragment());
+
+        if(fragment.getFilePath()!=null){  // camera clicked already
+
+            fragment.setFilePath(null);
+            superCardLayout.setVisibility(View.INVISIBLE);
+            deleteImageviewClose.setVisibility(View.INVISIBLE);
+            imageLoopView.setVisibility(View.GONE);
+
+        }else if(fragment.getPhoto()!=null) {
+            superCardLayout.setVisibility(View.INVISIBLE);
+            deleteImageviewClose.setVisibility(View.INVISIBLE);
+            imageLoopView.setVisibility(View.GONE);
+            mPresenter.deletePhoto(fragment.getMyListData().getItemId());
+        }
+
+
+    }
+
+    @Override
+    public void onDeletePhotoSuccess() {
+
+        superCardLayout.setVisibility(View.INVISIBLE);
+        deleteImageviewClose.setVisibility(View.INVISIBLE);
+        imageLoopView.setVisibility(View.GONE);
+
+    }
+
 }

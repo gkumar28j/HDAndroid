@@ -20,6 +20,7 @@ import com.mcn.honeydew.data.network.model.response.GetBluetoothItemsListRespons
 import com.mcn.honeydew.data.network.model.response.NotificationCountResponse;
 import com.mcn.honeydew.data.network.model.response.NotificationSettingsResponse;
 import com.mcn.honeydew.data.network.model.response.PushNotificationSettingsResponse;
+import com.mcn.honeydew.data.network.model.response.SystemNotifcationPrefData;
 import com.mcn.honeydew.data.network.model.response.UpdateDeviceInfoResponse;
 import com.mcn.honeydew.ui.base.BasePresenter;
 import com.mcn.honeydew.utils.AppConstants;
@@ -37,6 +38,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.apache.http.util.TextUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -372,5 +374,53 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
                 });
 
     }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void getNotificationPrefrences() {
+
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().showMessage(R.string.connection_error);
+            return;
+        }
+        getMvpView().showLoading();
+
+        getDataManager().doGetSystemNotificationPrefData()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<SystemNotifcationPrefData>() {
+                    @Override
+                    public void accept(SystemNotifcationPrefData response) throws Exception {
+
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
+                        getMvpView().hideLoading();
+                      //  getMvpView().onNotificationPrefFetched(response.getResult());
+                        if(TextUtils.isEmpty(response.getResult().getMessage())){
+                            getDataManager().setNotificationFilterPref(response.getResult().getMessage().trim());
+                        }else {
+                            getDataManager().setNotificationFilterPref("1 week");
+                        }
+
+
+                    }
+
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().hideLoading();
+                        handleApiError(throwable);
+                    }
+                });
+
+
+    }
+
 }
 

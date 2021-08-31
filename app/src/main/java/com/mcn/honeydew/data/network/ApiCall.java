@@ -24,6 +24,7 @@ import com.mcn.honeydew.data.network.model.request.ChangeItemStatusRequest;
 import com.mcn.honeydew.data.network.model.request.ChangePasswordRequest;
 import com.mcn.honeydew.data.network.model.request.DailyReminderExpiringRequest;
 import com.mcn.honeydew.data.network.model.request.DeleteItemListRequest;
+import com.mcn.honeydew.data.network.model.request.DeleteItemPhotoRequest;
 import com.mcn.honeydew.data.network.model.request.EmailUpdateNewRequest;
 import com.mcn.honeydew.data.network.model.request.FacebookLoginRequest;
 import com.mcn.honeydew.data.network.model.request.PushNotificationSettingsRequest;
@@ -51,6 +52,7 @@ import com.mcn.honeydew.data.network.model.response.ChangePasswordResponse;
 import com.mcn.honeydew.data.network.model.response.DailyReminderExpiredResponse;
 import com.mcn.honeydew.data.network.model.response.DailyReminderExpiringResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteItemListResponse;
+import com.mcn.honeydew.data.network.model.response.DeleteItemPhotoResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteRecentItemsResponse;
 import com.mcn.honeydew.data.network.model.response.DeleteUserResponse;
 import com.mcn.honeydew.data.network.model.response.EmailUpdateNewResponse;
@@ -117,7 +119,7 @@ public interface ApiCall {
     String ENDPOINT_SERVER_LOGIN = "token";
     String ENDPOINT_USER_DETAIL = API_VERSION + "/api/Account/UserDetail";
     String ENDPOINT_REGISTER_USER = API_VERSION + "/api/Account/RegisterUser";
-    String ENDPOINT_HOME_DATA_SHARED_LIST = API_VERSION + "/api/item/GetMyListAndSharedList";
+    String ENDPOINT_HOME_DATA_SHARED_LIST = API_VERSION + "/api/item/GetMyListAndSharedListAndroid";
     String ENDPOINT_PHONE_VERIFICATION = API_VERSION + "/api/Phone/Call";
     String ENDPOINT_UPDATE_VERIFICATION_METHOD = API_VERSION + "/api/Phone/UpdateVerificationStatus";
     String ENDPOINT_ACCOUNT_LOGOUT = API_VERSION + "/api/Account/LogoutUser";
@@ -129,6 +131,7 @@ public interface ApiCall {
     String ENDPOINT_SEND_OTP_FOR_RESET_PASSWORD = API_VERSION + "/api/account/SendOTPForResetPassword";
     String ENDPOINT_VERIFY_OTP = API_VERSION + "/api/account/VerifyOTPCode";
     String ENDPOINT_HOME_DETAIL_LIST = API_VERSION + "/api/item/GetUserListNew";
+    String ENDPOINT_LIST__ITEM_DELETE_PHOTO = API_VERSION + "/api/item/DeleteItemPhoto";
     String ENDPOINT_NOTIFICATION_SETTINGS = API_VERSION + "/api/Account/GetNotificationSettings";
     String ENDPOINT_CHANGE_PASSWORD = API_VERSION + "/api/Account/ChangeUserPassword";
     String ENDPOINT_RESET_PASSWORD = API_VERSION + "/api/account/ResetPassword";
@@ -293,6 +296,10 @@ public interface ApiCall {
     @GET(ENDPOINT_HOME_DETAIL_LIST)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
     Observable<HomeDetailListResponse> getHomeDetailsList(@Query("listId") String listId);
+
+    @POST(ENDPOINT_LIST__ITEM_DELETE_PHOTO)
+    @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)
+    Observable<DeleteItemPhotoResponse> deleteItemPhoto(@Body DeleteItemPhotoRequest response);
 
     @GET(ENDPOINT_NOTIFICATION_SETTINGS)
     @Headers(ApiHeader.API_AUTH_TYPE + HEADER_PARAM_SEPARATOR + ApiHeader.PROTECTED_API)

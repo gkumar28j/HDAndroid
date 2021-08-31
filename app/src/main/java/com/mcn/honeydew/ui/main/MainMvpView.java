@@ -1,6 +1,7 @@
 package com.mcn.honeydew.ui.main;
 
 import com.mcn.honeydew.data.network.model.MyHomeListData;
+import com.mcn.honeydew.data.network.model.response.SystemNotifcationPrefData;
 import com.mcn.honeydew.ui.base.MvpView;
 
 /**
@@ -20,5 +21,7 @@ public interface MainMvpView extends MvpView {
     void onBluetoothFoundConnected();
 
     void onNotificationFetched(int count);
+
+ //   void onNotificationPrefFetched(SystemNotifcationPrefData.Result data);
 
 }

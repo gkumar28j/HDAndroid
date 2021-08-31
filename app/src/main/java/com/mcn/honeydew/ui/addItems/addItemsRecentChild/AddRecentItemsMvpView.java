@@ -19,4 +19,6 @@ public interface AddRecentItemsMvpView  extends MvpView{
 
     void addItemsCallFailed();
 
+    void onDeletePhotoSuccess();
+
 }

@@ -265,6 +265,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BaseActiv
             syncItems();
         }
         createReceiver();
+
+        mPresenter.getNotificationPrefrences();
     }
 
     @OnClick(R.id.logo)

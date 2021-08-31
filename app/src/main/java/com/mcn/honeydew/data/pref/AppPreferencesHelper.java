@@ -375,7 +375,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setNotificationFilterPref(String duration) {
-        mEditor.putString(PREF_KEY_NOTIFICATION_FILTER_PREF,duration);
+        mEditor.putString(PREF_KEY_NOTIFICATION_FILTER_PREF,duration).apply();
     }
 
     @Override
