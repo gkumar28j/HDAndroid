@@ -81,6 +81,9 @@ public class ColorSettingsFragment extends BaseFragment implements ColorSettings
                     if (!isAdded())
                         return;
 
+                    if(!fromuser){
+                        return;
+                    }
                     int colorInt = colorEnvelope.getColor();
 
                     String colorString = convertColorToString(colorInt);

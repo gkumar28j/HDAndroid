@@ -8,5 +8,9 @@ import com.mcn.honeydew.ui.base.MvpView;
  **/
 
 public interface ContactListMvpView extends MvpView {
+    void onListSharedSuccess(int position);
 
+    void onListSharedFailure(int position, String errorMessage);
+
+    void onSharingFinished(String message);
 }

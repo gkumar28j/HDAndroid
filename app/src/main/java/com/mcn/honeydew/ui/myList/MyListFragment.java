@@ -143,7 +143,7 @@ public class MyListFragment extends BaseFragment implements MyListMvpView, MyLis
                     if (TIME_DELAY != 0) {
                         mPresenter.getData(Id, false);
                     } else {
-                        mPresenter.getData(Id, true);
+                        mPresenter.getData(Id, false);
                     }
                 }
 

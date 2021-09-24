@@ -118,7 +118,7 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem menuItem = menu.add(0, ITEM_ID_NEXT, 0, "Next");
+        MenuItem menuItem = menu.add(0, ITEM_ID_NEXT, 0, "Share");
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
 
@@ -137,10 +137,11 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
                     Toast.makeText(this, "Please select a contact number", Toast.LENGTH_SHORT).show();
                     return false;
                 } else {
-                    Bundle bundle = new Bundle();
+                  /*  Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList("selected", selectedContacts);
                     bundle.putInt("list_id", listId);
-                    startActivityForResult(ShareToContactsActivity.getStartIntent(this, bundle), REQUEST_CODE_OPEN_SHARE);
+                    startActivityForResult(ShareToContactsActivity.getStartIntent(this, bundle), REQUEST_CODE_OPEN_SHARE);*/
+                    mPresenter.shareListToContact(listId,selectedContacts);
                 }
 
                 return true;
@@ -297,15 +298,20 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
         this.clickedPosition = clickedPosition;
 
 
-        if (contact.getContactList().size() > 1) {
+     //   if (contact.getContactList().size() > 1) {
 
             if (isChecked) {
 
-                Bundle bundle = new Bundle();
+               /* Bundle bundle = new Bundle();
                 bundle.putParcelable("contact", contact);
                 bundle.putParcelableArrayList("selected", selectedContacts);
                 bundle.putInt("list_id", listId);
-                startActivityForResult(ContactDetailsActivity.getStartIntent(this, bundle), REQUEST_CODE_CONTACT_DETAIL);
+                startActivityForResult(ContactDetailsActivity.getStartIntent(this, bundle), REQUEST_CODE_CONTACT_DETAIL);*/
+                for (String no : contact.getContactList()) {
+                    SelectedContact c = new SelectedContact(no, contact.getContactName(), isChecked);
+                    selectedContacts.add(c);
+                }
+
             } else {
 
                 for (String no : contact.getContactList()) {
@@ -313,7 +319,7 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
                     selectedContacts.remove(c);
                 }
             }
-        } else {
+       /* } else {
 
             SelectedContact c = new SelectedContact(contact.getContactList().get(0), contact.getContactName(), isChecked);
             if (isChecked) {
@@ -327,7 +333,8 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
 
         contact.setChecked(isChecked);
         allContacts.set(clickedPosition, contact);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();*/
+      //  mPresenter.shareListToContact(listId,selectedContacts);
     }
 
     TextWatcher mTextWatcher = new TextWatcher() {
@@ -360,6 +367,8 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
 
         }
     };
+
+
 
     class GetContactsTask extends AsyncTask<Void, Void, List<AllContact>> {
 
@@ -458,6 +467,35 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
     protected void onDestroy() {
         hideLoading();
         super.onDestroy();
+    }
+
+    @Override
+    public void onListSharedSuccess(int position) {
+
+    }
+
+    @Override
+    public void onListSharedFailure(int position, String errorMessage) {
+       /* if (!TextUtils.isEmpty(errorMessage)) {
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        }
+
+        setResult(RESULT_OK);
+        finish();*/
+    }
+
+    @Override
+    public void onSharingFinished(String message) {
+
+     //   if (!isFailed) {
+
+            if (!TextUtils.isEmpty(message)) {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            }
+
+            setResult(RESULT_OK);
+            finish();
+      //  }
     }
 
 }
