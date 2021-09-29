@@ -47,8 +47,9 @@ import com.mcn.honeydew.utils.CommonUtils;
 import com.mcn.honeydew.utils.NetworkUtils;
 
 import butterknife.Unbinder;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import timber.log.Timber;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -88,7 +89,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @TargetApi(Build.VERSION_CODES.M)

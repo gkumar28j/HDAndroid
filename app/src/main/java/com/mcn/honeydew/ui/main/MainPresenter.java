@@ -398,7 +398,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
 
                         getMvpView().hideLoading();
                       //  getMvpView().onNotificationPrefFetched(response.getResult());
-                        if(TextUtils.isEmpty(response.getResult().getMessage())){
+                        if(!TextUtils.isEmpty(response.getResult().getMessage().trim())){
                             getDataManager().setNotificationFilterPref(response.getResult().getMessage().trim());
                         }else {
                             getDataManager().setNotificationFilterPref("1 week");

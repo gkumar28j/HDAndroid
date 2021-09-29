@@ -141,6 +141,7 @@ public class ContactListActivity extends BaseActivity implements ContactListMvpV
                     bundle.putParcelableArrayList("selected", selectedContacts);
                     bundle.putInt("list_id", listId);
                     startActivityForResult(ShareToContactsActivity.getStartIntent(this, bundle), REQUEST_CODE_OPEN_SHARE);*/
+                    hideKeyboard();
                     mPresenter.shareListToContact(listId,selectedContacts);
                 }
 

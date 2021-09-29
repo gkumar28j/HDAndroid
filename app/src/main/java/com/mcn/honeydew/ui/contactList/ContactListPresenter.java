@@ -43,7 +43,7 @@ public class ContactListPresenter<V extends ContactListMvpView> extends BasePres
             shareContact(listId, selectedContacts.get(i), i);
         }
 
-        getMvpView().hideLoading();
+
     }
 
 

@@ -13,8 +13,11 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import javax.inject.Inject;
 
 import io.fabric.sdk.android.Fabric;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
 import timber.log.Timber;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 
 /**
  * Created by amit on 14/2/18.
@@ -25,8 +28,8 @@ public class HoneyDewApp extends MultiDexApplication {
     @Inject
     DataManager mDataManager;
 
-    @Inject
-    CalligraphyConfig mCalligraphyConfig;
+  /*  @Inject
+    CalligraphyConfig mCalligraphyConfig;*/
 
     @Inject
     HoneyDewAppLifecycleObserver mLifecycleObserver;
@@ -56,7 +59,13 @@ public class HoneyDewApp extends MultiDexApplication {
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(mLifecycleObserver);
 
-        CalligraphyConfig.initDefault(mCalligraphyConfig);
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("Lato/Lato-Regular.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
 
         if (mDataManager.getCurrentUserLoggedInMode()
                 != DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
