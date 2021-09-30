@@ -154,13 +154,10 @@ public class MyAccountPresenter<V extends MyAccountMvpView> extends BasePresente
         getMvpView().showLoading();
 
         EmailUpdateNewRequest request = new EmailUpdateNewRequest();
-        request.setEmail(email);
-        request.setFacebookEmail("");
-        if(getDataManager().isFacebookLogin()){
-            request.setIsFacebookLogin(1);
-        }else {
-            request.setIsFacebookLogin(0);
-        }
+        request.setEmail("");
+        request.setFacebookEmail(email);
+        request.setIsFacebookLogin(1);
+
         getMvpView().showLoading();
 
         getDataManager().doUpdateEmailNew(request)

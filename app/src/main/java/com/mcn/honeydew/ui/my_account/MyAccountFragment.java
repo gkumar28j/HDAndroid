@@ -227,6 +227,9 @@ public class MyAccountFragment extends BaseFragment implements MyAccountMvpView,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (mCallbackManager != null)
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQUEST_CODE_PHONE_VERIFICATION) {
 
             if (resultCode == Activity.RESULT_OK) {

@@ -203,7 +203,7 @@ public class NotificationsFragment extends BaseFragment implements Notifications
 
                     boolean result = comingDate.after(newDatefinal);
 
-                    if(result){ // server record date  is less than 2/1months  weeks
+                    if(result||contentDataModelList.get(i).getNotificationId()==0){ // server record date  is less than 2/1months  weeks
 
                         templist.add(contentDataModelList.get(i));
 

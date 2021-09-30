@@ -143,6 +143,7 @@ public class NotificationAdapter extends LoadMoreBaseAdapter<NotificationListRes
             }
 
             if (mItem.getNotificationId() == 0) {
+                titleTextView.setText(mItem.getItemName());
                 mainLayout.setBackgroundColor(context.getResources().getColor(R.color.white));
             }
 
