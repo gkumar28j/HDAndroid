@@ -27,16 +27,17 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
-    <output url="file://$MODULE_DIR$/../../../swipe-reveal-layout/build/intermediates/javac/debug/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../swipe-reveal-layout/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../swipe-reveal-layout">
       <sourceFolder url="file://$MODULE_DIR$/../../../swipe-reveal-layout/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../swipe-reveal-layout/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../swipe-reveal-layout/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../swipe-reveal-layout/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../swipe-reveal-layout/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../swipe-reveal-layout/src/main/res" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../swipe-reveal-layout/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../swipe-reveal-layout/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../swipe-reveal-layout/out" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
